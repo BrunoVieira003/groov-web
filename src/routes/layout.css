@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+@font-face{
+    font-family: "Google Sans Flex", sans-serif;
+    src: url('/fonts/GoogleSansFlex.ttf');
+    font-style: normal;
+}
+
+*{
+    stroke: white;
+}
+
+body{
+    @apply bg-gray-950;
+    font-family: "Google Sans Flex", sans-serif;
+    color: white;
+}
+
+.slider{
+    @apply w-full relative;
+
+    &:hover{
+        & > .range-slider{
+            cursor: pointer;
+        }
+        & > .slider-thumb{
+            display: block
+        }
+    }
+}
+
+.range-slider{
+    @apply appearance-none w-full h-2 absolute outline-none left-0;
+    background: var(--color-gray-500);
+    border-radius: 3px;
+
+    &::-webkit-slider-thumb{
+        @apply appearance-none size-4.5 z-3;
+    }
+}
+
+.slider-thumb{
+    @apply absolute size-4.5 z-3 rounded-full;
+    display: none;
+    background-color:  var(--color-gray-200);
+    transform: translateY(calc(-50% + calc(var(--spacing) * 1)));
+    left: calc(var(--spacing) * -1.5);
+}
+
+.progress{
+    @apply appearance-none w-full h-2 absolute outline-none left-0 pointer-events-none select-none;
+    border-radius: 3px;
+    background-color: var(--color-gray-200);
+}
