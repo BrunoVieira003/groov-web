@@ -59,6 +59,11 @@
 
     <div class="w-1/5 line-clamp-1">
         <p>{$currentSong?.title}</p>
+        <div class="flex gap-1">
+            {#each $currentSong?.authors as author}
+                <a class="text-xs hover:underline not-last:after:content-[',']" href="/">{author.artist.name}</a>
+            {/each}
+        </div>
     </div>
     
     <div class="grow flex flex-col items-center gap-2 justify-stretch">
