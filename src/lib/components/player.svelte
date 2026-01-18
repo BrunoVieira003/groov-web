@@ -61,7 +61,7 @@
         <p>{$currentSong?.title}</p>
         <div class="flex gap-1">
             {#each $currentSong?.authors as author}
-                <a class="text-xs hover:underline not-last:after:content-[',']" href="/">{author.artist.name}</a>
+                <a class="text-xs hover:underline not-last:after:content-[',']" href="/artists/{author.artist.id}">{author.artist.name}</a>
             {/each}
         </div>
     </div>

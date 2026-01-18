@@ -1,12 +1,13 @@
 <script lang="ts">
     import type { PageProps } from "./$types";
     import SongItem from "$lib/components/song-item.svelte";
+    import SongItemList from "$lib/components/song-item-list.svelte";
 
     let { data }: PageProps = $props()
 </script>
 
-<div class="flex flex-col mx-auto w-11/12 lg:w-9/12 gap-6">
+<SongItemList>
     {#each data.songs as song}
        <SongItem {song}/>
     {/each}
-</div>
+</SongItemList>
