@@ -17,8 +17,8 @@
 
 <button {...props} class='text-white'>
     {#if props.paused}
-        <img src={playIcon} alt="play_icon" class='size-10'/>
+        <img src={playIcon} alt="play_icon" class='size-7'/>
     {:else}
-        <img src={pauseIcon} alt="play_icon" class='size-10 '/>
+        <img src={pauseIcon} alt="play_icon" class='size-7 '/>
     {/if}
 </button>

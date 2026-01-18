@@ -46,7 +46,7 @@
     })
 </script>
 
-<div class="absolute text-white flex items-center justify-evenly w-full gap-20 px-20 pb-4 bg h-1/12 bottom-0 bg-gray-800">
+<div class="fixed text-white flex items-center justify-evenly w-full gap-20 px-20 py-10 bg h-1/12 bottom-0 bg-gray-800">
     <audio
     class="hidden"
     bind:this={audio}
@@ -63,7 +63,7 @@
     
     <div class="grow flex flex-col items-center gap-2 justify-stretch">
         <div class="flex items-center justify-between w-full gap-2">
-            <p class="w-fit text-nowrap">{formatSongTime(currentTime, !!$currentSong)}</p>
+            <p class="w-fit text-nowrap text-xs">{formatSongTime(currentTime, !!$currentSong)}</p>
             <div class="flex items-center gap-2">
                 <PlayButton paused={$queueState.paused} onclick={() => {queueState.togglePlay()}}/>
                 <button onclick={queueState.toggleMode}>
@@ -74,7 +74,7 @@
                     {/if}
                 </button>
             </div>
-            <p class="w-fit text-nowrap">{formatSongTime(duration, !!$currentSong)}</p>
+            <p class="w-fit text-nowrap text-xs">{formatSongTime(duration, !!$currentSong)}</p>
         </div>
 
         <div class="slider w-4/5 h-fit">
