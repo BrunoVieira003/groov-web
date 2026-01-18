@@ -6,6 +6,7 @@
     let { data }: PageProps = $props()
 </script>
 
+<h1 class="page-title">Songs</h1>
 <SongItemList>
     {#each data.songs as song}
        <SongItem {song}/>

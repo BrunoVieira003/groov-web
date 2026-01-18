@@ -16,6 +16,10 @@ body{
     color: white;
 }
 
+.page-title{
+    @apply text-5xl mb-6;
+}
+
 .slider{
     @apply w-full relative;
 

@@ -46,7 +46,7 @@
     })
 </script>
 
-<div class="fixed text-white flex items-center justify-evenly w-full gap-20 px-20 py-10 bg h-1/12 bottom-0 bg-gray-800">
+<div class="fixed text-white flex items-center justify-evenly w-full gap-20 px-20 py-10 bg h-10 bottom-0 bg-gray-800">
     <audio
     class="hidden"
     bind:this={audio}

@@ -5,13 +5,14 @@
     import Header from '$lib/components/header.svelte';
 	
 	let { children } = $props();
-
-	let currentPlayingId = $state<string>()
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
+
+
 <Header/>
-
-{@render children()}
-
+<div class="mx-8 h-5/12 mb-34">
+	{@render children()}
+</div>
 <Player/>
+
