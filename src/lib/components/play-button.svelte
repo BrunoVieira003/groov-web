@@ -5,15 +5,11 @@
 
     interface PropsType extends HTMLButtonAttributes{
         paused: boolean,
-        
     }
 
     let props: PropsType = $props()
 
 </script>
-
-<style>
-</style>
 
 <button {...props} class='text-white'>
     {#if props.paused}

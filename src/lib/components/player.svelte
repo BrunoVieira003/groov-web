@@ -1,11 +1,9 @@
 <script lang="ts">
     import { PUBLIC_API_URL } from "$env/static/public";
     import { formatSongTime } from "$lib/formatters/songTime";
-    import { currentSong } from "$lib/stores/currentSong";
-    import { queueState } from "$lib/stores/queueState";
     import PlayButton from "./play-button.svelte";
-    import defaultModeIcon from '$lib/assets/icons/default-mode.svg' 
-    import repeatModeIcon from '$lib/assets/icons/repeat-mode.svg' 
+    import { songQueue } from "$lib/stores/queue";
+    import { currentSong } from "$lib/stores/currentSong";
 
     let audio: HTMLAudioElement;
     let source = $state<HTMLSourceElement>();
@@ -25,25 +23,13 @@
         if (source) {
             source.src = `${PUBLIC_API_URL}/song/${song?.id}`;
             audio.load();
-            audio.play();
         }
     });
 
-    queueState.subscribe((queue) => {
-        if(!audio){
-            return
-        }
-        if(queue.mode === 'repeat-one'){
-            audio.onended = () => {
-                currentTime = 0
-                audio.play()
-            }
-        }else{
-            audio.onended = () => {
-                return
-            }
-        }
-    })
+    function handleTrackEnd(){
+        songQueue.nextTrack()
+    }
+
 </script>
 
 <div class="fixed text-white flex items-center justify-evenly w-full gap-20 px-20 py-10 bg h-10 bottom-0 bg-gray-800">
@@ -52,9 +38,11 @@
     bind:this={audio}
     bind:currentTime
     bind:duration
-    bind:paused={$queueState.paused}
+    bind:paused={$songQueue.paused}
+    autoplay
+    onended={handleTrackEnd}
     >
-        <source bind:this={source} />
+        <source bind:this={source}/>
     </audio>
 
     <div class="w-1/5 line-clamp-1">
@@ -70,14 +58,7 @@
         <div class="flex items-center justify-between w-full gap-2">
             <p class="w-fit text-nowrap text-xs">{formatSongTime(currentTime, !!$currentSong)}</p>
             <div class="flex items-center gap-2">
-                <PlayButton paused={$queueState.paused} onclick={() => {queueState.togglePlay()}}/>
-                <button onclick={queueState.toggleMode}>
-                    {#if $queueState.mode === 'default'}
-                        <img src={defaultModeIcon} alt="default_mode_icon" class='size-6'/>
-                    {:else}
-                        <img src={repeatModeIcon} alt="repeat_mode_icon" class='size-6'/>
-                    {/if}
-                </button>
+                <PlayButton paused={$songQueue.paused} onclick={() => {songQueue.togglePlay()}}/>
             </div>
             <p class="w-fit text-nowrap text-xs">{formatSongTime(duration, !!$currentSong)}</p>
         </div>
