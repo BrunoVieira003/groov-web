@@ -6,9 +6,10 @@
 
     interface PropsType{
         song: Song
+        onPlayClick: (songId?: string) => void
     }
 
-    let { song }: PropsType = $props()
+    let { song, onPlayClick }: PropsType = $props()
 
     let selected = $derived(() => $currentSong?.id === song.id)
 
@@ -18,7 +19,7 @@
             return
         }
 
-        songQueue.playSong(song)
+        onPlayClick(song.id)
         
 
     }

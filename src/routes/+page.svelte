@@ -10,6 +10,13 @@
     function handlePlayAll(){
         songQueue.playQueue(data.songs || [])
     }
+
+    function playItem(songId?: string){
+        if(data.songs){
+            const songIndex = data.songs.findIndex(s => s.id === songId)
+            songQueue.playQueue(data.songs, songIndex)
+        }
+    }
 </script>
 
 
@@ -24,6 +31,6 @@ onclick={handlePlayAll}
 
 <SongItemList>
     {#each data.songs as song}
-       <SongItem {song}/>
+       <SongItem {song} onPlayClick={playItem}/>
     {/each}
 </SongItemList>

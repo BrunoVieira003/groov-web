@@ -1,9 +1,18 @@
 <script lang="ts">
     import SongItemList from "$lib/components/song-item-list.svelte";
     import SongItem from "$lib/components/song-item.svelte";
+    import { songQueue } from "$lib/stores/queue";
     import type { PageProps } from "./$types";
 
     let { data }: PageProps = $props()
+
+    function playItem(songId?: string){
+        if(data.artist){
+            const songIndex = data.artist.songs.findIndex(s => s.song.id === songId)
+            const songs = data.artist.songs.map(s => s.song)
+            songQueue.playQueue(songs, songIndex)
+        }
+    }
 </script>
 
 <div class="w-10/12 mx-auto">
@@ -14,7 +23,7 @@
     </div>
     <SongItemList>
         {#each data.artist?.songs as songItem}
-            <SongItem song={songItem.song}/>
+            <SongItem song={songItem.song} onPlayClick={playItem}/>
         {/each}
     </SongItemList>
 </div>
