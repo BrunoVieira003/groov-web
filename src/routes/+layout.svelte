@@ -15,21 +15,6 @@
 
 		return "Groov"
 	})
-
-	if(navigator.mediaSession){
-		navigator.mediaSession.setActionHandler('pause', songQueue.togglePlay)
-		navigator.mediaSession.setActionHandler('nexttrack', songQueue.nextTrack)
-		navigator.mediaSession.setActionHandler('previoustrack', songQueue.previousTrack)
-	}
-
-	currentSong.subscribe((song) => {
-		if(song && navigator.mediaSession){
-			navigator.mediaSession.metadata = new MediaMetadata({
-				title: song.title,
-				artist: song.authors.map(a => a.artist.name).join(', '),
-			})
-		}
-	})
 </script>
 
 <svelte:head>

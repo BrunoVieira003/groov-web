@@ -4,6 +4,8 @@
     import PlayButton from "./play-button.svelte";
     import { songQueue } from "$lib/stores/queue";
     import { currentSong } from "$lib/stores/currentSong";
+    import nextIcon from '$lib/assets/icons/next.svg'
+    import previousIcon from '$lib/assets/icons/previous.svg'
 
     let audio: HTMLAudioElement;
     let source = $state<HTMLSourceElement>();
@@ -19,10 +21,26 @@
         return Math.floor((currentTime / duration) * 100);
     });
 
+    if(navigator.mediaSession){
+        navigator.mediaSession.setActionHandler('pause', songQueue.togglePlay)
+        navigator.mediaSession.setActionHandler('nexttrack', songQueue.nextTrack)
+        navigator.mediaSession.setActionHandler('previoustrack', songQueue.previousTrack)
+        navigator.mediaSession.setActionHandler('seekto', ({seekTime}) => {
+            if(seekTime){
+                currentTime = seekTime
+            }
+        })
+    }
+
     currentSong.subscribe((song) => {
-        if (source) {
-            source.src = `${PUBLIC_API_URL}/song/${song?.id}`;
+        if (source && song && navigator.mediaSession) {
+            source.src = `${PUBLIC_API_URL}/song/${song.id}`;
             audio.load();
+
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: song.title,
+                artist: song.authors.map(a => a.artist.name).join(', '),
+            })
         }
     });
 
@@ -58,7 +76,25 @@
         <div class="flex items-center justify-between w-full gap-2">
             <p class="w-fit text-nowrap text-xs">{formatSongTime(currentTime, !!$currentSong)}</p>
             <div class="flex items-center gap-2">
+                <button onclick={songQueue.previousTrack}>
+                    <img 
+                    src={previousIcon} 
+                    alt="previous_track" 
+                    class="size-5 data-[enabled=false]:opacity-20" 
+                    data-enabled={$songQueue.currentIndex !== 0}
+                    >
+                </button>
+
                 <PlayButton paused={$songQueue.paused} onclick={() => {songQueue.togglePlay()}}/>
+
+                <button onclick={songQueue.nextTrack}>
+                    <img 
+                    src={nextIcon}
+                    alt="next_track" 
+                    class="size-5 data-[enabled=false]:opacity-20" 
+                    data-enabled={$songQueue.currentIndex !== $songQueue.tracks.length - 1}
+                    >
+                </button>
             </div>
             <p class="w-fit text-nowrap text-xs">{formatSongTime(duration, !!$currentSong)}</p>
         </div>
