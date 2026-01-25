@@ -7,11 +7,14 @@
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+	<title>Groov</title>
+	<link rel="icon" href={favicon} />
+</svelte:head>
 
 
 <Header/>
-<div class="mx-8 h-5/12 mb-34">
+<div class="mx-8 mb-20">
 	{@render children()}
 </div>
 <Player/>
