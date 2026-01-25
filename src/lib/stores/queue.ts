@@ -19,6 +19,7 @@ function createSongQueueStore(){
     return {
         ...store,
         togglePlay: () => store.update((state) => {
+            navigator.mediaSession.playbackState = "paused" 
             return {
                 ...state,
                 paused: !state.paused
@@ -52,6 +53,17 @@ function createSongQueueStore(){
                 return {
                     ...state,
                     currentIndex: state.currentIndex + 1
+                }
+            }
+
+            return state
+        }),
+        previousTrack: () => store.update((state) => {
+            if(state.currentIndex > 0){
+                currentSong.set(state.tracks.at(state.currentIndex - 1))
+                return {
+                    ...state,
+                    currentIndex: state.currentIndex - 1
                 }
             }
 
