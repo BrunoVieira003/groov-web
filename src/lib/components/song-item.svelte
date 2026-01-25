@@ -30,7 +30,7 @@
     <p class="w-1/2 line-clamp-1">{song.title}</p>
     <div class="flex gap-1">
         {#each song?.authors as author}
-            <a class="text-sm text-nowrap hover:underline not-last:after:content-[',']" href="/artists/{author.artist.id}">{author.artist.name}</a>
+            <a class="text-sm text-nowrap hover:underline not-last:after:content-[',']" href="/artists/{author.id}">{author.name}</a>
         {/each}
     </div>
 </div>

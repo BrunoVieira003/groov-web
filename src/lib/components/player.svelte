@@ -34,12 +34,12 @@
 
     currentSong.subscribe((song) => {
         if (source && song && navigator.mediaSession) {
-            source.src = `${PUBLIC_API_URL}/song/${song.id}`;
+            source.src = `${PUBLIC_API_URL}/songs/${song.id}`;
             audio.load();
 
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
-                artist: song.authors.map(a => a.artist.name).join(', '),
+                artist: song.authors.map(a => a.name).join(', '),
             })
         }
     });
@@ -67,7 +67,7 @@
         <p>{$currentSong?.title}</p>
         <div class="flex gap-1">
             {#each $currentSong?.authors as author}
-                <a class="text-xs hover:underline not-last:after:content-[',']" href="/artists/{author.artist.id}">{author.artist.name}</a>
+                <a class="text-xs hover:underline not-last:after:content-[',']" href="/artists/{author.id}">{author.name}</a>
             {/each}
         </div>
     </div>

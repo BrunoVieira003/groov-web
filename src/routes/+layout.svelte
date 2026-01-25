@@ -10,7 +10,7 @@
 
 	let title = $derived(() => {
 		if($currentSong){
-			return $currentSong.title + " - " + $currentSong.authors.map(a => a.artist.name).at(0) + " | Groov"
+			return $currentSong.title + " - " + $currentSong.authors.map(a => a.name).at(0) + " | Groov"
 		}
 
 		return "Groov"

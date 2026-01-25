@@ -2,10 +2,10 @@ export default interface Song{
     id?: string,
     title: string,
     year?: number,
+    createdAt: string,
+    updatedAt: string,
     authors: {
-        artist: {
-            id: string,
-            name: string
-        }
+        id: string,
+        name: string
     }[]
 }
