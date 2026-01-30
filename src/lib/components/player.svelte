@@ -74,7 +74,7 @@
     <div class="w-1/4 flex items-center gap-4">
         <img src={coverArtURL()} alt="cover_art" class="size-16 aspect-square rounded">
         <div class="line-clamp-1">
-            <p>{$currentSong?.title}</p>
+            <a class="font-bold text-md w-fit hover:cursor-pointer hover:underline" href="/playing">{$currentSong?.title}</a>
             <div class="flex gap-1">
                 {#each $currentSong?.authors as author}
                     <a class="text-xs hover:underline not-last:after:content-[',']" href="/artists/{author.id}">{author.name}</a>
