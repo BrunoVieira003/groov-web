@@ -21,6 +21,14 @@
         return Math.floor((currentTime / duration) * 100);
     });
 
+    let coverArtURL = $derived(() => {
+        if(!$currentSong){
+            return 'https://robohash.org/groov'
+        }
+
+        return `${PUBLIC_API_URL}/songs/${$currentSong.id}/cover`
+    })
+
     if(navigator.mediaSession){
         navigator.mediaSession.setActionHandler('pause', songQueue.togglePlay)
         navigator.mediaSession.setActionHandler('nexttrack', songQueue.nextTrack)
@@ -50,7 +58,7 @@
 
 </script>
 
-<div class="fixed text-white flex items-center justify-evenly w-full gap-20 px-20 py-10 bg h-10 bottom-0 bg-gray-800">
+<div class="fixed text-white flex items-center justify-evenly w-full px-20 py-10 bg h-10 bottom-0 bg-gray-800">
     <audio
     class="hidden"
     bind:this={audio}
@@ -63,16 +71,19 @@
         <source bind:this={source}/>
     </audio>
 
-    <div class="w-1/5 line-clamp-1">
-        <p>{$currentSong?.title}</p>
-        <div class="flex gap-1">
-            {#each $currentSong?.authors as author}
-                <a class="text-xs hover:underline not-last:after:content-[',']" href="/artists/{author.id}">{author.name}</a>
-            {/each}
+    <div class="w-1/4 flex items-center gap-4">
+        <img src={coverArtURL()} alt="cover_art" class="size-16 aspect-square rounded">
+        <div class="line-clamp-1">
+            <p>{$currentSong?.title}</p>
+            <div class="flex gap-1">
+                {#each $currentSong?.authors as author}
+                    <a class="text-xs hover:underline not-last:after:content-[',']" href="/artists/{author.id}">{author.name}</a>
+                {/each}
+            </div>
         </div>
     </div>
     
-    <div class="grow flex flex-col items-center gap-2 justify-stretch">
+    <div class="flex flex-col w-2/4 items-center gap-2 justify-center">
         <div class="flex items-center justify-between w-full gap-2">
             <p class="w-fit text-nowrap text-xs">{formatSongTime(currentTime, !!$currentSong)}</p>
             <div class="flex items-center gap-2">
@@ -125,7 +136,7 @@
     </div>
 
     
-    <div class="w-1/5">
+    <div class="w-1/4 flex justify-center">
         <p>{$currentSong?.year}</p>
     </div>
 </div>

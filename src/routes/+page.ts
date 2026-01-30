@@ -6,7 +6,6 @@ export const load: PageLoad = async ({fetch}) => {
     try{
         const response = await fetch(`${PUBLIC_API_URL}/songs`)
         const data = await response.json() as {songs: Song[] }
-        console.log(data)
         return {songs: data.songs}
     }catch(e){
         console.log(e)
