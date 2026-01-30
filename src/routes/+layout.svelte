@@ -4,7 +4,7 @@
     import Player from '$lib/components/player.svelte';
     import Header from '$lib/components/header.svelte';
     import { currentSong } from '$lib/stores/currentSong';
-    import { songQueue } from '$lib/stores/queue';
+    import { Toaster } from "svelte-hot-french-toast"
 	
 	let { children } = $props();
 
@@ -24,6 +24,7 @@
 
 
 <Header/>
+<Toaster position='top-end'/>
 <div class="mx-8 mb-20">
 	{@render children()}
 </div>

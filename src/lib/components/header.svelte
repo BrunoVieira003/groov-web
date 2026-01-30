@@ -3,5 +3,6 @@
     <div class="flex gap-8 items-center justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-slate-700">
         <a href="/">Home</a>
         <a href="/artists">Artists</a>
+        <a href="/tasks">Tasks</a>
     </div>
 </div>
