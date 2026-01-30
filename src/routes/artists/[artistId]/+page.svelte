@@ -8,8 +8,8 @@
 
     function playItem(songId?: string){
         if(data.artist){
-            const songIndex = data.artist.songs.findIndex(s => s.song.id === songId)
-            const songs = data.artist.songs.map(s => s.song)
+            const songIndex = data.artist.songs.findIndex(s => s.id === songId)
+            const songs = data.artist.songs
             songQueue.playQueue(songs, songIndex)
         }
     }
@@ -23,7 +23,7 @@
     </div>
     <SongItemList>
         {#each data.artist?.songs as songItem}
-            <SongItem song={songItem.song} onPlayClick={playItem}/>
+            <SongItem song={songItem} onPlayClick={playItem}/>
         {/each}
     </SongItemList>
 </div>
