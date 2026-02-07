@@ -45,6 +45,9 @@
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
                 artist: song.authors.map(a => a.name).join(', '),
+                artwork: [
+                    {src: `${PUBLIC_API_URL}/songs/${song.id}/cover`}
+                ]
             })
         }
     });
@@ -55,7 +58,7 @@
 
 </script>
 
-<div class="fixed text-white flex items-center justify-evenly w-full px-20 py-10 bg h-10 bottom-0 bg-gray-800">
+<div class="fixed text-white flex items-center justify-evenly w-full px-20 py-10 bg h-10 bottom-0 bg-gray-800" style="--colorful: {$currentSong?.color};">
     <audio
     class="hidden"
     bind:this={audio}
@@ -76,8 +79,8 @@
         class="size-16 aspect-square rounded"
         onerror={() => coverImage.src = emptyImage}
         >
-        <div class="line-clamp-1">
-            <a class="font-bold text-md w-fit hover:cursor-pointer hover:underline" href="/playing">{$currentSong?.title}</a>
+        <div>
+            <a class="colorful font-bold text-md w-fit hover:cursor-pointer hover:underline line-clamp-1" href="/playing">{$currentSong?.title}</a>
             <ArtistsLabel artists={$currentSong?.authors || []} size='small'/>
         </div>
     </div>
@@ -139,3 +142,10 @@
         <p>{$currentSong?.year}</p>
     </div>
 </div>
+
+
+<style>
+    .colorful{
+        color: var(--colorful);
+    }
+</style>

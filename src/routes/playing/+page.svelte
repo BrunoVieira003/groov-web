@@ -26,7 +26,7 @@
 
 
 {#if $currentSong}
-<div class="flex flex-col gap-4 w-fit items-stretch mx-auto">
+<div class="flex flex-col gap-4 w-fit items-stretch mx-auto" style="--colorful: {$currentSong.color};">
     <img
     bind:this={coverImage}
     src={coverArtURL()}
@@ -36,7 +36,7 @@
     >
     <div class="flex items-center justify-between mx-2">
         <div>
-            <p class="text-lg font-bold">{$currentSong?.title}</p>
+            <p class="colorful text-lg font-bold line-clamp-1">{$currentSong?.title}</p>
             <ArtistsLabel artists={$currentSong?.authors || []}/>
         </div>
         <div>
@@ -53,3 +53,9 @@
     </SongItemList>
 </div>
 {/if}
+
+<style>
+    .colorful{
+        color: var(--colorful);
+    }
+</style>
