@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full h-155 overflow-y-auto">
+<div class="flex flex-col w-full max-h-155 overflow-y-auto">
     <slot/>
 </div>
 
