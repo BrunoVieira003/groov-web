@@ -98,7 +98,7 @@
                     >
                 </button>
 
-                <PlayButton paused={$songQueue.paused} onclick={() => {songQueue.togglePlay()}}/>
+                <PlayButton paused={$songQueue.paused} onclick={songQueue.togglePlay}/>
 
                 <button onclick={songQueue.nextTrack}>
                     <img 
@@ -123,7 +123,7 @@
             />
             
             <div
-            class="progress bg-gray-200"
+            class="progress bg-gray-200 transition-all duration-50"
             style="width: {progress()}%;"
             >
             </div>
