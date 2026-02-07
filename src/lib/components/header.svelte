@@ -19,14 +19,14 @@
         <a href="/artists">Artists</a>
         <a href="/tasks">Tasks</a>
     </div>
-    <form action="/search">
+    <form action="/search" method="get">
         <input
         type="text"
         name="q"
         bind:value={searchText}
         id="q"
         placeholder="Search for a song or artist..."
-        class="bg-slate-900 py-2 px-3 rounded-md outline-none"
+        class="bg-slate-900 py-2 px-3 rounded-md text-slate-600 outline-none border-2 border-transparent focus:text-white focus:border-slate-600"
         >
     </form>
 </div>
