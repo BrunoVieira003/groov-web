@@ -6,9 +6,11 @@
     import { currentSong } from "$lib/stores/currentSong";
     import nextIcon from '$lib/assets/icons/next.svg'
     import previousIcon from '$lib/assets/icons/previous.svg'
+    import emptyImage from '$lib/assets/images/empty.png'
 
     let audio: HTMLAudioElement;
     let source = $state<HTMLSourceElement>();
+    let coverImage: HTMLImageElement
 
     let currentTime = $state(0);
     let duration = $state(0);
@@ -21,13 +23,7 @@
         return Math.floor((currentTime / duration) * 100);
     });
 
-    let coverArtURL = $derived(() => {
-        if(!$currentSong){
-            return 'https://robohash.org/groov'
-        }
-
-        return `${PUBLIC_API_URL}/songs/${$currentSong.id}/cover`
-    })
+    let coverArtURL = $derived(() => `${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`)
 
     if(navigator.mediaSession){
         navigator.mediaSession.setActionHandler('pause', songQueue.togglePlay)
@@ -72,7 +68,13 @@
     </audio>
 
     <div class="w-1/4 flex items-center gap-4">
-        <img src={coverArtURL()} alt="cover_art" class="size-16 aspect-square rounded">
+        <img
+        bind:this={coverImage}
+        src={coverArtURL()}
+        alt="cover_art"
+        class="size-16 aspect-square rounded"
+        onerror={() => coverImage.src = emptyImage}
+        >
         <div class="line-clamp-1">
             <a class="font-bold text-md w-fit hover:cursor-pointer hover:underline" href="/playing">{$currentSong?.title}</a>
             <div class="flex gap-1">
