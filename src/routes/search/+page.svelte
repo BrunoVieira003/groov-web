@@ -48,7 +48,7 @@
                 {#each data.artists as artist}
                 <div class="flex flex-col aspect-square p-2 bg-slate-800 w-fit items-center justify-between rounded-xl">
                     <img class="size-9/12 rounded-full aspect-square" src="https://robohash.org/${artist.name}" alt="artist">
-                    <p>{artist.name}</p>
+                    <a href="/artists/{artist.id}" class="hover:underline">{artist.name}</a>
                 </div>
                 {/each}
             </div>
