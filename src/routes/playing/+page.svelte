@@ -5,6 +5,7 @@
     import { currentSong } from "$lib/stores/currentSong";
     import { songQueue } from "$lib/stores/queue";
     import emptyImage from '$lib/assets/images/empty.png'
+    import ArtistsLabel from "$lib/components/artists-label.svelte";
 
     let coverImage: HTMLImageElement
 
@@ -36,11 +37,7 @@
     <div class="flex items-center justify-between mx-2">
         <div>
             <p class="text-lg font-bold">{$currentSong?.title}</p>
-            <div class="flex gap-1">
-                {#each $currentSong?.authors as author}
-                    <a class="text-xs hover:underline not-last:after:content-[',']" href="/artists/{author.id}">{author.name}</a>
-                {/each}
-            </div>
+            <ArtistsLabel artists={$currentSong?.authors || []}/>
         </div>
         <div>
             <p>{$currentSong?.year}</p>

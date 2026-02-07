@@ -7,6 +7,7 @@
     import nextIcon from '$lib/assets/icons/next.svg'
     import previousIcon from '$lib/assets/icons/previous.svg'
     import emptyImage from '$lib/assets/images/empty.png'
+    import ArtistsLabel from "./artists-label.svelte";
 
     let audio: HTMLAudioElement;
     let source = $state<HTMLSourceElement>();
@@ -77,11 +78,7 @@
         >
         <div class="line-clamp-1">
             <a class="font-bold text-md w-fit hover:cursor-pointer hover:underline" href="/playing">{$currentSong?.title}</a>
-            <div class="flex gap-1">
-                {#each $currentSong?.authors as author}
-                    <a class="text-xs hover:underline not-last:after:content-[',']" href="/artists/{author.id}">{author.name}</a>
-                {/each}
-            </div>
+            <ArtistsLabel artists={$currentSong?.authors || []} size='small'/>
         </div>
     </div>
     
