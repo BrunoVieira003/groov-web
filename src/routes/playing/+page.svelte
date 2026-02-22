@@ -26,12 +26,13 @@
 
 
 {#if $currentSong}
-<div class="flex flex-col gap-4 w-fit items-stretch mx-auto" style="--colorful: {$currentSong.color};">
+<div class="flex flex-col gap-4 w-fit items-stretch mx-auto" style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;">
     <img
     bind:this={coverImage}
     src={coverArtURL()}
     alt="cover_art"
-    class="aspect-square! self-center size-120 rounded-xl white-glow"
+    class:colorful-glow={!!$currentSong.color}
+    class="aspect-square! self-center size-120 rounded-xl object-cover"
     onerror={() => coverImage.src = emptyImage}
     >
     <div class="flex items-center justify-between mx-2">
@@ -57,5 +58,11 @@
 <style>
     .colorful{
         color: var(--colorful);
+    }
+
+    .colorful-glow{
+        -webkit-box-shadow:0px 0px 300px 0px var(--colorful-glow);
+        -moz-box-shadow: 0px 0px 300px 0px var(--colorful-glow);
+        box-shadow: 0px 0px 300px 0px var(--colorful-glow);
     }
 </style>
