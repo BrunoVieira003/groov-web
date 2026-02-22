@@ -1,10 +1,8 @@
 import { PUBLIC_API_URL } from '$env/static/public';
-import toast from 'svelte-hot-french-toast';
-import type { Actions } from './$types';
+import type { Actions } from '@sveltejs/kit';
 
 export const actions = {
-    default: async (event) => {
-        const {fetch, request}  = event
+    upload: async ({fetch, request}) => {
         const formData = await request.formData()
 
         const response = await fetch(`${PUBLIC_API_URL}/songs/upload`, {
@@ -12,6 +10,11 @@ export const actions = {
             body: formData
         })
 
-        return {success: response.ok}
+        return { success: response.ok }
+    },
+
+    scan: async ({fetch}) => {
+        await fetch(`${PUBLIC_API_URL}/tasks/scan-folder`, {method: 'POST'})
+        return
     }
 } satisfies Actions

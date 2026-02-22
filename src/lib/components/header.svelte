@@ -1,15 +1,7 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
     import { page } from "$app/state";
 
     let searchText = $state(page.url.searchParams.get('q'))
-
-    async function handleSearch(e: SubmitEvent){
-        e.preventDefault()
-        console.log('click')
-        await goto(`/search`)
-    }
-
 
 </script>
 <div class="flex items-center gap-20 bg-gray-800 py-3 px-40 mb-6">
@@ -17,8 +9,7 @@
     <div class="flex gap-8 items-center justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-slate-700">
         <a href="/">Home</a>
         <a href="/artists">Artists</a>
-        <a href="/tasks">Tasks</a>
-        <a href="/upload">Add new song</a>
+        <a href="/library">Library</a>
     </div>
     <form action="/search" method="get">
         <input

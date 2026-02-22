@@ -34,15 +34,15 @@
     bind:this={button}
     onclick={() => fileInput?.click()}
     type="button"
-    class='bg-slate-800 rounded-lg cursor-pointer text-xl w-full'
+    class='bg-slate-800 rounded-lg cursor-pointer w-full'
     class:big={size === 'big'}
     class:normal={size === 'normal'}
     class:filled={value}
     >
     {#if value && typeof value === 'string'}
-        {filename()}
+        <p class="text-sm">{filename()}</p>
     {:else}
-        {placeholder || 'Upload'}
+        <p class="text-md">{placeholder || 'Upload'}</p>
     {/if}
     </button>
 
@@ -56,6 +56,7 @@
 
     .normal{
         padding: 0.5rem;
+        text-wrap: nowrap;
     }
 
     .filled{
