@@ -18,6 +18,7 @@
         <a href="/">Home</a>
         <a href="/artists">Artists</a>
         <a href="/tasks">Tasks</a>
+        <a href="/upload">Add new song</a>
     </div>
     <form action="/search" method="get">
         <input
