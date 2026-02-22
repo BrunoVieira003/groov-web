@@ -31,7 +31,7 @@
     bind:this={coverImage}
     src={coverArtURL()}
     alt="cover_art"
-    class="aspect-square! self-center size-120 rounded-xl"
+    class="aspect-square! self-center size-120 rounded-xl white-glow"
     onerror={() => coverImage.src = emptyImage}
     >
     <div class="flex items-center justify-between mx-2">
