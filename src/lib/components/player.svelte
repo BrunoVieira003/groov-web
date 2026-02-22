@@ -76,7 +76,7 @@
         bind:this={coverImage}
         src={coverArtURL()}
         alt="cover_art"
-        class="size-16 aspect-square rounded"
+        class="size-16 aspect-square rounded object-cover"
         onerror={() => coverImage.src = emptyImage}
         >
         <div>
