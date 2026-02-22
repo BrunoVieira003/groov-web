@@ -4,12 +4,14 @@
     import type { PageProps } from "./$types";
     import toast from "svelte-hot-french-toast";
     import UploadButton from "$lib/components/forms/upload-button.svelte";
+    import { goto } from "$app/navigation";
 
     const handleSubmit: SubmitFunction = () => {
         return async ({result, update}) => {
             await update()
             if(result.type === 'success'){
                 toast.success('File uploaded')
+                goto('/')
             }
         }
     }
