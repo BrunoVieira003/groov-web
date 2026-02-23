@@ -32,7 +32,7 @@
     src={coverArtURL()}
     alt="cover_art"
     class:colorful-glow={!!$currentSong.color}
-    class="aspect-square! self-center size-120 rounded-xl object-cover"
+    class="aspect-square! self-center size-120 rounded-xl object-cover white-glow"
     onerror={() => coverImage.src = emptyImage}
     >
     <div class="flex items-center justify-between mx-2">
