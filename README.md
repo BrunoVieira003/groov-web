@@ -1,38 +1,65 @@
-# sv
+# Groov web
+Web client for groov-api inspired by many spotify-like web players.
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Made for fun
 
-## Creating a project
+## Features
+Here's a list of all features that may be available in this project
 
-If you're seeing this, you've probably already done this step. Congrats!
+✅ Available
+⏳ In progress
+💭 Planned
 
-```sh
-# create a new project in the current directory
-npx sv create
+- ✅ Play all songs
+- ✅ Artist page
+- ⏳ Fuzzy search
+    - ✅ Songs
+    - ✅ Artists
+    - 💭 Albums
+    - 💭 Playlists
+- ⏳ Play modes
+    - 💭 Random
+    - 💭 Auto-repeat
+    - 💭 Single-repeat
+- ✅ Custom accent color according with cover art
+- ⏳ 'Playing now' minimalist page
+- ✅ Upload new song files
+- ✅ Trigger folder scan
+- 💭 Task feedback
+- ✅ Integration with Web Audio API
+- 💭 Display unsynced lyrics
+- 💭 Display synced lyrics
+- 💭 Audio visualizers
+- 💭 Artist images auto-download
+- 💭 Internacionalization
 
-# create a new project in my-app
-npx sv create my-app
+## Running locally
+To run this client you will need groov-api already running, both api and this client uses Bun as it's runtime, so make sure to install Bun first
+
+### Installing dependencies
+```bash
+bun install
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+### Config
+Create a `.env` file and fill with the following info according with your api url
+```env
+PUBLIC_API_URL=http://localhost:3000
 ```
 
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
+### Running in dev mode
+Run the following command and visit `http://localhost:5173`
+```bash
+bun dev
 ```
 
-You can preview the production build with `npm run preview`.
+### Build and Running
+Run the following command to build
+```bash
+bun run build
+```
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+and the following to run and then visit `http://localhost:4173`
+```bash
+bun run preview
+```
