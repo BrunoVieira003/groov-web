@@ -9,6 +9,7 @@
     <div class="flex gap-8 items-center justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-slate-700">
         <a href="/">Home</a>
         <a href="/artists">Artists</a>
+        <a href="/playlists">Playlists</a>
         <a href="/library">Library</a>
     </div>
     <form action="/search" method="get">

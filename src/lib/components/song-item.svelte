@@ -3,6 +3,7 @@
     import { songQueue } from "$lib/stores/queue";
     import type Song from "$lib/types/song";
     import ArtistsLabel from "./artists-label.svelte";
+    import PlaylistSelect from "./forms/playlist-select.svelte";
     import PlayButton from "./play-button.svelte";
 
     interface PropsType{
@@ -30,4 +31,5 @@
     <PlayButton paused={!selected() || $songQueue.paused} onclick={clickCallback}/>
     <p class="w-1/2 line-clamp-1">{song.title}</p>
     <ArtistsLabel artists={song.authors}/>
+    <PlaylistSelect/>
 </div>
