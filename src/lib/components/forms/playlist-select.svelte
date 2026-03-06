@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { playlistList } from "$lib/stores/playlistList";
+    import playlistStore from "$lib/stores/playlistList";
+
 
     interface Props{
         onPick: (playlistId: string) => void
@@ -9,7 +10,7 @@
 </script>
 
 <div class="flex flex-col items-start rounded-md bg-slate-800">
-    {#each $playlistList.items as playlist (playlist.id)}
+    {#each $playlistStore.items as playlist (playlist.id)}
         <button
         class="cursor-pointer hover:bg-slate-700 p-4 last:rounded-b-md w-full text-start"
         value={playlist.id}

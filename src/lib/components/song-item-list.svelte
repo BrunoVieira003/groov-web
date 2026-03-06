@@ -3,13 +3,13 @@
     import { type Snippet } from "svelte";
 
     interface props{
-        collectionId: string
-        collectionType: 'artist' | 'playlist'
+        collectionId?: string
+        collectionType?: 'artist' | 'playlist'
         children: Snippet
     }
 
     let props: props = $props()
-    setCollectionContext({collectionId: props.collectionId, collectionType: props.collectionType})
+    setCollectionContext({collectionId: props.collectionId || '', collectionType: props.collectionType || 'other'})
 </script>
 
 <div class="flex flex-col w-full max-h-155 overflow-y-auto">

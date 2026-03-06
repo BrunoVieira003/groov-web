@@ -9,8 +9,8 @@ const defaultValues: PlaylistList = {
     items: []
 }
 
-const playlistList = writable<PlaylistList>(defaultValues)
+const playlistStore = writable<PlaylistList>(defaultValues)
 
-export {playlistList}
+export default playlistStore
 
 

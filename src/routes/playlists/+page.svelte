@@ -1,11 +1,11 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
-    import PlaylistList from "$lib/components/playlist-list.svelte";
     import Icon from "@iconify/svelte";
     import type { PageProps } from "./$types";
     import api from "$lib/plugins/api";
     import toast from "svelte-hot-french-toast";
     import { invalidateAll } from "$app/navigation";
+    import PlaylistList from "$lib/components/playlist-list.svelte";
 
     let { data }: PageProps = $props()
 
