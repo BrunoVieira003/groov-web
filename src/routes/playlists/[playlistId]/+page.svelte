@@ -21,8 +21,8 @@
         <h1 class="text-5xl mb-6">{data.playlist?.title}</h1>
         <p class="text-sm">{data.playlist?.songs.length} {data.playlist && data.playlist?.songs.length > 1 ? 'songs': 'song'}</p>
     </div>
-    <SongItemList>
-        {#each data.playlist?.songs as songItem}
+    <SongItemList collectionId={data.playlist?.id || ''} collectionType='playlist'>
+        {#each data.playlist?.songs as songItem (songItem.id)}
             <SongItem song={songItem} onPlayClick={playItem}/>
         {/each}
     </SongItemList>

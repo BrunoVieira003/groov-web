@@ -1,6 +1,6 @@
 import { PUBLIC_API_URL } from "$env/static/public";
 import api from "$lib/plugins/api.js";
-import type { Playlist, PlaylistSummary } from "$lib/types/playlist";
+import type { PlaylistSummary } from "$lib/types/playlist";
 import type { Actions, PageServerLoad } from "../library/$types";
 
 export const load: PageServerLoad = async () => {

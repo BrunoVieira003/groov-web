@@ -8,6 +8,8 @@
     import ContextMenu from "./context-menu.svelte";
     import PlaylistSelect from "./forms/playlist-select.svelte";
     import PlayButton from "./play-button.svelte";
+    import { getCollectionContext } from "$lib/contexts/collection-context";
+    import { invalidateAll } from "$app/navigation";
 
     interface PropsType{
         song: Song
@@ -19,6 +21,8 @@
     let { song, onPlayClick }: PropsType = $props()
 
     let selected = $derived(() => $currentSong?.id === song.id)
+
+    let collectionContext = getCollectionContext()
 
     function clickCallback(){
         if(selected()){
@@ -39,14 +43,31 @@
         .catch(() => {
             toast.error('Failed to add song to playlist')
         })
+        .finally(contextMenu?.hide)
+    }
 
-        contextMenu?.hide()
+    function removeFromPlaylist(playlistId: string){
+        api.delete(`/playlists/${playlistId}/song`, {data: {songId: song.id} })
+        .then(() => {
+            toast.success('Song removed from playlist')
+        })
+        .catch(() => {
+            toast.error('Failed to remove song from playlist')
+        })
+        .finally(async () => {
+            contextMenu?.hide()
+            await invalidateAll()
+
+        })
     }
 </script>
 
 <ContextMenu bind:this={contextMenu}>
     <p class="p-4 text-md cursor-default">Add to playlist</p>
     <PlaylistSelect onPick={addToPlaylist}/>
+    {#if collectionContext.collectionType === 'playlist'}
+        <button class="p-4 text-md cursor-pointer" onclick={() => removeFromPlaylist(collectionContext.collectionId)}>Remove from playlist</button>
+    {/if}
 </ContextMenu>
 
 <div
