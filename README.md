@@ -13,7 +13,7 @@ Here's a list of all features that may be available in this project
 - ✅ Play all songs
 - ✅ Artist page
 - 💭 Albums
-- 💭 Playlist
+- ✅ Playlist
 - 💭 Radio (Broadcast)
 - ⏳ Fuzzy search
     - ✅ Songs
