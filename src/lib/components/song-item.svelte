@@ -7,7 +7,7 @@
     import ArtistsLabel from "./artists-label.svelte";
     import ContextMenu from "./context-menu.svelte";
     import PlaylistSelect from "./forms/playlist-select.svelte";
-    import PlayButton from "./play-button.svelte";
+    import PlayButton from "./player/buttons/play-button.svelte";
     import { getCollectionContext } from "$lib/contexts/collection-context";
     import { invalidateAll } from "$app/navigation";
 

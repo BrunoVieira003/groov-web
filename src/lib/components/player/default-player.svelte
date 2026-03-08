@@ -1,14 +1,16 @@
 <script lang="ts">
     import { PUBLIC_API_URL } from "$env/static/public";
     import { formatSongTime } from "$lib/formatters/songTime";
-    import PlayButton from "./play-button.svelte";
+    import PlayButton from "./buttons/play-button.svelte";
     import { songQueue } from "$lib/stores/queue";
     import { currentSong } from "$lib/stores/currentSong";
-    import nextIcon from '$lib/assets/icons/next.svg'
-    import previousIcon from '$lib/assets/icons/previous.svg'
     import emptyImage from '$lib/assets/images/empty.png'
-    import ArtistsLabel from "./artists-label.svelte";
+    import ArtistsLabel from "../artists-label.svelte";
     import { currentTime, duration } from "$lib/stores/audioState";
+    import { toggleViewMode, viewMode } from "$lib/stores/viewMode";
+    import PreviousButton from "./buttons/previous-button.svelte";
+    import NextButton from "./buttons/next-button.svelte";
+    import ToggleViewButton from "./buttons/toggle-view-button.svelte";
 
     let coverImage: HTMLImageElement
 
@@ -55,25 +57,11 @@
         <div class="flex items-center justify-between w-full gap-2">
             <p class="w-fit text-nowrap text-xs">{formatSongTime($currentTime, !!$currentSong)}</p>
             <div class="flex items-center gap-2">
-                <button onclick={songQueue.previousTrack}>
-                    <img 
-                    src={previousIcon} 
-                    alt="previous_track" 
-                    class="size-5 data-[enabled=false]:opacity-20" 
-                    data-enabled={$songQueue.currentIndex !== 0}
-                    >
-                </button>
+                <PreviousButton/>
 
                 <PlayButton paused={$songQueue.paused} onclick={songQueue.togglePlay}/>
 
-                <button onclick={songQueue.nextTrack}>
-                    <img 
-                    src={nextIcon}
-                    alt="next_track" 
-                    class="size-5 data-[enabled=false]:opacity-20" 
-                    data-enabled={$songQueue.currentIndex !== $songQueue.tracks.length - 1}
-                    >
-                </button>
+                <NextButton/>
             </div>
             <p class="w-fit text-nowrap text-xs">{formatSongTime($duration, !!$currentSong)}</p>
         </div>
@@ -105,7 +93,7 @@
 
     
     <div class="w-1/4 flex justify-center">
-        <p>{$currentSong?.year}</p>
+        <ToggleViewButton/>
     </div>
 </div>
 

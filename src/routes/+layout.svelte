@@ -1,13 +1,15 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-    import Player from '$lib/components/player.svelte';
+    import Player from '$lib/components/player/default-player.svelte';
     import Header from '$lib/components/header.svelte';
     import { currentSong } from '$lib/stores/currentSong';
     import { Toaster } from "svelte-hot-french-toast"
     import { PUBLIC_API_URL } from '$env/static/public';
     import { currentTime, duration } from '$lib/stores/audioState';
     import { songQueue } from '$lib/stores/queue';
+    import { viewMode } from '$lib/stores/viewMode';
+    import FullPlayer from '$lib/components/player/full-player.svelte';
 	
 	let { children } = $props();
 
@@ -58,11 +60,15 @@ onended={handleTrackEnd}
 >
 	<source bind:this={source}/>
 </audio>
+<Toaster position='top-end'/>
 
 <Header/>
-<Toaster position='top-end'/>
 <div class="mx-8 mb-20">
 	{@render children()}
 </div>
-<Player/>
-
+{#if $viewMode === 'default'}
+	<Player/>
+{/if}
+{#if $viewMode === 'full'}
+	<FullPlayer/>
+{/if}
