@@ -8,20 +8,16 @@
     import previousIcon from '$lib/assets/icons/previous.svg'
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "./artists-label.svelte";
+    import { currentTime, duration } from "$lib/stores/audioState";
 
-    let audio: HTMLAudioElement;
-    let source = $state<HTMLSourceElement>();
     let coverImage: HTMLImageElement
-
-    let currentTime = $state(0);
-    let duration = $state(0);
 
     let progress = $derived(() => {
         if (!$currentSong || !duration) {
             return 0;
         }
 
-        return Math.floor((currentTime / duration) * 100);
+        return Math.floor(($currentTime / $duration) * 100);
     });
 
     let coverArtURL = $derived(() => `${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`)
@@ -32,44 +28,14 @@
         navigator.mediaSession.setActionHandler('previoustrack', songQueue.previousTrack)
         navigator.mediaSession.setActionHandler('seekto', ({seekTime}) => {
             if(seekTime){
-                currentTime = seekTime
+                $currentTime = seekTime
             }
         })
-    }
-
-    currentSong.subscribe((song) => {
-        if (source && song && navigator.mediaSession) {
-            source.src = `${PUBLIC_API_URL}/songs/${song.id}`;
-            audio.load();
-
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: song.title,
-                artist: song.authors.map(a => a.name).join(', '),
-                artwork: [
-                    {src: `${PUBLIC_API_URL}/songs/${song.id}/cover`}
-                ]
-            })
-        }
-    });
-
-    function handleTrackEnd(){
-        songQueue.nextTrack()
     }
 
 </script>
 
 <div class="fixed text-white flex items-center justify-evenly w-full px-20 py-10 bg h-10 bottom-0 bg-gray-800" style="--colorful: {$currentSong?.color};">
-    <audio
-    class="hidden"
-    bind:this={audio}
-    bind:currentTime
-    bind:duration
-    bind:paused={$songQueue.paused}
-    autoplay
-    onended={handleTrackEnd}
-    >
-        <source bind:this={source}/>
-    </audio>
 
     <div class="w-1/4 flex items-center gap-4">
         <img
@@ -87,7 +53,7 @@
     
     <div class="flex flex-col w-2/4 items-center gap-2 justify-center">
         <div class="flex items-center justify-between w-full gap-2">
-            <p class="w-fit text-nowrap text-xs">{formatSongTime(currentTime, !!$currentSong)}</p>
+            <p class="w-fit text-nowrap text-xs">{formatSongTime($currentTime, !!$currentSong)}</p>
             <div class="flex items-center gap-2">
                 <button onclick={songQueue.previousTrack}>
                     <img 
@@ -109,14 +75,14 @@
                     >
                 </button>
             </div>
-            <p class="w-fit text-nowrap text-xs">{formatSongTime(duration, !!$currentSong)}</p>
+            <p class="w-fit text-nowrap text-xs">{formatSongTime($duration, !!$currentSong)}</p>
         </div>
 
         <div class="slider w-4/5 h-fit">
             <input
-            bind:value={currentTime}
+            bind:value={$currentTime}
             min="0"
-            max={duration}
+            max={$duration}
             class="range-slider bg-gray-500"
             type="range"
             step="0.01"
