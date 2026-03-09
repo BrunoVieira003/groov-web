@@ -25,10 +25,10 @@ Here's a list of all features that may be available in this project
     - 💭 Auto-repeat
     - 💭 Single-repeat
 - ✅ Custom accent color according with cover art
-- ⏳ 'Playing now' minimalist page
+- ✅ 'Playing now' page
 - ✅ Upload new song files
 - ✅ Trigger folder scan
-- 💭 Task feedback
+- ✅ Task feedback
 - ✅ Integration with Web Audio API
 - 💭 Display unsynced lyrics
 - 💭 Display synced lyrics

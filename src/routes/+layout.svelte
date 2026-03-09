@@ -10,6 +10,7 @@
     import { songQueue } from '$lib/stores/queue';
     import { viewMode } from '$lib/stores/viewMode';
     import FullPlayer from '$lib/components/player/full-player.svelte';
+    import TaskList from '$lib/components/task-list.svelte';
 	
 	let { children } = $props();
 
@@ -72,3 +73,5 @@ onended={handleTrackEnd}
 {#if $viewMode === 'full'}
 	<FullPlayer/>
 {/if}
+
+<TaskList/>

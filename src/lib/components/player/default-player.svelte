@@ -11,16 +11,9 @@
     import PreviousButton from "./buttons/previous-button.svelte";
     import NextButton from "./buttons/next-button.svelte";
     import ToggleViewButton from "./buttons/toggle-view-button.svelte";
+    import ProgressBar from "../progress-bar.svelte";
 
     let coverImage: HTMLImageElement
-
-    let progress = $derived(() => {
-        if (!$currentSong || !duration) {
-            return 0;
-        }
-
-        return Math.floor(($currentTime / $duration) * 100);
-    });
 
     let coverArtURL = $derived(() => `${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`)
 
@@ -66,29 +59,7 @@
             <p class="w-fit text-nowrap text-xs">{formatSongTime($duration, !!$currentSong)}</p>
         </div>
 
-        <div class="slider w-4/5 h-fit">
-            <input
-            bind:value={$currentTime}
-            min="0"
-            max={$duration}
-            class="range-slider bg-gray-500"
-            type="range"
-            step="0.01"
-            />
-            
-            <div
-            class="progress bg-gray-200 transition-all duration-50"
-            style="width: {progress()}%;"
-            >
-            </div>
-        
-            <div
-            class="slider-thumb bg-gray-200"
-            style="left: calc({progress()}% - 0.5rem);"
-            >
-            </div>
-
-        </div>
+        <ProgressBar min={0} max={$duration} bind:value={$currentTime} interactive/>
     </div>
 
     

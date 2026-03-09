@@ -1,7 +1,9 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import { goto } from "$app/navigation";
+    import { PUBLIC_API_URL } from "$env/static/public";
     import UploadButton from "$lib/components/forms/upload-button.svelte";
+    import { trackTask } from "$lib/stores/runningTasks";
     import type { SubmitFunction } from "@sveltejs/kit";
     import toast from "svelte-hot-french-toast";
 
@@ -9,6 +11,9 @@
         return async ({result, update}) => {
             await update()
             if(result.type === 'success'){
+                if(result.data){
+                    trackTask(result.data.taskId, 'Upload')
+                }
                 toast.success('File uploaded')
             }else{
                 toast.error('Upload failed')
@@ -20,6 +25,9 @@
         return async ({result, update}) => {
             await update()
             if(result.type === 'success'){
+                if(result.data){
+                    trackTask(result.data.taskId, 'Scan folder')
+                }
                 toast.success('Scan initialized')
             }else{
                 toast.error('Scan failed')
