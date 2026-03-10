@@ -3,7 +3,7 @@ import api from '$lib/plugins/api';
 import type { Actions } from '@sveltejs/kit';
 
 export const actions = {
-    upload: async ({fetch, request}) => {
+    upload: async ({request}) => {
         const formData = await request.formData()
 
         const {data} = await api.post('/songs/upload', formData)
@@ -11,8 +11,13 @@ export const actions = {
         return { taskId: data.taskId }
     },
 
-    scan: async ({}) => {
+    scan: async () => {
         const { data } = await api.post('/tasks/scan-folder')
+        return {taskId: data.taskId}
+    },
+
+    pruneSongs: async () => {
+        const {data} = await api.post('/tasks/prune-songs')
         return {taskId: data.taskId}
     }
 } satisfies Actions

@@ -8,10 +8,12 @@ export interface Task{
     label: string
 }
 
+export type TaskType = 'scan-folder' | 'upload' | 'prune-songs' 
+
 export const runningTasks = writable<Task[]>([])
 
-export function trackTask(id: string, label: string) {
-    const events = new EventSource(`${PUBLIC_API_URL}/tasks/${id}/progress`)
+export function trackTask(taskType: TaskType, id: string, label: string) {
+    const events = new EventSource(`${PUBLIC_API_URL}/tasks/${taskType}/${id}`)
     const task: Task = {
         id: id,
         progress: 0,

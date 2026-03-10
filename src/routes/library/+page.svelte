@@ -12,7 +12,7 @@
             await update()
             if(result.type === 'success'){
                 if(result.data){
-                    trackTask(result.data.taskId, 'Upload')
+                    trackTask('upload', result.data.taskId, 'Upload')
                 }
                 toast.success('File uploaded')
             }else{
@@ -26,11 +26,25 @@
             await update()
             if(result.type === 'success'){
                 if(result.data){
-                    trackTask(result.data.taskId, 'Scan folder')
+                    trackTask('scan-folder', result.data.taskId, 'Scan folder')
                 }
                 toast.success('Scan initialized')
             }else{
                 toast.error('Scan failed')
+            }
+        }
+    }
+
+    const handlePruneSongs: SubmitFunction = () => {
+        return async ({result, update}) => {
+            await update()
+            if(result.type === 'success'){
+                if(result.data){
+                    trackTask('prune-songs', result.data.taskId, 'Prune songs')
+                }
+                toast.success('Prune initialized')
+            }else{
+                toast.error('Prune failed')
             }
         }
     }
@@ -45,12 +59,19 @@
             <input type="submit" value="Scan" class="cursor-pointer bg-gray-200 p-2 w-full rounded-lg text-slate-800">
         </form>
     </div>
-
+    
     <div class="flex items-center justify-between">
         <p>Upload new song</p>
         <form method="post" action="?/upload" class="flex gap-4 items-center" enctype="multipart/form-data" use:enhance={handleUpload}>
             <UploadButton name='file' id='file' accept='.mp3' placeholder='Choose audio file'/>
             <input type="submit" value="Upload" class="cursor-pointer bg-gray-200 p-2 w-full rounded-lg text-slate-800">
+        </form>
+    </div>
+
+    <div class="flex items-center justify-between">
+        <p>Prune songs</p>
+        <form method="post" action="?/pruneSongs" class="flex gap-4" use:enhance={handlePruneSongs}>
+            <input type="submit" value="PruneSongs" class="cursor-pointer bg-gray-200 p-2 w-full rounded-lg text-slate-800">
         </form>
     </div>
 
