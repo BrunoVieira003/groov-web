@@ -63,11 +63,11 @@ onended={handleTrackEnd}
 </audio>
 <Toaster position='top-end'/>
 
+{#if $viewMode === 'default'}
 <Header/>
 <div class="mx-8 mb-20">
 	{@render children()}
 </div>
-{#if $viewMode === 'default'}
 	<Player/>
 {/if}
 {#if $viewMode === 'full'}
