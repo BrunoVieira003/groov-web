@@ -11,7 +11,7 @@ COPY static .
 
 RUN bun run build
 
-FROM ove/bun:latest
+FROM oven/bun:latest
 
 WORKDIR /app
 
