@@ -13,6 +13,7 @@
     import Icon from "@iconify/svelte";
     import ToggleViewButton from "./buttons/toggle-view-button.svelte";
     import ProgressBar from "../progress-bar.svelte";
+    import ModeButton from "./buttons/mode-button.svelte";
 
     let coverImage: HTMLImageElement
 
@@ -66,7 +67,10 @@
                 
             </div>
 
-            <ToggleViewButton/>
+            <div class="w-1/4 flex gap-4">
+                <ToggleViewButton/>
+                <ModeButton/>
+            </div>
         </div>
     </div>
     

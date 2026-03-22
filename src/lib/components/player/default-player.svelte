@@ -12,6 +12,7 @@
     import NextButton from "./buttons/next-button.svelte";
     import ToggleViewButton from "./buttons/toggle-view-button.svelte";
     import ProgressBar from "../progress-bar.svelte";
+    import ModeButton from "./buttons/mode-button.svelte";
 
     let coverImage: HTMLImageElement
 
@@ -63,8 +64,9 @@
     </div>
 
     
-    <div class="w-1/4 flex justify-center">
+    <div class="w-1/4 flex gap-4 justify-center">
         <ToggleViewButton/>
+        <ModeButton/>
     </div>
 </div>
 

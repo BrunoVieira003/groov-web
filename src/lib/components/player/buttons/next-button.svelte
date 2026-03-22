@@ -1,13 +1,24 @@
 <script lang="ts">
     import { songQueue } from "$lib/stores/queue";
-    import nextIcon from '$lib/assets/icons/next.svg'
+    import nextIcon from "$lib/assets/icons/next.svg";
 
+    let enabled = $derived(() => {
+        if (
+            $songQueue.loopMode === "repeat-off" &&
+            $songQueue.currentIndex === $songQueue.tracks.length - 1
+        ) {
+            return false;
+        }
+
+        return true;
+    });
 </script>
+
 <button onclick={songQueue.nextTrack}>
-    <img 
-    src={nextIcon}
-    alt="next_track" 
-    class="size-5 data-[enabled=false]:opacity-20" 
-    data-enabled={$songQueue.currentIndex !== $songQueue.tracks.length - 1}
-    >
+    <img
+        src={nextIcon}
+        alt="next_track"
+        class="size-5 data-[enabled=false]:opacity-20"
+        data-enabled={enabled()}
+    />
 </button>
