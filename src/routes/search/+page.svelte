@@ -5,51 +5,71 @@
     import SongItemList from "$lib/components/song-item-list.svelte";
     import SongItem from "$lib/components/song-item.svelte";
     import { songQueue } from "$lib/stores/queue";
-    import { blur, crossfade, draw, fade, fly, scale, slide } from "svelte/transition";
+    import { slide } from "svelte/transition";
     import type { PageProps } from "./$types";
 
-    let { data }: PageProps = $props()
+    let { data }: PageProps = $props();
     let filters = $state({
         songs: true,
-        artists: true
-    })
+        artists: true,
+        playlists: true,
+    });
 
-    function playItem(songId?: string){
-        const songs = data.songs || []
-        const songIndex = songs.findIndex(s => s.id === songId)
-        songQueue.playQueue(songs, songIndex)
+    function playItem(songId?: string) {
+        const songs = data.songs || [];
+        const songIndex = songs.findIndex((s) => s.id === songId);
+        songQueue.playQueue(songs, songIndex);
     }
 </script>
 
-<h1 class="text-5xl mb-4">Results for "{page.url.searchParams.get('q')}"</h1>
+<h1 class="text-5xl mb-4">Results for "{page.url.searchParams.get("q")}"</h1>
 <div class="flex gap-2 mb-10">
     <Chip bind:active={filters.songs}>Songs</Chip>
     <Chip bind:active={filters.artists}>Artists</Chip>
+    <Chip bind:active={filters.playlists}>Playlists</Chip>
 </div>
 
-<div class="w-full *:w-full ">
+<div class="w-full *:w-full">
     {#if filters.songs}
-        <div class="mb-10" transition:slide={{duration: 200}}>
+        <div class="mb-10" transition:slide={{ duration: 200 }}>
             <h2 class="text-3xl mb-2">Songs</h2>
             <p class="mb-6">{data.songs?.length} results</p>
             <SongItemList>
                 {#each data.songs as song}
-                <SongItem {song} onPlayClick={playItem}/>
+                    <SongItem {song} onPlayClick={playItem} />
                 {/each}
             </SongItemList>
         </div>
     {/if}
-    
+
     {#if filters.artists}
-        <div transition:slide={{duration: 200}}>
+        <div transition:slide={{ duration: 200 }} class="mb-10">
             <h2 class="text-3xl mb-2">Artists</h2>
             <p class="mb-6">{data.artists?.length} results</p>
             <div class="grid grid-cols-7 grid-flow-row gap-2">
                 {#each data.artists as artist}
-                <div class="flex flex-col aspect-square p-2 bg-slate-800 w-fit items-center justify-between rounded-xl">
-                    <img class="size-9/12 rounded-full aspect-square" src="https://robohash.org/${artist.name}" alt="artist">
-                    <a href="/artists/{artist.id}" class="hover:underline">{artist.name}</a>
-                </div>
+                    <div class="flex flex-col aspect-square p-2 bg-slate-800 w-fit items-center justify-between rounded-xl">
+                        <img
+                            class="size-9/12 rounded-full aspect-square"
+                            src="https://robohash.org/${artist.name}"
+                            alt="artist"
+                        />
+                        <a href="/artists/{artist.id}" class="hover:underline">{artist.name}</a>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    {/if}
+
+    {#if filters.playlists}
+        <div transition:slide={{ duration: 200 }}>
+            <h2 class="text-3xl mb-2">Playlists</h2>
+            <p class="mb-6">{data.playlists?.length} results</p>
+            <div class="grid grid-cols-7 grid-flow-row gap-2">
+                {#each data.playlists as playlist}
+                    <div class="flex flex-col p-2 bg-slate-800 justify-between rounded-xl">
+                        <a href="/playlists/{playlist.id}" class="hover:underline">{playlist.title}</a>
+                    </div>
                 {/each}
             </div>
         </div>
