@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { setCollectionContext } from "$lib/contexts/collection-context";
+    import { setCollectionContext, type CollectionType } from "$lib/contexts/collection-context";
     import { type Snippet } from "svelte";
 
     interface props{
         collectionId?: string
-        collectionType?: 'artist' | 'playlist'
+        collectionType?: CollectionType
         children: Snippet
     }
 

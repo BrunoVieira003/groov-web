@@ -71,13 +71,18 @@
 </ContextMenu>
 
 <div
-class="flex items-center justify-start gap-10 p-4 rounded-md hover:bg-gray-900 data-[active=true]:bg-gray-800"
+class="grid grid-cols-3 items-center justify-start gap-10 p-4 rounded-md hover:bg-gray-900 data-[active=true]:bg-gray-800"
 data-active={selected()}
 oncontextmenu={contextMenu.show}
 role="button"
 tabindex="-1"
 >
-    <PlayButton paused={!selected() || $songQueue.paused} onclick={clickCallback}/>
-    <p class="w-1/2 line-clamp-1">{song.title}</p>
+    <div class="flex items-center gap-4">
+        <PlayButton paused={!selected() || $songQueue.paused} onclick={clickCallback}/>
+        <p class="w-1/2 line-clamp-1">{song.title}</p>
+    </div>
     <ArtistsLabel artists={song.authors}/>
+    {#if song.album}
+        <a href="/albums/{song.album.id}" class="hover:underline">{song.album.title}</a>
+    {/if}
 </div>

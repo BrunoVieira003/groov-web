@@ -5,3 +5,5 @@ export default interface Artist{
     name: string,
     songs: Song[]
 }
+
+export interface ArtistSummary extends Pick<Artist, 'id' | 'name'>{}

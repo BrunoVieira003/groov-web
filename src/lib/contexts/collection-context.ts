@@ -1,8 +1,11 @@
 import { createContext } from "svelte";
 
+export type CollectionType = 'artist' | 'playlist' | 'album' | 'other'
+
 interface CollectionContextType{
     collectionId: string
-    collectionType: 'artist' | 'playlist' | 'other'
+    collectionType: CollectionType
 }
+
 
 export const [getCollectionContext, setCollectionContext] = createContext<CollectionContextType>()

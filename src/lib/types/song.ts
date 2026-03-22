@@ -1,3 +1,5 @@
+import type { AlbumSummary } from "./album"
+
 export default interface Song{
     id?: string
     title: string
@@ -5,6 +7,7 @@ export default interface Song{
     color?: string
     createdAt: string
     updatedAt: string
+    album: AlbumSummary
     authors: {
         id: string
         name: string
