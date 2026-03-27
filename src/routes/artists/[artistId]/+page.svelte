@@ -1,4 +1,5 @@
 <script lang="ts">
+    import ArtistAlbums from "$lib/components/artist-albums.svelte";
     import SongItemList from "$lib/components/song-item-list.svelte";
     import SongItem from "$lib/components/song-item.svelte";
     import { songQueue } from "$lib/stores/queue";
@@ -26,4 +27,6 @@
             <SongItem song={songItem} onPlayClick={playItem}/>
         {/each}
     </SongItemList>
+    <p class="mt-8">{data.artist?.albums.length} {data.artist && data.artist?.albums.length > 1 ? 'albums': 'album'}</p>
+    <ArtistAlbums albums={data.artist?.albums ?? []}/>
 </div>
