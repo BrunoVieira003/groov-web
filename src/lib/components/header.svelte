@@ -1,6 +1,6 @@
 <script lang="ts">
     import { page } from "$app/state";
-    import searchIcon from "$lib/assets/icons/search.svg"
+    import searchIcon from "$lib/assets/icons/search.svg?raw"
 
     let searchText = $state(page.url.searchParams.get('q'))
 
@@ -24,6 +24,8 @@
         placeholder="Search..."
         class="bg-slate-900 py-2 px-3 rounded-md text-slate-600 outline-none border-2 border-slate-600 focus:text-white focus:border-slate-400"
         >
-        <img src={searchIcon} alt="search_icon" class="absolute top-1/2 -translate-y-1/2 opacity-70 right-2">
+        <dir class="absolute top-1/2 -translate-y-1/2 opacity-70 right-2 text-slate-600">
+            {@html searchIcon}
+        </dir>
     </form>
 </div>
