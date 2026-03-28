@@ -12,8 +12,8 @@
     setCollectionContext({collectionId: props.collectionId || '', collectionType: props.collectionType || 'other'})
 </script>
 
-<div class="flex flex-col w-full max-h-155 overflow-y-auto">
-    <div class="grid grid-cols-3 items-center justify-start gap-10 p-4">
+<div class="relative flex flex-col w-full max-h-155 overflow-y-auto">
+    <div class="sticky top-0 bg-gray-950 grid grid-cols-3 items-center justify-start gap-10 p-4">
         <p class="font-bold text-sm opacity-80">Title</p>
         <p class="font-bold text-sm opacity-80">Artist</p>
         <p class="font-bold text-sm opacity-80">Album</p>
