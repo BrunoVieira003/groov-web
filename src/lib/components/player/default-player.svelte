@@ -7,7 +7,6 @@
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "../artists-label.svelte";
     import { currentTime, duration } from "$lib/stores/audioState";
-    import { toggleViewMode, viewMode } from "$lib/stores/viewMode";
     import PreviousButton from "./buttons/previous-button.svelte";
     import NextButton from "./buttons/next-button.svelte";
     import ToggleViewButton from "./buttons/toggle-view-button.svelte";
@@ -31,8 +30,7 @@
 
 </script>
 
-<div class="fixed text-white flex items-center justify-evenly w-full px-20 py-10 bg h-10 bottom-0 bg-gray-800" style="--colorful: {$currentSong?.color};">
-
+<div class="text-white flex items-center justify-evenly w-full px-20 py-10 bg h-10 bottom-0 bg-gray-800" style="--colorful: {$currentSong?.color};">
     <div class="w-1/4 flex items-center gap-4">
         <img
         bind:this={coverImage}

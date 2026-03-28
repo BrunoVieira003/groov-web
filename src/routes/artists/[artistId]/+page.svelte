@@ -22,7 +22,7 @@
         <h1 class="text-5xl mb-6">{data.artist?.name}</h1>
         <h2 class="text-2xl">Songs</h2>
     </div>
-    
+
     <SongItemList collectionId={data.artist?.id || ''} collectionType='artist'>
         {#each data.artist?.songs as songItem (songItem.id)}
             <SongItem song={songItem} onPlayClick={playItem}/>
@@ -30,7 +30,7 @@
     </SongItemList>
 
     {#if data.artist?.albums && data.artist?.albums.length > 0}
-        <h2 class="text-2xl">Albums</h2>
+        <h2 class="text-2xl mt-6">Albums</h2>
         <ArtistAlbums albums={data.artist.albums}/>
     {/if}
 </div>

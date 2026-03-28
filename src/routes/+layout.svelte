@@ -64,14 +64,36 @@ onended={handleTrackEnd}
 <Toaster position='top-end'/>
 
 {#if $viewMode === 'default'}
-<Header/>
-<div class="mx-8">
-	{@render children()}
+<div class="flex flex-col w-full mx-auto h-screen">
+    <Header/>
+    <div class="relative overflow-y-auto flex-1 px-30 mb-2">
+        {@render children()}
+    </div>
+    <Player/>
 </div>
-	<Player/>
 {/if}
 {#if $viewMode === 'full'}
 	<FullPlayer/>
 {/if}
 
 <TaskList/>
+
+<style>
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 100px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #24262c;
+        border-radius: 100px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #434652;
+    }
+</style>

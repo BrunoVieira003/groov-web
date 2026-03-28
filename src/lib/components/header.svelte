@@ -5,7 +5,7 @@
     let searchText = $state(page.url.searchParams.get('q'))
 
 </script>
-<div class="flex items-center justify-between gap-20 bg-gray-800 py-3 px-40 mb-6">
+<div class="flex items-center justify-between gap-20 h-1/12 bg-gray-800 py-3 px-40 mb-6">
     <div class="flex items-center gap-8">
         <h1 class="text-2xl font-medium">Groov</h1>
         <div class="flex gap-8 items-center justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-slate-700">
