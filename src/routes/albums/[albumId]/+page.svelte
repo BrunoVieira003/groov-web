@@ -37,7 +37,7 @@
         </div>
     </div>
     <SongItemList collectionId={data.album?.id || ''} collectionType='album'>
-        {#each data.album?.songs as songItem (songItem.id)}
+        {#each data.album?.songs as songItem, index (`${songItem.id}${index}`)}
             <SongItem song={songItem} onPlayClick={playItem}/>
         {/each}
     </SongItemList>
