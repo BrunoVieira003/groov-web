@@ -27,6 +27,8 @@
             <SongItem song={songItem} onPlayClick={playItem}/>
         {/each}
     </SongItemList>
-    <p class="mt-8">{data.artist?.albums.length} {data.artist && data.artist?.albums.length > 1 ? 'albums': 'album'}</p>
-    <ArtistAlbums albums={data.artist?.albums ?? []}/>
+    {#if data.artist?.albums && data.artist?.albums.length > 0}
+        <p class="mt-8">{data.artist.albums.length} {data.artist.albums.length > 1 ? 'albums': 'album'}</p>
+        <ArtistAlbums albums={data.artist.albums}/>
+    {/if}
 </div>

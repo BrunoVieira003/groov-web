@@ -1,25 +1,29 @@
 <script lang="ts">
     import { page } from "$app/state";
+    import searchIcon from "$lib/assets/icons/search.svg"
 
     let searchText = $state(page.url.searchParams.get('q'))
 
 </script>
-<div class="flex items-center gap-20 bg-gray-800 py-3 px-40 mb-6">
-    <h1 class="text-2xl font-medium">Groov</h1>
-    <div class="flex gap-8 items-center justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-slate-700">
-        <a href="/">Home</a>
-        <a href="/artists">Artists</a>
-        <a href="/playlists">Playlists</a>
-        <a href="/library">Library</a>
+<div class="flex items-center justify-between gap-20 bg-gray-800 py-3 px-40 mb-6">
+    <div class="flex items-center gap-8">
+        <h1 class="text-2xl font-medium">Groov</h1>
+        <div class="flex gap-8 items-center justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-slate-700">
+            <a href="/">Home</a>
+            <a href="/artists">Artists</a>
+            <a href="/playlists">Playlists</a>
+            <a href="/library">Library</a>
+        </div>
     </div>
-    <form action="/search" method="get">
+    <form action="/search" method="get" class="relative">
         <input
         type="text"
         name="q"
         bind:value={searchText}
         id="q"
-        placeholder="Search for a song or artist..."
-        class="bg-slate-900 py-2 px-3 rounded-md text-slate-600 outline-none border-2 border-transparent focus:text-white focus:border-slate-600"
+        placeholder="Search..."
+        class="bg-slate-900 py-2 px-3 rounded-md text-slate-600 outline-none border-2 border-slate-600 focus:text-white focus:border-slate-400"
         >
+        <img src={searchIcon} alt="search_icon" class="absolute top-1/2 -translate-y-1/2 opacity-70 right-2">
     </form>
 </div>
