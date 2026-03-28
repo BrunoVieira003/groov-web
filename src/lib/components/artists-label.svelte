@@ -31,17 +31,15 @@
 </div>
 
 <style>
-    @import 'tailwindcss';
-    
     .default{
-        @apply text-sm;
+        font-size: 0.875rem;
     }
 
     .small{
-        @apply text-xs;
+        font-size: 0.75rem;
     }
 
     .big{
-        @apply text-xl;
+        font-size: 1.25rem;
     }
 </style>
