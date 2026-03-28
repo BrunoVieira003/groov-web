@@ -65,7 +65,7 @@ onended={handleTrackEnd}
 
 {#if $viewMode === 'default'}
 <Header/>
-<div class="mx-8 mb-20">
+<div class="mx-8">
 	{@render children()}
 </div>
 	<Player/>

@@ -19,6 +19,7 @@
         <p class="font-bold text-sm opacity-80">Album</p>
     </div>
     {@render props.children()}
+    <br class="h-2 text-600-red">
 </div>
 
 <style>
