@@ -40,7 +40,7 @@
         bind:this={coverImage}
         src={coverArtURL()}
         alt="cover_art"
-        class="w-2/4 aspect-square rounded-lg object-cover"
+        class="size-100 aspect-square rounded-lg object-cover"
         onerror={() => coverImage.src = emptyImage}
         >
         <div class="flex flex-col w-full gap-10">
