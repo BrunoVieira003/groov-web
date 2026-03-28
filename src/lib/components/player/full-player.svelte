@@ -7,10 +7,8 @@
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "../artists-label.svelte";
     import { currentTime, duration } from "$lib/stores/audioState";
-    import { toggleViewMode } from "$lib/stores/viewMode";
     import PreviousButton from "./buttons/previous-button.svelte";
     import NextButton from "./buttons/next-button.svelte";
-    import Icon from "@iconify/svelte";
     import ToggleViewButton from "./buttons/toggle-view-button.svelte";
     import ProgressBar from "../progress-bar.svelte";
     import ModeButton from "./buttons/mode-button.svelte";
