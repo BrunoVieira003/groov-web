@@ -1,11 +1,11 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
-    import Icon from "@iconify/svelte";
     import type { PageProps } from "./$types";
     import api from "$lib/plugins/api";
     import toast from "svelte-hot-french-toast";
     import { invalidateAll } from "$app/navigation";
     import PlaylistList from "$lib/components/playlist-list.svelte";
+    import trashIcon from "$lib/assets/icons/trash.svg?raw"
 
     let { data }: PageProps = $props()
 
@@ -30,8 +30,8 @@
         {#each data.playlists as playlist (playlist.id)}
             <div class="flex items-center justify-between gap-10 p-4 rounded-md hover:bg-gray-900">
                 <a href="/playlists/{playlist.id}">{playlist.title}</a>
-                <button class="cursor-pointer hover:bg-gray-800 p-2 rounded-md" onclick={() => deletePlaylist(playlist.id || '')}>
-                    <Icon icon='mdi:trash-outline' width='32' height='32'/>
+                <button class="text-white cursor-pointer hover:bg-gray-800 hover:text-red-400 p-2 rounded-md" onclick={() => deletePlaylist(playlist.id || '')}>
+                    {@html trashIcon}
                 </button>
             </div>
         {/each}

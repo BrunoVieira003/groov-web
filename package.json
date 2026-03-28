@@ -24,7 +24,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@iconify/svelte": "^5.2.1",
 		"axios": "^1.13.6",
 		"runed": "^0.37.1",
 		"svelte-hot-french-toast": "^4.0.0"

@@ -1,6 +1,8 @@
 <script lang="ts">
     import { songQueue } from "$lib/stores/queue";
-    import Icon from "@iconify/svelte";
+    import repeatOffIcon from "$lib/assets/icons/repeat-off.svg?raw"
+    import repeatAllIcon from "$lib/assets/icons/repeat-all.svg?raw"
+    import repeatOneIcon from "$lib/assets/icons/repeat-one.svg?raw"
 </script>
 
 {#if $songQueue.loopMode === "repeat-off"}
@@ -9,7 +11,9 @@
         title="No repeat"
         onclick={() => ($songQueue.loopMode = "repeat-all")}
     >
-        <Icon icon="tabler:repeat-off" class="size-6" />
+        <div class="size-6 text-white">
+            {@html repeatOffIcon}
+        </div>
     </button>
 {/if}
 
@@ -19,7 +23,9 @@
         title="Repeat all"
         onclick={() => ($songQueue.loopMode = "repeat-one")}
     >
-        <Icon icon="tabler:repeat" class="size-6" />
+        <div class="size-6 text-white">
+            {@html repeatAllIcon}
+        </div>
     </button>
 {/if}
 
@@ -29,6 +35,8 @@
         title="Repeat one"
         onclick={() => ($songQueue.loopMode = "repeat-off")}
     >
-        <Icon icon="tabler:repeat-once" class="size-6" />
+        <div class="size-6 text-white">
+            {@html repeatOneIcon}
+        </div>
     </button>
 {/if}
