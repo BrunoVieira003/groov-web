@@ -3,7 +3,7 @@
     import SongItem from "$lib/components/song-item.svelte";
     import SongItemList from "$lib/components/song-item-list.svelte";
     import { songQueue } from "$lib/stores/queue";
-    import playIcon from '$lib/assets/icons/play.svg'
+    import playIcon from '$lib/assets/icons/play.svg?raw'
 
     let { data }: PageProps = $props()
 
@@ -25,7 +25,9 @@
 class="flex items-center gap-4 bg-slate-700 rounded-full py-2 px-4 mb-6"
 onclick={handlePlayAll}
 >
-    <img src={playIcon} alt="play_icon" class='size-10'/>
+    <div class="text-white size-10 data-[enabled=false]:opacity-20">
+        {@html playIcon}
+    </div>
     Play all
 </button>
 

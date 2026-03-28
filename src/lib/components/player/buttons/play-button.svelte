@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { HTMLButtonAttributes } from "svelte/elements";
-    import pauseIcon from '$lib/assets/icons/pause.svg'
-    import playIcon from '$lib/assets/icons/play.svg'
+    import pauseIcon from '$lib/assets/icons/pause.svg?raw'
+    import playIcon from '$lib/assets/icons/play.svg?raw'
 
     interface PropsType extends HTMLButtonAttributes{
         paused: boolean,
@@ -11,10 +11,12 @@
 
 </script>
 
-<button {...props} class='text-white'>
+<button {...props}>
+    <div class="text-white size-7">
     {#if props.paused}
-        <img src={playIcon} alt="play_icon" class='size-7'/>
+        {@html playIcon}
     {:else}
-        <img src={pauseIcon} alt="play_icon" class='size-7 '/>
+        {@html pauseIcon}
     {/if}
+    </div>
 </button>

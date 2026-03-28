@@ -1,6 +1,6 @@
 <script lang="ts">
     import { songQueue } from "$lib/stores/queue";
-    import previousIcon from "$lib/assets/icons/previous.svg";
+    import previousIcon from "$lib/assets/icons/previous.svg?raw";
 
     let enabled = $derived(() => {
         if (
@@ -15,10 +15,7 @@
 </script>
 
 <button onclick={songQueue.previousTrack}>
-    <img
-        src={previousIcon}
-        alt="previous_track"
-        class="size-5 data-[enabled=false]:opacity-20"
-        data-enabled={enabled()}
-    />
+    <div class="text-white size-5 data-[enabled=false]:opacity-20" data-enabled={enabled()}>
+        {@html previousIcon}
+    </div>
 </button>

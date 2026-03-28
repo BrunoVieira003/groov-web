@@ -20,7 +20,7 @@
             bind:this={coverImage}
             src="{PUBLIC_API_URL}/albums/{album.id}/cover"
             alt="album_cover_art"
-            class="aspect-square! self-center size-60 rounded-xl object-cover"
+            class="aspect-square! self-center rounded-xl object-cover"
             onerror={() => coverImage.src = emptyImage }
             >
             <a href="/albums/{album.id}" class="hover:underline text-nowrap text-md w-fit mx-auto font-bold">{album.title}</a>
