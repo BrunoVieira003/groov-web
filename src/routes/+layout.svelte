@@ -66,7 +66,7 @@ onended={handleTrackEnd}
 {#if $viewMode === 'default'}
 <div class="flex flex-col w-full mx-auto h-screen">
     <Header/>
-    <div class="relative overflow-y-auto flex-1 px-30 mb-2">
+    <div class="relative overflow-y-auto flex-1 px-30 pt-6 mb-2">
         {@render children()}
     </div>
     <Player/>

@@ -7,7 +7,8 @@
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "$lib/components/artists-label.svelte";
 
-    let coverImage: HTMLImageElement
+    // svelte-ignore non_reactive_update
+        let coverImage: HTMLImageElement
 
     let coverArtURL = $derived(() => {
         if(!$currentSong){

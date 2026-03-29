@@ -1,7 +1,5 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
-    import { goto } from "$app/navigation";
-    import { PUBLIC_API_URL } from "$env/static/public";
     import UploadButton from "$lib/components/forms/upload-button.svelte";
     import { trackTask } from "$lib/stores/runningTasks";
     import type { SubmitFunction } from "@sveltejs/kit";
