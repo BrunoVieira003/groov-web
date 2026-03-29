@@ -43,7 +43,7 @@
         >
         <div class="flex flex-col w-full gap-10">
             <div>
-                <p class="colorful font-bold text-5xl w-full text-shadow-lg">{$currentSong?.title}</p>
+                <p class="colorful font-bold text-5xl w-full text-shadow-lg line-clamp-1">{$currentSong?.title}</p>
                 <ArtistsLabel artists={$currentSong?.authors || []} size='big'/>
             </div>
 
