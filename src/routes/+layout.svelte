@@ -64,9 +64,9 @@ onended={handleTrackEnd}
 <Toaster position='top-end'/>
 
 {#if $viewMode === 'default'}
-<div class="flex flex-col w-full mx-auto h-screen">
+<div class="flex flex-col w-full mx-auto h-screen ">
     <Header/>
-    <div class="relative overflow-y-auto flex-1 px-30 pt-6 mb-2">
+    <div class="relative overflow-y-auto flex-1 lg:px-30 pt-6 mb-2 dev-responsive">
         {@render children()}
     </div>
     <Player/>

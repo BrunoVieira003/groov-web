@@ -22,9 +22,9 @@
 
 <div>
     <h1 class="page-title">Playlists</h1>
-    <form method="POST" class="flex items-center gap-2 mb-4" use:enhance>
-        <input type="text" name="title" placeholder="Your playlist name" bind:value={title} class="bg-slate-900 py-2 px-3 rounded-md text-slate-600 outline-none border-2 border-transparent focus:text-white focus:border-slate-600">
-        <input type="submit" value="Create">
+    <form method="POST" class="flex flex-wrap items-center gap-2 mb-4" use:enhance>
+        <input type="text" name="title" placeholder="Your playlist name" bind:value={title} class="bg-slate-900 w-full sm:w-fit py-2 px-3 rounded-md text-slate-600 outline-none border-2 border-transparent focus:text-white focus:border-slate-600">
+        <input type="submit" value="Create" class="w-full mx-auto sm:w-fit sm:mx-0">
     </form>
     <PlaylistList>
         {#each data.playlists as playlist (playlist.id)}

@@ -15,7 +15,7 @@
     }
 </script>
 
-<div class="w-10/12 mx-auto">
+<div class="w-full sm:w-10/12 sm:mx-auto">
     <div class="mb-6">
         <p class="mb-1 text-sm">Playlist</p>
         <h1 class="text-5xl mb-6">{data.playlist?.title}</h1>

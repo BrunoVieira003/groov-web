@@ -77,7 +77,7 @@
 </ContextMenu>
 
 <div
-class="grid grid-cols-3 items-center justify-start gap-10 p-4 rounded-md hover:bg-gray-900 data-[active=true]:bg-gray-800"
+class="grid grid-cols-2 md:grid-cols-3 items-center justify-start gap-10 p-4 rounded-md hover:bg-gray-900 data-[active=true]:bg-gray-800"
 data-active={selected()}
 oncontextmenu={contextMenu.show}
 role="button"
@@ -86,10 +86,10 @@ transition:fly={{ duration: 100 }}
 >
     <div class="flex items-center gap-4">
         <PlayButton paused={!selected() || $songQueue.paused} onclick={clickCallback}/>
-        <p class="w-1/2 line-clamp-1">{song.title}</p>
+        <p class="w-1/2 line-clamp-3">{song.title}</p>
     </div>
     <ArtistsLabel artists={song.authors}/>
     {#if song.album}
-        <a href="/albums/{song.album.id}" class="hover:underline">{song.album.title}</a>
+        <a href="/albums/{song.album.id}" class="hidden md:block hover:underline">{song.album.title}</a>
     {/if}
 </div>

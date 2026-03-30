@@ -30,8 +30,8 @@
 
 </script>
 
-<div class="text-white flex items-center justify-evenly w-full px-20 py-10 bg h-10 bottom-0 bg-gray-800" style="--colorful: {$currentSong?.color};">
-    <div class="w-1/4 flex items-center gap-4">
+<div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 py-10 h-10 bottom-0 bg-gray-800" style="--colorful: {$currentSong?.color};">
+    <div class="w-1/4 flex items-center sm:gap-4">
         <img
         bind:this={coverImage}
         src={coverArtURL()}
@@ -46,7 +46,7 @@
     </div>
     
     <div class="flex flex-col w-2/4 items-center gap-2 justify-center">
-        <div class="flex items-center justify-between w-full gap-2">
+        <div class="flex items-center justify-between w-full lg:gap-2">
             <p class="w-fit text-nowrap text-xs">{formatSongTime($currentTime, !!$currentSong)}</p>
             <div class="flex items-center gap-2">
                 <PreviousButton/>
@@ -62,7 +62,7 @@
     </div>
 
     
-    <div class="w-1/4 flex gap-4 justify-center">
+    <div class="w-1/4 flex gap-2 sm:gap-4 justify-center">
         <ToggleViewButton/>
         <ModeButton/>
     </div>

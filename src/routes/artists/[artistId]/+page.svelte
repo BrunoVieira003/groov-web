@@ -16,8 +16,8 @@
     }
 </script>
 
-<div class="w-10/12 mx-auto">
-    <div class="mb-4">
+<div class="w-full sm:w-10/12 mx-auto">
+    <div class="mb-4 text-center sm:text-start">
         <p class="mb-1 text-sm">Artist</p>
         <h1 class="text-5xl mb-6">{data.artist?.name}</h1>
         <h2 class="text-2xl">Songs</h2>

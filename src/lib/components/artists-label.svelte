@@ -16,7 +16,7 @@
     }
 </script>
 
-<div class="flex gap-1">
+<div class="flex gap-1 flex-wrap">
     {#each artists as artist}
         <button
         onclick={() => onClickArtist(artist.id)}
