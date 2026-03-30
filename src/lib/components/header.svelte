@@ -1,14 +1,23 @@
 <script lang="ts">
     import { page } from "$app/state";
     import searchIcon from "$lib/assets/icons/search.svg?raw"
+    import { onClickOutside } from "runed";
 
     let searchText = $state(page.url.searchParams.get('q'))
 
+    
+    // svelte-ignore non_reactive_update
+    let sideMenu = $state<HTMLElement>()
+
+        let sidemenuActive = $state(false)
+        onClickOutside(() => sideMenu, () => sidemenuActive = false)
+
 </script>
+
 <div class="flex items-center justify-between lg:gap-20 h-1/12 bg-gray-800 py-3 px-2 lg:px-40">
-    <div class="flex items-center sm:gap-4 lg:gap-8">
-        <h1 class="text-2xl font-medium">Groov</h1>
-        <div class="hidden sm:flex sm:gap-4 lg:gap-8 items-center justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-slate-700">
+    <div class="flex items-center gap-1 sm:gap-4 lg:gap-8">
+        <h1 class="hidden sm:block text-2xl font-medium">Groov</h1>
+        <div class="flex sm:gap-4 lg:gap-8 items-center justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-slate-700">
             <a href="/">Home</a>
             <a href="/artists">Artists</a>
             <a href="/playlists">Playlists</a>
