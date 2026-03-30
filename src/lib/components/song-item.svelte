@@ -10,6 +10,8 @@
     import PlayButton from "./player/buttons/play-button.svelte";
     import { getCollectionContext } from "$lib/contexts/collection-context";
     import { invalidateAll } from "$app/navigation";
+    import Submenu from "./submenu.svelte";
+    import { fly } from "svelte/transition";
 
     interface PropsType{
         song: Song
@@ -63,11 +65,15 @@
 </script>
 
 <ContextMenu bind:this={contextMenu}>
-    <p class="p-4 text-md cursor-default">Add to playlist</p>
-    <PlaylistSelect onPick={addToPlaylist}/>
-    {#if collectionContext.collectionType === 'playlist'}
-        <button class="p-4 text-md cursor-pointer" onclick={() => removeFromPlaylist(collectionContext.collectionId)}>Remove from playlist</button>
-    {/if}
+    <div class="flex flex-col">
+        <p class="font-semibold text-gray-300 text-sm text-center py-2 w-full mx-auto">Options</p>
+        <Submenu label="Add to playlist" labelClass="w-full px-4 py-2 hover:bg-slate-700 cursor-pointer">
+            <PlaylistSelect onPick={addToPlaylist}/>
+        </Submenu>
+        {#if collectionContext.collectionType === 'playlist'}
+            <button class="text-md cursor-pointer px-4 py-2" onclick={() => removeFromPlaylist(collectionContext.collectionId)}>Remove from playlist</button>
+        {/if}
+    </div>
 </ContextMenu>
 
 <div
@@ -76,6 +82,7 @@ data-active={selected()}
 oncontextmenu={contextMenu.show}
 role="button"
 tabindex="-1"
+transition:fly={{ duration: 100 }}
 >
     <div class="flex items-center gap-4">
         <PlayButton paused={!selected() || $songQueue.paused} onclick={clickCallback}/>
