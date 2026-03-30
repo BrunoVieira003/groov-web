@@ -33,7 +33,7 @@
 <div class="absolute top-0 h-full flex flex-col text-white items-center justify-evenly w-full py-10 bg-gray-800" style="--colorful: {$currentSong?.color};">
     <div class="w-full h-full full-view" style="background-image: url({coverArtURL()});"></div>
 
-    <div class="w-3/5 flex items-center gap-16 z-1">
+    <div class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col md:flex-row items-center gap-10 xl:gap-16 z-1">
         <img
         bind:this={coverImage}
         src={coverArtURL()}
