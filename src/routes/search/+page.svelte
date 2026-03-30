@@ -22,8 +22,8 @@
     }
 </script>
 
-<h1 class="text-5xl mb-4">Results for "{page.url.searchParams.get("q")}"</h1>
-<div class="flex gap-2 mb-10">
+<h1 class="text-5xl mb-4 text-center sm:text-start">Results for "{page.url.searchParams.get("q")}"</h1>
+<div class="flex gap-2 mb-10 w-fit mx-auto sm:mx-0">
     <Chip bind:active={filters.songs}>Songs</Chip>
     <Chip bind:active={filters.artists}>Artists</Chip>
     <Chip bind:active={filters.playlists}>Playlists</Chip>
@@ -31,7 +31,7 @@
 
 <div class="w-full *:w-full">
     {#if filters.songs}
-        <div class="mb-10" transition:slide={{ duration: 200 }}>
+        <div class="mb-10 text-center sm:text-start" transition:slide={{ duration: 200 }}>
             <h2 class="text-3xl mb-2">Songs</h2>
             <p class="mb-6">{data.songs?.length} results</p>
             <SongItemList>
@@ -43,10 +43,10 @@
     {/if}
 
     {#if filters.artists}
-        <div transition:slide={{ duration: 200 }} class="mb-10">
+        <div transition:slide={{ duration: 200 }} class="mb-10 text-center sm:text-start">
             <h2 class="text-3xl mb-2">Artists</h2>
             <p class="mb-6">{data.artists?.length} results</p>
-            <div class="grid grid-cols-7 grid-flow-row gap-2">
+            <div class="grid grid-cols-2 w-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 grid-flow-row gap-2">
                 {#each data.artists as artist}
                     <div class="flex flex-col aspect-square p-2 bg-slate-800 w-fit items-center justify-between rounded-xl">
                         <img
@@ -54,7 +54,7 @@
                             src="https://robohash.org/${artist.name}"
                             alt="artist"
                         />
-                        <a href="/artists/{artist.id}" class="hover:underline">{artist.name}</a>
+                        <a href="/artists/{artist.id}" class="hover:underline line-clamp-2">{artist.name}</a>
                     </div>
                 {/each}
             </div>
@@ -62,13 +62,13 @@
     {/if}
 
     {#if filters.playlists}
-        <div transition:slide={{ duration: 200 }}>
+        <div transition:slide={{ duration: 200 }} class="text-center sm:text-start">
             <h2 class="text-3xl mb-2">Playlists</h2>
             <p class="mb-6">{data.playlists?.length} results</p>
             <div class="grid grid-cols-7 grid-flow-row gap-2">
                 {#each data.playlists as playlist}
-                    <div class="flex flex-col p-2 bg-slate-800 justify-between rounded-xl">
-                        <a href="/playlists/{playlist.id}" class="hover:underline">{playlist.title}</a>
+                    <div class="flex flex-col flex-wrap p-2 bg-slate-800 justify-between rounded-xl">
+                        <a href="/playlists/{playlist.id}" class="hover:underline text-center">{playlist.title}</a>
                     </div>
                 {/each}
             </div>
