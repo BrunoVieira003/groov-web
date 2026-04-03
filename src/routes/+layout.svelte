@@ -11,6 +11,7 @@
     import { viewMode } from '$lib/stores/viewMode';
     import FullPlayer from '$lib/components/player/full-player.svelte';
     import TaskList from '$lib/components/task-list.svelte';
+    import { randomNoSongPhrases } from '$lib/plugins/phrases';
 	
 	let { children } = $props();
 
@@ -63,6 +64,12 @@ onended={handleTrackEnd}
 </audio>
 <Toaster position='top-end'/>
 
+{#snippet emptyPlayer()}
+    <div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 sm:gap-4 py-10 h-10 bottom-0 bg-gray-800">
+        <p class="font-bold">{randomNoSongPhrases()}</p>
+    </div>
+{/snippet}
+
 <div class="flex flex-col w-full mx-auto h-screen ">
     {#if $viewMode === 'default'}
         <Header/>
@@ -70,10 +77,14 @@ onended={handleTrackEnd}
     <div class="relative overflow-y-auto flex-1 lg:px-30 pt-6 mb-2">
         {@render children()}
     </div>
-    {#if $viewMode === 'full'}
-        <FullPlayer/>
+    {#if $currentSong}
+        {#if $viewMode === 'full'}
+            <FullPlayer/>
+        {:else}
+            <Player/>
+        {/if}
     {:else}
-        <Player/>
+        {@render emptyPlayer()}
     {/if}
 </div>
 
