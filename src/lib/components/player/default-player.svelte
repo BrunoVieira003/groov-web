@@ -12,6 +12,7 @@
     import ToggleViewButton from "./buttons/toggle-view-button.svelte";
     import ProgressBar from "../progress-bar.svelte";
     import ModeButton from "./buttons/mode-button.svelte";
+    import Marquee from "../marquee.svelte";
 
     let coverImage: HTMLImageElement
 
@@ -30,7 +31,7 @@
 
 </script>
 
-<div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 py-10 h-10 bottom-0 bg-gray-800" style="--colorful: {$currentSong?.color};">
+<div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 sm:gap-4 py-10 h-10 bottom-0 bg-gray-800" style="--colorful: {$currentSong?.color};">
     <div class="w-1/4 flex items-center sm:gap-4">
         <img
         bind:this={coverImage}
@@ -39,8 +40,8 @@
         class="size-16 aspect-square rounded object-cover"
         onerror={() => coverImage.src = emptyImage}
         >
-        <div>
-            <a class="colorful font-bold text-md w-fit hover:cursor-pointer hover:underline line-clamp-1" href="/playing">{$currentSong?.title}</a>
+        <div class="w-full overflow-hidden">
+            <Marquee><a class="colorful font-bold text-md w-fit hover:cursor-pointer hover:underline" href="/playing">{$currentSong?.title}</a></Marquee>
             <ArtistsLabel artists={$currentSong?.authors || []} size='small'/>
         </div>
     </div>

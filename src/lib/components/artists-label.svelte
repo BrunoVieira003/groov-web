@@ -2,6 +2,7 @@
     import { goto } from "$app/navigation";
     import { viewMode } from "$lib/stores/viewMode";
     import type Artist from "$lib/types/artist";
+    import Marquee from "./marquee.svelte";
 
     interface Props{
         artists: {id: string, name: string}[],
@@ -16,8 +17,9 @@
     }
 </script>
 
-<div class="flex gap-1 flex-wrap">
-    {#each artists as artist}
+<Marquee>
+    <div class="flex gap-1">
+        {#each artists as artist}
         <button
         onclick={() => onClickArtist(artist.id)}
         class="cursor-pointer hover:underline not-last:after:content-[',']"
@@ -27,8 +29,9 @@
         >
             {artist.name}
         </button>
-    {/each}
-</div>
+        {/each}
+    </div>
+</Marquee>
 
 <style>
     .default{

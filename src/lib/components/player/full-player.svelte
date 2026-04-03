@@ -12,6 +12,7 @@
     import ToggleViewButton from "./buttons/toggle-view-button.svelte";
     import ProgressBar from "../progress-bar.svelte";
     import ModeButton from "./buttons/mode-button.svelte";
+    import Marquee from "../marquee.svelte";
 
     let coverImage: HTMLImageElement
 
@@ -41,9 +42,11 @@
         class="size-100 aspect-square rounded-lg object-cover"
         onerror={() => coverImage.src = emptyImage}
         >
-        <div class="flex flex-col w-full gap-10">
+        <div class="flex flex-col w-full gap-10 overflow-hidden">
             <div>
-                <p class="colorful font-bold text-5xl w-full text-shadow-lg line-clamp-1">{$currentSong?.title}</p>
+                <Marquee>
+                    <p class="colorful font-bold text-5xl text-shadow-lg">{$currentSong?.title}</p>
+                </Marquee>
                 <ArtistsLabel artists={$currentSong?.authors || []} size='big'/>
             </div>
 
