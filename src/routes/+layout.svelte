@@ -63,18 +63,19 @@ onended={handleTrackEnd}
 </audio>
 <Toaster position='top-end'/>
 
-{#if $viewMode === 'default'}
 <div class="flex flex-col w-full mx-auto h-screen ">
-    <Header/>
+    {#if $viewMode === 'default'}
+        <Header/>
+    {/if}
     <div class="relative overflow-y-auto flex-1 lg:px-30 pt-6 mb-2">
         {@render children()}
     </div>
-    <Player/>
+    {#if $viewMode === 'full'}
+        <FullPlayer/>
+    {:else}
+        <Player/>
+    {/if}
 </div>
-{/if}
-{#if $viewMode === 'full'}
-	<FullPlayer/>
-{/if}
 
 <TaskList/>
 
