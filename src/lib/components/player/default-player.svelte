@@ -6,13 +6,14 @@
     import { currentSong } from "$lib/stores/currentSong";
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "../artists-label.svelte";
-    import { currentTime, duration } from "$lib/stores/audioState";
+    import { currentTime, currentVolume, duration } from "$lib/stores/audioState";
     import PreviousButton from "./buttons/previous-button.svelte";
     import NextButton from "./buttons/next-button.svelte";
     import ToggleViewButton from "./buttons/toggle-view-button.svelte";
     import ProgressBar from "../progress-bar.svelte";
     import ModeButton from "./buttons/mode-button.svelte";
     import Marquee from "../marquee.svelte";
+    import Volume from "./buttons/volume.svelte";
 
     let coverImage: HTMLImageElement
 
@@ -58,14 +59,15 @@
             </div>
             <p class="w-fit text-nowrap text-xs">{formatSongTime($duration, !!$currentSong)}</p>
         </div>
-
         <ProgressBar min={0} max={$duration} bind:value={$currentTime} interactive/>
-    </div>
 
+    </div>
     
-    <div class="w-1/4 flex gap-2 sm:gap-4 justify-center">
+    
+    <div class="w-1/4 flex gap-2 sm:gap-4 justify-center items-center">
         <ToggleViewButton/>
         <ModeButton/>
+        <Volume/>
     </div>
 </div>
 

@@ -6,7 +6,7 @@
     import { currentSong } from '$lib/stores/currentSong';
     import { Toaster } from "svelte-hot-french-toast"
     import { PUBLIC_API_URL } from '$env/static/public';
-    import { currentTime, duration } from '$lib/stores/audioState';
+    import { currentTime, currentVolume, duration } from '$lib/stores/audioState';
     import { songQueue } from '$lib/stores/queue';
     import { viewMode } from '$lib/stores/viewMode';
     import FullPlayer from '$lib/components/player/full-player.svelte';
@@ -57,6 +57,7 @@ bind:this={audio}
 bind:duration={$duration}
 bind:currentTime={$currentTime}
 bind:paused={$songQueue.paused}
+bind:volume={$currentVolume}
 autoplay
 onended={handleTrackEnd}
 >

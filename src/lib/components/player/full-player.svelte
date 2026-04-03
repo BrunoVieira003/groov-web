@@ -13,6 +13,7 @@
     import ProgressBar from "../progress-bar.svelte";
     import ModeButton from "./buttons/mode-button.svelte";
     import Marquee from "../marquee.svelte";
+    import Volume from "./buttons/volume.svelte";
 
     let coverImage: HTMLImageElement
 
@@ -68,9 +69,10 @@
                 
             </div>
 
-            <div class="w-1/4 flex gap-4">
+            <div class="w-fit flex gap-4 mx-auto">
                 <ToggleViewButton/>
                 <ModeButton/>
+                <Volume/>
             </div>
         </div>
     </div>
