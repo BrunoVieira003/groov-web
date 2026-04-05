@@ -2,6 +2,7 @@
     import { PUBLIC_API_URL } from "$env/static/public";
     import type { Album } from "$lib/types/album";
     import emptyImage from '$lib/assets/images/empty.png'
+    import Marquee from "./marquee.svelte";
 
     interface PropsType{
         albums: Album[]
@@ -23,7 +24,9 @@
             class="aspect-square! self-center rounded-xl object-cover"
             onerror={() => coverImage.src = emptyImage }
             >
-            <a href="/albums/{album.id}" class="hover:underline text-nowrap text-md w-fit mx-auto font-bold">{album.title}</a>
+            <Marquee>
+                <a href="/albums/{album.id}" class="hover:underline text-nowrap text-md w-fit mx-auto font-bold">{album.title}</a>
+            </Marquee>
             <p class="text-sm">{album.year}</p>
         </div>
     {/each}
