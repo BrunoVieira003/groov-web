@@ -10,13 +10,6 @@
     function handlePlayAll(){
         songQueue.playQueue(data.songs || [], 0, 'library', 'All songs')
     }
-
-    function playItem(songId?: string){
-        if(data.songs){
-            const songIndex = data.songs.findIndex(s => s.id === songId)
-            songQueue.playQueue(data.songs, songIndex, 'library', 'All songs')
-        }
-    }
 </script>
 
 
@@ -31,8 +24,9 @@ onclick={handlePlayAll}
     Play all
 </button>
 
-<SongItemList>
-    {#each data.songs as song}
-       <SongItem {song} onPlayClick={playItem}/>
-    {/each}
-</SongItemList>
+<SongItemList
+collectionId=''
+collectionName='All songs'
+collectionType='library'
+tracks={data.songs || []}
+/>

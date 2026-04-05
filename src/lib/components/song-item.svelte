@@ -16,24 +16,24 @@
 
     interface PropsType {
         song: Song;
-        onPlayClick: (songId?: string) => void;
     }
 
     let contextMenu = $state<ContextMenu>();
 
-    let { song, onPlayClick }: PropsType = $props();
+    let { song }: PropsType = $props();
 
     let selected = $derived(() => $currentSong?.id === song.id);
 
     let collectionContext = getCollectionContext();
 
-    function clickCallback() {
+    function playItem() {
         if (selected()) {
             songQueue.togglePlay();
             return;
         }
 
-        onPlayClick(song.id);
+        const songIndex = collectionContext.tracks.findIndex(s => s.id === song.id)
+        songQueue.playQueue(collectionContext.tracks, songIndex, collectionContext.collectionType, collectionContext.collectionName)
     }
 
     function addToPlaylist(playlistId: string) {
@@ -49,7 +49,9 @@
             .finally(contextMenu?.hide);
     }
 
-    function removeFromPlaylist(playlistId: string) {
+    function removeFromPlaylist(playlistId: string | undefined) {
+        if(!playlistId) return
+
         api.delete(`/playlists/${playlistId}/song`, {
             data: { songId: song.id },
         })
@@ -101,7 +103,7 @@
     <div class="flex items-center gap-4">
         <PlayButton
             paused={!selected() || $songQueue.paused}
-            onclick={clickCallback}
+            onclick={playItem}
         />
         <div class="flex flex-col w-full overflow-hidden">
             <Marquee>

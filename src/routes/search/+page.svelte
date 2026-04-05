@@ -1,9 +1,7 @@
 <script lang="ts">
     import { page } from "$app/state";
-    import { PUBLIC_API_URL } from "$env/static/public";
     import Chip from "$lib/components/chip.svelte";
     import SongItemList from "$lib/components/song-item-list.svelte";
-    import SongItem from "$lib/components/song-item.svelte";
     import { songQueue } from "$lib/stores/queue";
     import { slide } from "svelte/transition";
     import type { PageProps } from "./$types";
@@ -34,11 +32,12 @@
         <div class="mb-10 text-center sm:text-start" transition:slide={{ duration: 200 }}>
             <h2 class="text-3xl mb-2">Songs</h2>
             <p class="mb-6">{data.songs?.length} results</p>
-            <SongItemList>
-                {#each data.songs as song}
-                    <SongItem {song} onPlayClick={playItem} />
-                {/each}
-            </SongItemList>
+            <SongItemList
+            collectionId=''
+            collectionName="Search '{page.url.searchParams.get('q')}'" 
+            collectionType='search'
+            tracks={data.songs || []}
+            />
         </div>
     {/if}
 

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { PUBLIC_API_URL } from "$env/static/public";
     import SongItemList from "$lib/components/song-item-list.svelte";
-    import SongItem from "$lib/components/song-item.svelte";
     import { currentSong } from "$lib/stores/currentSong";
     import { songQueue } from "$lib/stores/queue";
     import emptyImage from '$lib/assets/images/empty.png'
@@ -18,11 +17,6 @@
 
         return `${PUBLIC_API_URL}/songs/${$currentSong.id}/cover`
     })
-
-    function playItem(songId?: string){
-        const songIndex = $songQueue.tracks.findIndex(s => s.id === songId)
-        songQueue.playQueue($songQueue.tracks, songIndex)
-    }
 
 </script>
 
@@ -57,11 +51,11 @@
 </div>
 <div class="mt-20 w-full sm:w-11/12 sm:mx-auto">
     <h1 class="text-xl mb-4">Queue</h1>
-    <SongItemList>
-        {#each $songQueue.tracks as track}
-            <SongItem song={track} onPlayClick={playItem}/>
-        {/each}
-    </SongItemList>
+    <SongItemList 
+    collectionName={$songQueue.collectionName}
+    collectionType={$songQueue.collectionType}
+    tracks={$songQueue.tracks}
+    />
 </div>
 {/if}
 

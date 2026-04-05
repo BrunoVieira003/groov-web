@@ -1,10 +1,13 @@
+import type Song from "$lib/types/song";
 import { createContext } from "svelte";
 
-export type CollectionType = 'artist' | 'playlist' | 'album' | 'library' | 'other'
+export type CollectionType = 'artist' | 'playlist' | 'album' | 'library' | 'search' | 'other'
 
 interface CollectionContextType{
-    collectionId: string
+    collectionId: string | undefined
     collectionType: CollectionType
+    collectionName: string | undefined
+    tracks: Song[]
 }
 
 
