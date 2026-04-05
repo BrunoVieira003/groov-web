@@ -8,13 +8,13 @@
     let { data }: PageProps = $props()
 
     function handlePlayAll(){
-        songQueue.playQueue(data.songs || [])
+        songQueue.playQueue(data.songs || [], 0, 'library', 'All songs')
     }
 
     function playItem(songId?: string){
         if(data.songs){
             const songIndex = data.songs.findIndex(s => s.id === songId)
-            songQueue.playQueue(data.songs, songIndex)
+            songQueue.playQueue(data.songs, songIndex, 'library', 'All songs')
         }
     }
 </script>

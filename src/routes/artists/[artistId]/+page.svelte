@@ -11,7 +11,7 @@
         if(data.artist){
             const songIndex = data.artist.songs.findIndex(s => s.id === songId)
             const songs = data.artist.songs
-            songQueue.playQueue(songs, songIndex)
+            songQueue.playQueue(songs, songIndex, 'artist', data.artist.name)
         }
     }
 </script>

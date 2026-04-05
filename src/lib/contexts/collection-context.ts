@@ -1,6 +1,6 @@
 import { createContext } from "svelte";
 
-export type CollectionType = 'artist' | 'playlist' | 'album' | 'other'
+export type CollectionType = 'artist' | 'playlist' | 'album' | 'library' | 'other'
 
 interface CollectionContextType{
     collectionId: string

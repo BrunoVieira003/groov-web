@@ -6,6 +6,7 @@
     import { songQueue } from "$lib/stores/queue";
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "$lib/components/artists-label.svelte";
+    import Marquee from "$lib/components/marquee.svelte";
 
     // svelte-ignore non_reactive_update
         let coverImage: HTMLImageElement
@@ -27,18 +28,26 @@
 
 
 {#if $currentSong}
-<div class="flex flex-col gap-4 w-fit items-stretch mx-2 sm:mx-auto" style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;">
+<div class="flex flex-col gap-4 w-4/12 mx-2 sm:mx-auto" style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;">
+    {#if $songQueue.collectionName}
+        <div class="-mb-2">
+            <p class="text-sm">Playing from {$songQueue.collectionType}</p>
+            <p class="text-lg">{$songQueue.collectionName}</p>
+        </div>
+    {/if}
     <img
     bind:this={coverImage}
     src={coverArtURL()}
     alt="cover_art"
     class:colorful-glow={!!$currentSong.color}
-    class="aspect-square! self-center sm:size-120 rounded-xl object-cover white-glow"
+    class="sm:size-120 rounded-xl object-cover white-glow"
     onerror={() => coverImage.src = emptyImage}
     >
-    <div class="flex items-center justify-between mx-2">
-        <div>
-            <p class="colorful text-lg font-bold line-clamp-1">{$currentSong?.title}</p>
+    <div class="flex items-center justify-between w-full sm:w-120 overflow-hidden">
+        <div class="w-full">
+            <Marquee>
+                <p class="colorful text-xl font-bold">{$currentSong?.title}</p>
+            </Marquee>
             <ArtistsLabel artists={$currentSong?.authors || []}/>
         </div>
         <div>

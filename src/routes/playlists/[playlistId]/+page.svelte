@@ -10,7 +10,7 @@
         if(data.playlist){
             const songIndex = data.playlist.songs.findIndex(s => s.id === songId)
             const songs = data.playlist.songs
-            songQueue.playQueue(songs, songIndex)
+            songQueue.playQueue(songs, songIndex, 'playlist', data.playlist.title)
         }
     }
 </script>

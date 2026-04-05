@@ -1,6 +1,7 @@
 import type Song from "$lib/types/song";
 import { derived, get, writable, type Updater } from "svelte/store";
 import { currentSong } from "./currentSong";
+import type { CollectionType } from "$lib/contexts/collection-context";
 
 type PlayModeType = 'repeat-off' | 'repeat-all' | 'repeat-one'
 
@@ -9,6 +10,8 @@ interface SongQueue {
     paused: boolean
     currentIndex: number
     loopMode: PlayModeType
+    collectionType?: CollectionType
+    collectionName?: string
 }
 
 const defaultValues: SongQueue = {
@@ -70,7 +73,7 @@ const togglePlay = () => songQueueStore.update((state) => {
     }
 })
 
-const playQueue = (songs: Song[], playNowIndex?: number) => songQueueStore.update((state) => {
+const playQueue = (songs: Song[], playNowIndex?: number, collectionType: CollectionType = 'other', collectionName: string | undefined = undefined) => songQueueStore.update((state) => {
     if (songs.length === 0) {
         return state
     }
@@ -81,7 +84,9 @@ const playQueue = (songs: Song[], playNowIndex?: number) => songQueueStore.updat
     return {
         ...state,
         currentIndex: index,
-        tracks: songs
+        tracks: songs,
+        collectionType,
+        collectionName
     }
 })
 
