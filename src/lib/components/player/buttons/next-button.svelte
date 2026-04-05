@@ -14,7 +14,7 @@
     });
 </script>
 
-<button onclick={songQueue.nextTrack}>
+<button onclick={songQueue.nextTrack} class="data-[enabled=true]:cursor-pointer" data-enabled={enabled()}>
     <div class="text-white size-5 data-[enabled=false]:opacity-20" data-enabled={enabled()}>
         {@html nextIcon}
     </div>
