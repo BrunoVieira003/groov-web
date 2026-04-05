@@ -3,6 +3,6 @@
     import fullModeIcon from "$lib/assets/icons/full-mode.svg?raw"
 
 </script>
-<button onclick={toggleViewMode} title="Change view mode" class="flex flex-col gap-2 items-center w-fit cursor-pointer group">
+<button onclick={toggleViewMode} title="Change view mode" class="w-fit cursor-pointer">
     {@html fullModeIcon}
 </button>

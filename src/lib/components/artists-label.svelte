@@ -1,5 +1,6 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
+    import { currentSong } from "$lib/stores/currentSong";
     import { viewMode } from "$lib/stores/viewMode";
     import type Artist from "$lib/types/artist";
     import Marquee from "./marquee.svelte";
@@ -7,9 +8,10 @@
     interface Props{
         artists: {id: string, name: string}[],
         size?: 'small' | 'default' | 'big'
+        color?: 'default' | 'colorful' | 'contrast'
     }
 
-    let {artists, size = 'default'}: Props = $props()
+    let {artists, size = 'default', color = 'default'}: Props = $props()
 
     async function onClickArtist(artistId: string){
         viewMode.set('default')
@@ -26,6 +28,10 @@
         class:default={size === 'default'}
         class:small={size === 'small'}
         class:big={size === 'big'}
+        class:colorful={color === 'colorful'}
+        class:contrast={color === 'contrast'}
+        style:--colorful={$currentSong?.color ?? ''}
+        style:--contrast={$currentSong?.contrastColor ?? ''}
         >
             {artist.name}
         </button>
@@ -44,5 +50,13 @@
 
     .big{
         font-size: 1.25rem;
+    }
+
+    .colorful{
+       color: var(--colorful); 
+    }
+
+    .contrast{
+       color: var(--contrast); 
     }
 </style>

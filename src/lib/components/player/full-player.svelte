@@ -32,7 +32,10 @@
 
 </script>
 
-<div class="absolute top-0 h-full flex flex-col text-white items-center justify-evenly w-full py-10 bg-gray-800" style="--colorful: {$currentSong?.color};">
+<div class="absolute top-0 h-full flex flex-col text-white items-center justify-evenly w-full py-10 bg-gray-800"
+style:--colorful={$currentSong?.color}
+style:--colorful-contrast={$currentSong?.contrastColor}
+>
     <div class="w-full h-full full-view" style="background-image: url({coverArtURL()});"></div>
 
     <div class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col md:flex-row items-center gap-10 xl:gap-16 z-1">
@@ -46,9 +49,9 @@
         <div class="flex flex-col w-full gap-10 overflow-hidden">
             <div>
                 <Marquee>
-                    <p class="colorful font-bold text-5xl text-shadow-lg">{$currentSong?.title}</p>
+                    <p class="text-(--colorful-contrast) font-bold text-5xl text-shadow-lg">{$currentSong?.title}</p>
                 </Marquee>
-                <ArtistsLabel artists={$currentSong?.authors || []} size='big'/>
+                <ArtistsLabel artists={$currentSong?.authors || []} size='big' color='contrast'/>
             </div>
 
             <div class="flex flex-col w-full items-center gap-2 justify-center z-1">
@@ -86,10 +89,6 @@
 
 
 <style>
-    .colorful{
-        color: var(--colorful);
-    }
-
     .full-view{
         position: absolute;
         top: 0;
