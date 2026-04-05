@@ -6,6 +6,7 @@
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "$lib/components/artists-label.svelte";
     import Marquee from "$lib/components/marquee.svelte";
+    import type { derived } from "svelte/store";
 
     // svelte-ignore non_reactive_update
         let coverImage: HTMLImageElement
@@ -18,6 +19,15 @@
         return `${PUBLIC_API_URL}/songs/${$currentSong.id}/cover`
     })
 
+    let collectionLink = $derived(() => {
+        switch ($songQueue.collectionType){
+            case 'artist': return `/artists/${$songQueue.collectionId}`
+            case 'album': return `/albums/${$songQueue.collectionId}`
+            case 'playlist': return `/playlists/${$songQueue.collectionId}`
+            default: return ''
+        }
+    })
+
 </script>
 
 
@@ -26,7 +36,7 @@
     {#if $songQueue.collectionName}
         <div class="-mb-2">
             <p class="text-sm">Playing from {$songQueue.collectionType}</p>
-            <p class="text-lg">{$songQueue.collectionName}</p>
+            <a href={collectionLink()} class="text-lg">{$songQueue.collectionName}</a>
         </div>
     {/if}
     <img

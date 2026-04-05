@@ -33,7 +33,7 @@
         }
 
         const songIndex = collectionContext.tracks.findIndex(s => s.id === song.id)
-        songQueue.playQueue(collectionContext.tracks, songIndex, collectionContext.collectionType, collectionContext.collectionName)
+        songQueue.playQueue(collectionContext.tracks, songIndex, collectionContext.collectionType, collectionContext.collectionName, collectionContext.collectionId || '')
     }
 
     function addToPlaylist(playlistId: string) {

@@ -12,6 +12,7 @@ interface SongQueue {
     loopMode: PlayModeType
     collectionType?: CollectionType
     collectionName?: string
+    collectionId?: string
 }
 
 const defaultValues: SongQueue = {
@@ -73,7 +74,7 @@ const togglePlay = () => songQueueStore.update((state) => {
     }
 })
 
-const playQueue = (songs: Song[], playNowIndex?: number, collectionType: CollectionType = 'other', collectionName: string | undefined = undefined) => songQueueStore.update((state) => {
+const playQueue = (songs: Song[], playNowIndex?: number, collectionType: CollectionType = 'other', collectionName: string | undefined = undefined, collectionId: string | undefined = undefined) => songQueueStore.update((state) => {
     if (songs.length === 0) {
         return state
     }
@@ -86,7 +87,8 @@ const playQueue = (songs: Song[], playNowIndex?: number, collectionType: Collect
         currentIndex: index,
         tracks: songs,
         collectionType,
-        collectionName
+        collectionName,
+        collectionId,
     }
 })
 
