@@ -60,46 +60,52 @@ const previousTrackStrategies: Record<PlayModeType, Updater<SongQueue>> = {
     }
 }
 
-function createSongQueueStore() {
-    const store = writable<SongQueue>(defaultValues)
+const songQueueStore = writable<SongQueue>(defaultValues)
 
+const togglePlay = () => songQueueStore.update((state) => {
+    navigator.mediaSession.playbackState = "paused"
     return {
-        ...store,
-        togglePlay: () => store.update((state) => {
-            navigator.mediaSession.playbackState = "paused"
-            return {
-                ...state,
-                paused: !state.paused
-            }
-        }),
-        playQueue: (songs: Song[], playNowIndex?: number) => store.update((state) => {
-            if (songs.length === 0) {
-                return state
-            }
+        ...state,
+        paused: !state.paused
+    }
+})
 
-            const index = playNowIndex || 0
+const playQueue = (songs: Song[], playNowIndex?: number) => songQueueStore.update((state) => {
+    if (songs.length === 0) {
+        return state
+    }
 
-            currentSong.set(songs.at(index))
-            return {
-                ...state,
-                currentIndex: index,
-                tracks: songs
-            }
-        }),
-        playSong: (song: Song) => store.update((state) => {
-            currentSong.set(song)
-            return {
-                ...state,
-                tracks: [song],
-                currentIndex: 0
-            }
-        }),
-        nextTrack: () => store.update(nextTrackStrategies[get(store).loopMode]),
-        previousTrack: () => store.update(previousTrackStrategies[get(store).loopMode])
+    const index = playNowIndex || 0
 
+    currentSong.set(songs.at(index))
+    return {
+        ...state,
+        currentIndex: index,
+        tracks: songs
+    }
+})
+
+const playSong = (song: Song) => songQueueStore.update((state) => {
+    currentSong.set(song)
+    return {
+        ...state,
+        tracks: [song],
+        currentIndex: 0
+    }
+})
+
+const nextTrack = () => songQueueStore.update(nextTrackStrategies[get(songQueueStore).loopMode])
+const previousTrack = () => songQueueStore.update(previousTrackStrategies[get(songQueueStore).loopMode])
+
+function createSongQueueStore(){
+    return {
+        ...songQueueStore,
+        togglePlay,
+        playQueue,
+        playSong,
+        nextTrack,
+        previousTrack
     }
 }
 
 export const songQueue = createSongQueueStore()
-
-
