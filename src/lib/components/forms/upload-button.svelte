@@ -60,6 +60,6 @@
     }
 
     .filled{
-        background-color: #0f172b;
+        background-color: var(--color-neutral-dark);
     }
 </style>

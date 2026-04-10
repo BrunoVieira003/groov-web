@@ -16,7 +16,7 @@
             bind:this={coverImage}
             src="{PUBLIC_API_URL}/albums/{data.album?.id}/cover"
             alt="album_cover_art"
-            class="aspect-square! self-center size-60 rounded-xl object-cover"
+            class="aspect-square! self-center size-60 rounded-xl object-cover volume-shadow"
             onerror={() => coverImage.src = emptyImage}
             >
             <div class="mx-auto text-center sm:text-start sm:mx-0">
@@ -33,3 +33,13 @@
     tracks={data.album?.songs || []}
     />
 </div>
+
+<style>
+    .volume-shadow{
+        /* https://smoothshadows.com/#djEsMSw1LDAuMDksNzcsMCwwLCMzMzMzMzMsIzEyMTIxMiwjMTIxMjEyLDI%3D */
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.05),
+        0px 0px 12px rgba(0, 0, 0, 0.1),
+        0px 0px 28px rgba(0, 0, 0, 0.2),
+        0px 0px 49px rgba(0, 0, 0, 0.4);
+    }
+</style>

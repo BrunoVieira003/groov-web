@@ -7,7 +7,7 @@
 
 <div class="flex flex-col absolute top-20 right-10 w-100 h-fit gap-4">
     {#each $runningTasks as task (task.id)}
-        <div class="bg-slate-800 h-fit w-full p-4 rounded" transition:slide={{axis: 'y'}}>
+        <div class="bg-neutral-medium h-fit w-full p-4 rounded" transition:slide={{axis: 'y'}}>
             <div class="flex justify-between items-center">
                 <p>{task.label}</p>
                 {#if task.status === 'done'}

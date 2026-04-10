@@ -12,7 +12,6 @@
                 if(result.data){
                     trackTask('upload', result.data.taskId, 'Upload')
                 }
-                toast.success('File uploaded')
             }else{
                 toast.error('Upload failed')
             }
@@ -26,7 +25,6 @@
                 if(result.data){
                     trackTask('scan-folder', result.data.taskId, 'Scan folder')
                 }
-                toast.success('Scan initialized')
             }else{
                 toast.error('Scan failed')
             }
@@ -40,7 +38,6 @@
                 if(result.data){
                     trackTask('prune-songs', result.data.taskId, 'Prune songs')
                 }
-                toast.success('Prune initialized')
             }else{
                 toast.error('Prune failed')
             }
