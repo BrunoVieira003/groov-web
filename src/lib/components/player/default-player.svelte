@@ -32,7 +32,7 @@
 
 </script>
 
-<div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 sm:gap-4 py-10 h-10 bottom-0 bg-gray-800" style="--colorful: {$currentSong?.color};">
+<div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-30 sm:gap-4 py-10 h-10 bottom-0 bg-neutral-medium" style="--colorful: {$currentSong?.color};">
     <div class="w-1/4 flex items-center sm:gap-4">
         <img
         bind:this={coverImage}
@@ -49,7 +49,7 @@
     
     <div class="flex flex-col w-2/4 items-center gap-2 justify-center">
         <div class="flex items-center justify-between w-full lg:gap-2">
-            <p class="w-fit text-nowrap text-xs">{formatSongTime($currentTime, !!$currentSong)}</p>
+            <p class="w-fit text-nowrap text-xs text-subheading">{formatSongTime($currentTime, !!$currentSong)}</p>
             <div class="flex items-center gap-2">
                 <PreviousButton/>
 
@@ -57,7 +57,7 @@
 
                 <NextButton/>
             </div>
-            <p class="w-fit text-nowrap text-xs">{formatSongTime($duration, !!$currentSong)}</p>
+            <p class="w-fit text-nowrap text-xs text-subheading">{formatSongTime($duration, !!$currentSong)}</p>
         </div>
         <ProgressBar min={0} max={$duration} bind:value={$currentTime} interactive/>
 

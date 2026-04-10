@@ -32,12 +32,12 @@
 
     <input
     type="range" bind:value={$currentVolume}
-    class="volume-control"
+    class="volume-control bg-linear-to-l from-neutral-medium to-heading from-0% to-10%"
     onchange={() => previousVolume = $currentVolume}
     min="0"
     max="1"
     step="0.01"
-    style:--background="linear-gradient(90deg, {activeColor} {progress()}%, {inactiveColor} {progress()}%)"
+    style:--background="linear-gradient(90deg, var(--color-heading) {progress()}%, var(--color-neutral-lighter) {progress()}%)"
     >
 </div>
 

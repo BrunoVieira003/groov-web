@@ -25,9 +25,9 @@
             onerror={() => coverImage.src = emptyImage }
             >
             <Marquee>
-                <a href="/albums/{album.id}" class="hover:underline text-nowrap text-md w-fit mx-auto font-bold">{album.title}</a>
+                <a href="/albums/{album.id}" class="hover:underline text-nowrap text-md w-fit mx-auto font-bold text-heading">{album.title}</a>
             </Marquee>
-            <p class="text-sm">{album.year}</p>
+            <p class="text-sm text-legend">{album.year}</p>
         </div>
     {/each}
 </div>

@@ -32,7 +32,7 @@
 
 </script>
 
-<div class="absolute top-0 h-full flex flex-col text-white items-center justify-evenly w-full py-10 bg-gray-800"
+<div class="absolute top-0 h-full flex flex-col items-center justify-evenly w-full py-10 bg-neutral-dark"
 style:--colorful={$currentSong?.color}
 style:--colorful-contrast={$currentSong?.contrastColor}
 >
@@ -51,13 +51,13 @@ style:--colorful-contrast={$currentSong?.contrastColor}
                 <Marquee>
                     <p class="text-(--colorful-contrast) font-bold text-5xl text-shadow-lg">{$currentSong?.title}</p>
                 </Marquee>
-                <ArtistsLabel artists={$currentSong?.authors || []} size='big' color='contrast'/>
+                <ArtistsLabel artists={$currentSong?.authors || []} size='big' color='default'/>
             </div>
 
             <div class="flex flex-col w-full items-center gap-2 justify-center z-1">
 
                 <div class="flex w-full  items-center justify-between gap-2">
-                    <p class="w-fit text-nowrap text-xs">{formatSongTime($currentTime, !!$currentSong)}</p>
+                    <p class="w-fit text-nowrap text-xs text-subheading">{formatSongTime($currentTime, !!$currentSong)}</p>
                     <div class="flex items-center gap-2">
                         <PreviousButton/>
 
@@ -65,7 +65,7 @@ style:--colorful-contrast={$currentSong?.contrastColor}
 
                         <NextButton/>
                     </div>
-                    <p class="w-fit text-nowrap text-xs">{formatSongTime($duration, !!$currentSong)}</p>
+                    <p class="w-fit text-nowrap text-xs text-subheading">{formatSongTime($duration, !!$currentSong)}</p>
                 </div>
 
                 <ProgressBar min={0} max={$duration} bind:value={$currentTime} interactive/>

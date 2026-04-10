@@ -20,20 +20,20 @@
         bind:value={value}
         min={min}
         max={max}
-        class="range-slider bg-gray-500"
+        class="range-slider bg-neutral-lighter"
         type="range"
         step="0.01"
         />
     {/if}
     
     <div
-    class="progress bg-gray-200 transition-all duration-50"
+    class="progress bg-heading transition-all duration-50"
     style="width: {progress()}%;"
     >
     </div>
 
     <div
-    class="slider-thumb bg-gray-200"
+    class="slider-thumb bg-heading"
     style="left: calc({progress()}% - 0.5rem);"
     >
     </div>

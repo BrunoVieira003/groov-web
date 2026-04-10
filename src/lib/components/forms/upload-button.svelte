@@ -34,7 +34,7 @@
     bind:this={button}
     onclick={() => fileInput?.click()}
     type="button"
-    class='bg-slate-800 rounded-lg cursor-pointer w-full'
+    class='bg-neutral-light hover:bg-neutral-lighter rounded-lg cursor-pointer w-full'
     class:big={size === 'big'}
     class:normal={size === 'normal'}
     class:filled={value}

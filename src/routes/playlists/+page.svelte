@@ -20,17 +20,17 @@
 
 </script>
 
-<div>
+<div class="w-full sm:w-10/12 sm:mx-auto">
     <h1 class="page-title">Playlists</h1>
-    <form method="POST" class="flex flex-wrap items-center gap-2 mb-4" use:enhance>
-        <input type="text" name="title" placeholder="Your playlist name" bind:value={title} class="bg-slate-900 w-full sm:w-fit py-2 px-3 rounded-md text-slate-600 outline-none border-2 border-transparent focus:text-white focus:border-slate-600">
+    <form method="POST" class="flex flex-wrap items-center gap-2 mb-4 has-[.input:focus]:text-white" use:enhance>
+        <input type="text" name="title" placeholder="Your playlist name" bind:value={title} class="input bg-neutral-medium w-full sm:w-fit py-2 px-3 rounded-md outline-none border-2 border-transparent focus:border-neutral-lighter">
         <input type="submit" value="Create" class="w-full mx-auto sm:w-fit sm:mx-0">
     </form>
     <PlaylistList>
         {#each data.playlists as playlist (playlist.id)}
-            <div class="flex items-center justify-between gap-10 p-4 rounded-md hover:bg-gray-900">
+            <div class="flex items-center justify-between gap-10 p-4 rounded-md hover:bg-neutral-medium">
                 <a href="/playlists/{playlist.id}">{playlist.title}</a>
-                <button class="text-white cursor-pointer hover:bg-gray-800 hover:text-red-400 p-2 rounded-md" onclick={() => deletePlaylist(playlist.id || '')}>
+                <button class="text-white cursor-pointer hover:bg-neutral-light hover:text-red-400 p-2 rounded-md" onclick={() => deletePlaylist(playlist.id || '')}>
                     {@html trashIcon}
                 </button>
             </div>

@@ -11,7 +11,7 @@
         title="No repeat"
         onclick={() => ($songQueue.loopMode = "repeat-all")}
     >
-        <div class="size-6 text-white">
+        <div class="size-6 text-heading">
             {@html repeatOffIcon}
         </div>
     </button>
@@ -23,7 +23,7 @@
         title="Repeat all"
         onclick={() => ($songQueue.loopMode = "repeat-one")}
     >
-        <div class="size-6 text-white">
+        <div class="size-6 text-heading">
             {@html repeatAllIcon}
         </div>
     </button>
@@ -35,7 +35,7 @@
         title="Repeat one"
         onclick={() => ($songQueue.loopMode = "repeat-off")}
     >
-        <div class="size-6 text-white">
+        <div class="size-6 text-heading">
             {@html repeatOneIcon}
         </div>
     </button>

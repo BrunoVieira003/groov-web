@@ -20,9 +20,9 @@
             onerror={() => coverImage.src = emptyImage}
             >
             <div class="mx-auto text-center sm:text-start sm:mx-0">
-                <h1 class="text-5xl mb-2">{data.album?.title}</h1>
-                <a href="/artists/{data.album?.artist.id}" class="text-xl mb-6 hover:underline">{data.album?.artist.name}</a>
-                <p class="text-sm">{data.album?.songs.length} {data.album && data.album?.songs.length > 1 ? 'songs': 'song'}</p>
+                <h1 class="text-5xl mb-2 text-highlight">{data.album?.title}</h1>
+                <a href="/artists/{data.album?.artist.id}" class="text-xl mb-6 hover:underline text-subheading">{data.album?.artist.name}</a>
+                <p class="text-sm text-legend">{data.album?.songs.length} {data.album && data.album?.songs.length > 1 ? 'songs': 'song'}</p>
             </div>
         </div>
     </div>

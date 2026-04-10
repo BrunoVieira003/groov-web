@@ -47,7 +47,7 @@
             <p class="mb-6">{data.artists?.length} results</p>
             <div class="grid grid-cols-2 w-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 grid-flow-row gap-2">
                 {#each data.artists as artist}
-                    <div class="flex flex-col aspect-square p-2 bg-slate-800 w-fit items-center justify-between rounded-xl">
+                    <div class="flex flex-col aspect-square p-2 bg-neutral-medium w-fit items-center justify-between rounded-xl">
                         <img
                             class="size-9/12 rounded-full aspect-square"
                             src="https://robohash.org/${artist.name}"
@@ -66,7 +66,7 @@
             <p class="mb-6">{data.playlists?.length} results</p>
             <div class="grid grid-cols-7 grid-flow-row gap-2">
                 {#each data.playlists as playlist}
-                    <div class="flex flex-col flex-wrap p-2 bg-slate-800 justify-between rounded-xl">
+                    <div class="flex flex-col flex-wrap p-2 bg-neutral-medium justify-between rounded-xl">
                         <a href="/playlists/{playlist.id}" class="hover:underline text-center">{playlist.title}</a>
                     </div>
                 {/each}

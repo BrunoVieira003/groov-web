@@ -35,8 +35,8 @@
 <div class="flex flex-col gap-4 w-4/12 mx-2 sm:mx-auto" style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;">
     {#if $songQueue.collectionName}
         <div class="-mb-2">
-            <p class="text-sm">Playing from {$songQueue.collectionType}</p>
-            <a href={collectionLink()} class="text-lg">{$songQueue.collectionName}</a>
+            <p class="text-sm text-legend">Playing from {$songQueue.collectionType}</p>
+            <a href={collectionLink()} class="text-lg text-heading">{$songQueue.collectionName}</a>
         </div>
     {/if}
     <img
@@ -55,7 +55,7 @@
             <ArtistsLabel artists={$currentSong?.authors || []}/>
         </div>
         <div>
-            <p>{$currentSong?.year}</p>
+            <p class="text-legend">{$currentSong?.year}</p>
         </div>
     </div>
 </div>

@@ -13,12 +13,12 @@
 </script>
 
 
-<h1 class="page-title">Songs</h1>
+<h1 class="page-title text-highlight">Songs</h1>
 <button
-class="flex items-center gap-4 bg-slate-700 rounded-full py-2 px-4 mb-6"
+class="flex items-center gap-4 bg-neutral-lighter rounded-full py-2 px-4 mb-6"
 onclick={handlePlayAll}
 >
-    <div class="text-white size-10 data-[enabled=false]:opacity-20">
+    <div class="text-heading size-10 data-[enabled=false]:opacity-20">
         {@html playIcon}
     </div>
     Play all

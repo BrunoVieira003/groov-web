@@ -24,7 +24,7 @@
         {#each artists as artist}
         <button
         onclick={() => onClickArtist(artist.id)}
-        class="cursor-pointer hover:underline not-last:after:content-[',']"
+        class="cursor-pointer hover:underline text-subheading not-last:after:content-[',']"
         class:default={size === 'default'}
         class:small={size === 'small'}
         class:big={size === 'big'}

@@ -66,12 +66,12 @@ onended={handleTrackEnd}
 <Toaster position='top-end'/>
 
 {#snippet emptyPlayer()}
-    <div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 sm:gap-4 py-10 h-10 bottom-0 bg-gray-800">
+    <div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 sm:gap-4 py-10 h-10 bottom-0 bg-neutral-medium">
         <p class="font-bold">{randomNoSongPhrases()}</p>
     </div>
 {/snippet}
 
-<div class="flex flex-col w-full mx-auto h-screen ">
+<div class="flex flex-col w-full mx-auto h-screen bg-neutral-dark">
     {#if $viewMode === 'default'}
         <Header/>
     {/if}
@@ -102,11 +102,11 @@ onended={handleTrackEnd}
     }
 
     ::-webkit-scrollbar-thumb {
-        background-color: #24262c;
+        background-color: var(--color-neutral-medium);
         border-radius: 100px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background-color: #434652;
+        background-color: var(--color-neutral-lighter);
     }
 </style>

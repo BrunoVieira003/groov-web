@@ -12,7 +12,7 @@
 </script>
 
 <button {...props} class="cursor-pointer">
-    <div class="text-white size-7">
+    <div class="text-heading size-7">
     {#if props.paused}
         {@html playIcon}
     {:else}

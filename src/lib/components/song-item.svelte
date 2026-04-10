@@ -93,7 +93,7 @@
 </ContextMenu>
 
 <div
-    class="grid grid-cols-1 md:grid-cols-2 items-center justify-start gap-2 p-4 rounded-md hover:bg-gray-900 data-[active=true]:bg-gray-800"
+    class="grid grid-cols-1 md:grid-cols-2 items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-lighter data-[active=true]:text-heading"
     data-active={selected()}
     oncontextmenu={contextMenu.show}
     role="button"
@@ -107,7 +107,7 @@
         />
         <div class="flex flex-col w-full overflow-hidden">
             <Marquee>
-                <p class="font-bold text-md">{song.title}</p>
+                <p class="font-bold text-md text-heading">{song.title}</p>
             </Marquee>
             <ArtistsLabel artists={song.authors} size='small'/>
         </div>
