@@ -38,7 +38,7 @@
 
 {#if open}
     <div
-        class="flex flex-col bg-slate-800 rounded-md fixed z-50 shadow-md shadow-slate-950"
+        class="flex flex-col bg-neutral-medium rounded-md fixed z-50 shadow-md shadow-neutral-darker p-1 pt-0"
         style="top: {top}px; left: {left}px;"
         bind:this={container}
         transition:fade={{ duration: 50 }}

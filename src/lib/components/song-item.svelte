@@ -71,19 +71,19 @@
 <ContextMenu bind:this={contextMenu}>
     <div class="flex flex-col">
         <p
-            class="font-semibold text-gray-300 text-sm text-center py-2 w-full mx-auto"
+            class="font-semibold text-heading text-sm text-center py-2 w-full mx-auto"
         >
             Options
         </p>
         <Submenu
             label="Add to playlist"
-            labelClass="w-full px-4 py-2 hover:bg-slate-700 cursor-pointer"
+            labelClass="w-full px-4 py-2 rounded-md hover:bg-neutral-light cursor-pointer"
         >
             <PlaylistSelect onPick={addToPlaylist} />
         </Submenu>
         {#if collectionContext.collectionType === "playlist"}
             <button
-                class="text-md cursor-pointer px-4 py-2"
+                class="text-md cursor-pointer px-4 py-2 hover:bg-neutral-light rounded-md"
                 onclick={() =>
                     removeFromPlaylist(collectionContext.collectionId)}
                 >Remove from playlist</button
