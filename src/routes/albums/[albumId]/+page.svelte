@@ -3,6 +3,7 @@
     import SongItemList from "$lib/components/song-item-list.svelte";
     import emptyImage from '$lib/assets/images/empty.png'
     import type { PageProps } from "./$types";
+    import PlayAll from "$lib/components/buttons/play-all.svelte";
 
     let { data }: PageProps = $props()
 
@@ -19,18 +20,21 @@
             class="aspect-square! self-center size-60 rounded-xl object-cover volume-shadow"
             onerror={() => coverImage.src = emptyImage}
             >
-            <div class="mx-auto text-center sm:text-start sm:mx-0">
-                <h1 class="text-5xl mb-2 text-highlight">{data.album?.title}</h1>
-                <a href="/artists/{data.album?.artist.id}" class="text-xl mb-6 hover:underline text-subheading">{data.album?.artist.name}</a>
-                <p class="text-sm text-legend">{data.album?.songs.length} {data.album && data.album?.songs.length > 1 ? 'songs': 'song'}</p>
+            <div class="flex flex-col mx-auto text-center sm:text-start sm:mx-0 justify-between">
+                <div>
+                    <h1 class="text-5xl mb-2 text-highlight">{data.album?.title}</h1>
+                    <a href="/artists/{data.album?.artist.id}" class="text-xl mb-6 hover:underline text-subheading">{data.album?.artist.name}</a>
+                    <p class="text-sm text-legend">{data.album?.songs.length} {data.album && data.album?.songs.length > 1 ? 'songs': 'song'}</p>
+                </div>
+                <PlayAll tracks={data.album?.songs || []} collectionId={data.album?.id || ''} collectionType='album' collectionName={data.album?.title}/>
             </div>
         </div>
     </div>
     <SongItemList 
+    tracks={data.album?.songs || []}
     collectionId={data.album?.id || ''} 
     collectionType='album'
     collectionName={data.album?.title}
-    tracks={data.album?.songs || []}
     />
 </div>
 
