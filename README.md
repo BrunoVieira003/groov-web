@@ -12,7 +12,7 @@ Here's a list of all features that may be available in this project
 
 - ✅ Play all songs
 - ✅ Artist page
-- 💭 Albums
+- ✅ Albums
 - ✅ Playlist
 - 💭 Radio (Broadcast)
 - ⏳ Fuzzy search
@@ -21,9 +21,9 @@ Here's a list of all features that may be available in this project
     - 💭 Albums
     - 💭 Playlists
 - ✅ Loop modes
-    - 💭 No repeat
-    - 💭 Repeat all
-    - 💭 Repeat one
+    - ✅ No repeat
+    - ✅ Repeat all
+    - ✅ Repeat one
 - ✅ Custom accent color according with cover art
 - ✅ 'Playing now' page
 - ✅ Upload new song files
