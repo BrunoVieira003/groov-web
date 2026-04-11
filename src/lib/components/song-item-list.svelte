@@ -21,11 +21,12 @@
 </script>
 
 <div class="relative flex flex-col w-full">
-    <div class="sticky w-full -top-6 grid grid-cols-1 md:grid-cols-2 items-center justify-start gap-2 p-4 bg-neutral-dark text-legend">
+    <div class="sticky w-full -top-6 grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark text-legend">
+        <p class="text-center">#</p>
         <p class="font-bold text-sm">Title</p>
         <p class="hidden md:block font-bold text-sm">Album</p>
     </div>
-    {#each props.tracks as song}
-        <SongItem song={song}/>
+    {#each props.tracks as song, trackNumber}
+        <SongItem song={song} {trackNumber}/>
     {/each}
 </div>

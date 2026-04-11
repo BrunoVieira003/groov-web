@@ -16,13 +16,14 @@
 
     interface PropsType {
         song: Song;
+        trackNumber: number
     }
 
     let contextMenu = $state<ContextMenu>();
 
-    let { song }: PropsType = $props();
+    let { song, trackNumber }: PropsType = $props();
 
-    let selected = $derived(() => $currentSong?.id === song.id);
+    let selected = $derived(() =>  $currentSong?.id === song.id && trackNumber === $songQueue.currentIndex);
 
     let collectionContext = getCollectionContext();
 
@@ -93,13 +94,15 @@
 </ContextMenu>
 
 <div
-    class="grid grid-cols-1 md:grid-cols-2 items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-lighter data-[active=true]:text-heading"
+    class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-lighter data-[active=true]:text-heading"
     data-active={selected()}
     oncontextmenu={contextMenu.show}
     role="button"
     tabindex="-1"
     transition:fly={{ duration: 100 }}
 >
+    <p class="hidden md:block text-center">{trackNumber !== undefined ? trackNumber+1 : ''}</p>
+
     <div class="flex items-center gap-4">
         <PlayButton
             paused={!selected() || $songQueue.paused}
