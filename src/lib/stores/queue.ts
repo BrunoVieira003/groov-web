@@ -104,6 +104,31 @@ const playSong = (song: Song) => songQueueStore.update((state) => {
 const nextTrack = () => songQueueStore.update(nextTrackStrategies[get(songQueueStore).loopMode])
 const previousTrack = () => songQueueStore.update(previousTrackStrategies[get(songQueueStore).loopMode])
 
+const addToQueue = (song: Song) => songQueueStore.update((state) => {
+    state.tracks.push(song)
+    return state
+})
+
+const removeFromQueue = (trackIndex: number) => songQueueStore.update((state) => {
+    state.tracks.splice(trackIndex, 1)
+    return state
+})
+
+const playNext = (song: Song) => songQueueStore.update((state) => {
+    console.log('next')
+    if(state.currentIndex + 1 < state.tracks.length){
+        const postIndexTracks = state.tracks.slice(state.currentIndex + 1)
+        postIndexTracks.unshift(song)
+
+        state.tracks.splice(state.currentIndex + 1, postIndexTracks.length-1, ...postIndexTracks)
+
+    }else{
+        state.tracks.push(song)
+    }
+
+    return state
+})
+
 function createSongQueueStore(){
     return {
         ...songQueueStore,
@@ -111,7 +136,10 @@ function createSongQueueStore(){
         playQueue,
         playSong,
         nextTrack,
-        previousTrack
+        previousTrack,
+        addToQueue,
+        removeFromQueue,
+        playNext
     }
 }
 

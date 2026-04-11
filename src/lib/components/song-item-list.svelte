@@ -26,7 +26,7 @@
         <p class="font-bold text-sm">Title</p>
         <p class="hidden md:block font-bold text-sm">Album</p>
     </div>
-    {#each props.tracks as song, trackNumber}
+    {#each props.tracks as song, trackNumber (`${song.id}${trackNumber}`)}
         <SongItem song={song} {trackNumber}/>
     {/each}
 </div>

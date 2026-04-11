@@ -24,6 +24,7 @@
     let { song, trackNumber }: PropsType = $props();
 
     let selected = $derived(() =>  $currentSong?.id === song.id && trackNumber === $songQueue.currentIndex);
+    let isOnQueue  = $derived(() => $songQueue.tracks.includes(song))
 
     let collectionContext = getCollectionContext();
 
@@ -67,6 +68,24 @@
                 await invalidateAll();
             });
     }
+
+    function addToQueue(){
+        songQueue.addToQueue(song)
+        contextMenu?.hide()
+        toast.success("Song added to queue");
+    }
+
+    function removeFromQueue(){
+        songQueue.removeFromQueue(trackNumber)
+        contextMenu?.hide()
+        toast.success("Song removed from queue");
+    }
+
+    function playNextQueue(){
+        songQueue.playNext(song)
+        contextMenu?.hide()
+        toast.success("Song added to queue");
+    }
 </script>
 
 <ContextMenu bind:this={contextMenu}>
@@ -76,6 +95,13 @@
         >
             Options
         </p>
+
+        <button class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light" onclick={playNextQueue}>Play next</button>
+        <button class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light" onclick={addToQueue}>Add to the queue</button>
+        {#if isOnQueue()}
+        <button class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light" onclick={removeFromQueue}>Remove from queue</button>
+        {/if}
+
         <Submenu
             label="Add to playlist"
             labelClass="w-full px-4 py-2 rounded-md hover:bg-neutral-light cursor-pointer"
