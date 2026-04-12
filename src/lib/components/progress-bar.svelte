@@ -9,9 +9,7 @@
     
     let {min, max, value = $bindable(min), interactive = false}: Props = $props()
 
-    let progress = $derived(() => {
-        return Math.floor((value / max) * 100);
-    });
+    let progress = $derived(Math.floor((value / max) * 100));
 </script>
 
 <div class="slider w-full h-fit">
@@ -28,13 +26,13 @@
     
     <div
     class="progress bg-heading transition-all duration-50"
-    style="width: {progress()}%;"
+    style="width: {progress}%;"
     >
     </div>
 
     <div
     class="slider-thumb bg-heading"
-    style="left: calc({progress()}% - 0.5rem);"
+    style="left: calc({progress}% - 0.5rem);"
     >
     </div>
 

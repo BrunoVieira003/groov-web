@@ -9,7 +9,7 @@
     let containerWidth = $state(0);
     let contentWidth = $state(0);
 
-    let isOverflowing = $derived(() => contentWidth > containerWidth);
+    let isOverflowing = $derived(contentWidth > containerWidth);
 </script>
 
 <div
@@ -18,7 +18,7 @@
 >
     <div
         class="w-fit"
-        class:marquee-text={isOverflowing()}
+        class:marquee-text={isOverflowing}
         bind:clientWidth={contentWidth}
     >
         {@render children()}

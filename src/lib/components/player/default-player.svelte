@@ -17,7 +17,7 @@
 
     let coverImage: HTMLImageElement
 
-    let coverArtURL = $derived(() => `${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`)
+    let coverArtURL = $derived(`${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`)
 
     if(navigator.mediaSession){
         navigator.mediaSession.setActionHandler('pause', songQueue.togglePlay)
@@ -36,7 +36,7 @@
     <div class="w-1/4 flex items-center sm:gap-4">
         <img
         bind:this={coverImage}
-        src={coverArtURL()}
+        src={coverArtURL}
         alt="cover_art"
         class="size-16 aspect-square rounded object-cover"
         onerror={() => coverImage.src = emptyImage}

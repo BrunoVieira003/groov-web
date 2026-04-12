@@ -23,13 +23,13 @@
 
     let { song, trackNumber }: PropsType = $props();
 
-    let selected = $derived(() =>  $currentSong?.id === song.id && trackNumber === $songQueue.currentIndex);
-    let isOnQueue  = $derived(() => $songQueue.tracks.includes(song))
+    let selected = $derived($currentSong?.id === song.id && trackNumber === $songQueue.currentIndex);
+    let isOnQueue  = $derived($songQueue.tracks.includes(song))
 
     let collectionContext = getCollectionContext();
 
     function playItem() {
-        if (selected()) {
+        if (selected) {
             songQueue.togglePlay();
             return;
         }
@@ -98,8 +98,8 @@
 
         <button class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light" onclick={playNextQueue}>Play next</button>
         <button class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light" onclick={addToQueue}>Add to the queue</button>
-        {#if isOnQueue()}
-        <button class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light" onclick={removeFromQueue}>Remove from queue</button>
+        {#if isOnQueue}
+            <button class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light" onclick={removeFromQueue}>Remove from queue</button>
         {/if}
 
         <Submenu
@@ -121,7 +121,7 @@
 
 <div
     class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-lighter data-[active=true]:text-heading"
-    data-active={selected()}
+    data-active={selected}
     oncontextmenu={contextMenu.show}
     role="button"
     tabindex="-1"
@@ -131,7 +131,7 @@
 
     <div class="flex items-center gap-4">
         <PlayButton
-            paused={!selected() || $songQueue.paused}
+            paused={!selected || $songQueue.paused}
             onclick={playItem}
         />
         <div class="flex flex-col w-full overflow-hidden">

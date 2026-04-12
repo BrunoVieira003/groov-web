@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { toggleViewMode, viewMode } from "$lib/stores/viewMode";
+    import { toggleViewMode } from "$lib/stores/viewMode";
     import fullModeIcon from "$lib/assets/icons/full-mode.svg?raw"
 
 </script>

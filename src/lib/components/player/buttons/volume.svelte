@@ -2,17 +2,13 @@
     import { currentVolume } from "$lib/stores/audioState";
     import volumeIcon from "$lib/assets/icons/volume.svg?raw"
     import muteIcon from "$lib/assets/icons/mute.svg?raw"
-
-    
-    const activeColor = "#e5e7eb";
-    const inactiveColor = "#6a7282";
     
     let previousVolume = $state($currentVolume)
-    let muted = $derived(() => $currentVolume === 0)
-    let progress = $derived(() => ($currentVolume - 0) / (1 - 0) * 100)
+    let muted = $derived($currentVolume === 0)
+    let progress = $derived(($currentVolume - 0) / (1 - 0) * 100)
 
     function toggleMute(){
-        if(!muted()){
+        if(!muted){
             previousVolume = $currentVolume
             currentVolume.set(0)
         }else{
@@ -23,7 +19,7 @@
 
 <div class="flex items-center gap-1">
     <button class="cursor-pointer *:size-7" onclick={toggleMute}>
-        {#if muted()}
+        {#if muted}
             {@html muteIcon}
         {:else}
             {@html volumeIcon}
@@ -37,7 +33,7 @@
     min="0"
     max="1"
     step="0.01"
-    style:--background="linear-gradient(90deg, var(--color-heading) {progress()}%, var(--color-neutral-lighter) {progress()}%)"
+    style:--background="linear-gradient(90deg, var(--color-heading) {progress}%, var(--color-neutral-lighter) {progress}%)"
     >
 </div>
 

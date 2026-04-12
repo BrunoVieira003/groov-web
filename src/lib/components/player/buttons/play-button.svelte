@@ -7,13 +7,13 @@
         paused: boolean,
     }
 
-    let props: PropsType = $props()
+    let {paused, ...props}: PropsType = $props()
 
 </script>
 
 <button {...props} class="cursor-pointer">
     <div class="text-heading size-7">
-    {#if props.paused}
+    {#if paused}
         {@html playIcon}
     {:else}
         {@html pauseIcon}

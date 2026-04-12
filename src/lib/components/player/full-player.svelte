@@ -17,7 +17,7 @@
 
     let coverImage: HTMLImageElement
 
-    let coverArtURL = $derived(() => `${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`)
+    let coverArtURL = $derived(`${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`)
 
     if(navigator.mediaSession){
         navigator.mediaSession.setActionHandler('pause', songQueue.togglePlay)
@@ -36,12 +36,12 @@
 style:--colorful={$currentSong?.color}
 style:--colorful-contrast={$currentSong?.contrastColor}
 >
-    <div class="w-full h-full full-view" style="background-image: url({coverArtURL()});"></div>
+    <div class="w-full h-full full-view" style="background-image: url({coverArtURL});"></div>
 
     <div class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col md:flex-row items-center gap-10 xl:gap-16 z-1">
         <img
         bind:this={coverImage}
-        src={coverArtURL()}
+        src={coverArtURL}
         alt="cover_art"
         class="size-100 aspect-square rounded-lg object-cover"
         onerror={() => coverImage.src = emptyImage}
