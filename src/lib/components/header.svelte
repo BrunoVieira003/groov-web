@@ -21,6 +21,7 @@
         <div class="flex w-10/12 mx-auto items-center not-sm:justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-neutral-light">
             <a href="/">Home</a>
             <a href="/artists">Artists</a>
+            <a href="/albums">Albums</a>
             <a href="/playlists">Playlists</a>
             <a href="/library">Library</a>
         </div>
