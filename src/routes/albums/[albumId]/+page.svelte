@@ -1,9 +1,9 @@
 <script lang="ts">
     import { PUBLIC_API_URL } from "$env/static/public";
-    import SongItemList from "$lib/components/song-item-list.svelte";
     import emptyImage from '$lib/assets/images/empty.png'
     import type { PageProps } from "./$types";
     import PlayAll from "$lib/components/buttons/play-all.svelte";
+    import SongList from "$lib/components/song-list.svelte";
 
     let { data }: PageProps = $props()
 
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <SongItemList 
+    <SongList 
     tracks={data.album?.songs || []}
     collectionId={data.album?.id || ''} 
     collectionType='album'
@@ -40,7 +40,6 @@
 
 <style>
     .volume-shadow{
-        /* https://smoothshadows.com/#djEsMSw1LDAuMDksNzcsMCwwLCMzMzMzMzMsIzEyMTIxMiwjMTIxMjEyLDI%3D */
         box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.05),
         0px 0px 12px rgba(0, 0, 0, 0.1),
         0px 0px 28px rgba(0, 0, 0, 0.2),

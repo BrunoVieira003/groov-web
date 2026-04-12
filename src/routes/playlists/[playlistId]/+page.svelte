@@ -1,6 +1,6 @@
 <script lang="ts">
     import PlayAll from "$lib/components/buttons/play-all.svelte";
-    import SongItemList from "$lib/components/song-item-list.svelte";
+    import SongList from "$lib/components/song-list.svelte";
     import type { PageProps } from "./$types";
 
     let { data }: PageProps = $props()
@@ -14,7 +14,7 @@
         <PlayAll tracks={data.playlist?.songs || []} collectionType='playlist' collectionName={data.playlist?.title} collectionId={data.playlist?.id || ''}/>
     </div>
 
-    <SongItemList
+    <SongList
     collectionId={data.playlist?.id || ''}
     collectionType='playlist'
     collectionName={data.playlist?.title}

@@ -1,10 +1,10 @@
 <script lang="ts">
     import { page } from "$app/state";
     import Chip from "$lib/components/chip.svelte";
-    import SongItemList from "$lib/components/song-item-list.svelte";
     import { songQueue } from "$lib/stores/queue";
     import { slide } from "svelte/transition";
     import type { PageProps } from "./$types";
+    import SongList from "$lib/components/song-list.svelte";
 
     let { data }: PageProps = $props();
     let filters = $state({
@@ -32,11 +32,11 @@
         <div class="mb-10 text-center sm:text-start" transition:slide={{ duration: 200 }}>
             <h2 class="text-3xl mb-2">Songs</h2>
             <p class="mb-6">{data.songs?.length} results</p>
-            <SongItemList
-            collectionId=''
-            collectionName="Search '{page.url.searchParams.get('q')}'" 
-            collectionType='search'
-            tracks={data.songs || []}
+            <SongList
+                collectionId=''
+                collectionName="Search '{page.url.searchParams.get('q')}'" 
+                collectionType='search'
+                tracks={data.songs || []}
             />
         </div>
     {/if}

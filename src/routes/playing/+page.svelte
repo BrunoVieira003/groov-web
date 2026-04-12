@@ -1,12 +1,12 @@
 <script lang="ts">
     import { PUBLIC_API_URL } from "$env/static/public";
-    import SongItemList from "$lib/components/song-item-list.svelte";
     import { currentSong } from "$lib/stores/currentSong";
     import { songQueue } from "$lib/stores/queue";
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "$lib/components/artists-label.svelte";
     import Marquee from "$lib/components/marquee.svelte";
     import type { derived } from "svelte/store";
+    import SongList from "$lib/components/song-list.svelte";
 
     // svelte-ignore non_reactive_update
         let coverImage: HTMLImageElement
@@ -61,7 +61,7 @@
 </div>
 <div class="mt-20 w-full sm:w-11/12 sm:mx-auto">
     <h1 class="text-xl mb-4">Queue</h1>
-    <SongItemList 
+    <SongList 
     collectionName={$songQueue.collectionName}
     collectionType={$songQueue.collectionType}
     tracks={$songQueue.tracks}

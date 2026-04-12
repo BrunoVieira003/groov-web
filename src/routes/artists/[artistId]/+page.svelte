@@ -1,6 +1,6 @@
 <script lang="ts">
     import ArtistAlbums from "$lib/components/artist-albums.svelte";
-    import SongItemList from "$lib/components/song-item-list.svelte";
+    import SongList from "$lib/components/song-list.svelte";
     import type { PageProps } from "./$types";
 
     let { data }: PageProps = $props()
@@ -13,7 +13,7 @@
         <h2 class="text-2xl text-heading">Songs</h2>
     </div>
 
-    <SongItemList 
+    <SongList 
     collectionId={data.artist?.id || ''} 
     collectionType='artist'
     collectionName={data.artist?.name}
