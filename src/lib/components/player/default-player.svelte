@@ -14,6 +14,7 @@
     import ModeButton from "./buttons/mode-button.svelte";
     import Marquee from "../marquee.svelte";
     import Volume from "./buttons/volume.svelte";
+    import { fly } from "svelte/transition";
 
     let coverImage: HTMLImageElement
 
@@ -21,7 +22,11 @@
 
 </script>
 
-<div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-30 sm:gap-4 py-10 h-10 bottom-0 bg-neutral-medium" style="--colorful: {$currentSong?.color};">
+<div
+class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-30 sm:gap-4 py-10 h-10 bottom-0 bg-neutral-medium"
+style="--colorful: {$currentSong?.color};"
+transition:fly={{ duration: 200, y: 100 }}
+>
     <div class="w-1/4 flex items-center sm:gap-4">
         <img
         bind:this={coverImage}

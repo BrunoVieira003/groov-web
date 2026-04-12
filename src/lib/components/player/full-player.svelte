@@ -14,6 +14,7 @@
     import ModeButton from "./buttons/mode-button.svelte";
     import Marquee from "../marquee.svelte";
     import Volume from "./buttons/volume.svelte";
+    import { fly } from "svelte/transition";
 
     let coverImage: HTMLImageElement
 
@@ -24,6 +25,7 @@
 <div class="absolute top-0 h-full flex flex-col items-center justify-evenly w-full py-10 bg-neutral-dark"
 style:--colorful={$currentSong?.color}
 style:--colorful-contrast={$currentSong?.contrastColor}
+transition:fly={{ duration: 100 }}
 >
     <div class="w-full h-full full-view" style="background-image: url({coverArtURL});"></div>
 

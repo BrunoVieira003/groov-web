@@ -2,6 +2,7 @@
     import { page } from "$app/state";
     import searchIcon from "$lib/assets/icons/search.svg?raw"
     import { onClickOutside } from "runed";
+    import { fly } from "svelte/transition";
 
     let searchText = $state(page.url.searchParams.get('q'))
 
@@ -14,7 +15,7 @@
 
 </script>
 
-<div class="flex items-center justify-between lg:gap-20 h-1/12 py-3 px-2 lg:px-30">
+<div class="flex items-center justify-between lg:gap-20 h-1/12 py-3 px-2 lg:px-30" transition:fly={{ duration: 200, y: -100 }}>
     <div class="flex items-center gap-1 sm:gap-4 lg:gap-8">
         <h1 class="hidden sm:block text-2xl font-medium">Groov</h1>
         <div class="flex sm:gap-4 lg:gap-8 items-center justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-neutral-light">

@@ -12,6 +12,7 @@
     import FullPlayer from '$lib/components/player/full-player.svelte';
     import TaskList from '$lib/components/task-list.svelte';
     import { randomNoSongPhrases } from '$lib/plugins/phrases';
+    import { fly } from 'svelte/transition';
 	
 	let { children } = $props();
 
@@ -83,7 +84,7 @@ onended={handleTrackEnd}
     </div>
 {/snippet}
 
-<div class="flex flex-col w-full mx-auto h-screen bg-neutral-dark">
+<div class="flex flex-col w-full mx-auto h-screen bg-neutral-dark overflow-hidden">
     {#if $viewMode === 'default'}
         <Header/>
     {/if}
