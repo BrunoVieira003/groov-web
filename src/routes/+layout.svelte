@@ -27,7 +27,7 @@
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
                 artist: song.authors.map(a => a.name).join(', '),
-                album: song.album.title,
+                album: song.album ? song.album.title : '',
                 artwork: [
                     {src: `${PUBLIC_API_URL}/songs/${song.id}/cover`}
                 ]
