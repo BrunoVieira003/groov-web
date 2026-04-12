@@ -7,7 +7,7 @@
 </script>
 
 
-<h1 class="page-title text-highlight">Songs</h1>
+<h1 class="page-title w-fit not-sm:mx-auto text-highlight">Songs</h1>
 <PlayAll tracks={data.songs || []} collectionType='library' collectionName='All songs'/>
 
 <SongList

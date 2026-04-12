@@ -22,12 +22,16 @@
 
 </script>
 
+<div class="sm:hidden h-px">
+    <ProgressBar min={0} max={$duration} bind:value={$currentTime} interactive/>
+</div>
+
 <div
-class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-30 sm:gap-4 py-10 h-10 bottom-0 bg-neutral-medium"
+class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-30 gap-2 sm:gap-4 py-10 h-1/12 bottom-0 bg-neutral-medium"
 style="--colorful: {$currentSong?.color};"
 transition:fly={{ duration: 200, y: 100 }}
 >
-    <div class="w-1/4 flex items-center sm:gap-4">
+    <div class="w-full sm:w-1/4 flex items-center gap-2 sm:gap-4 overflow-hidden">
         <img
         bind:this={coverImage}
         src={coverArtURL}
@@ -41,9 +45,9 @@ transition:fly={{ duration: 200, y: 100 }}
         </div>
     </div>
     
-    <div class="flex flex-col w-2/4 items-center gap-2 justify-center">
+    <div class="flex flex-col w-fit px-4 sm:w-2/4 items-center gap-2 justify-center">
         <div class="flex items-center justify-between w-full lg:gap-2">
-            <p class="w-fit text-nowrap text-xs text-subheading">{formatSongTime($currentTime, !!$currentSong)}</p>
+            <p class="not-sm:hidden w-fit text-nowrap text-xs text-subheading">{formatSongTime($currentTime, !!$currentSong)}</p>
             <div class="flex items-center gap-2">
                 <PreviousButton/>
 
@@ -51,14 +55,16 @@ transition:fly={{ duration: 200, y: 100 }}
 
                 <NextButton/>
             </div>
-            <p class="w-fit text-nowrap text-xs text-subheading">{formatSongTime($duration, !!$currentSong)}</p>
+            <p class="not-sm:hidden w-fit text-nowrap text-xs text-subheading">{formatSongTime($duration, !!$currentSong)}</p>
         </div>
-        <ProgressBar min={0} max={$duration} bind:value={$currentTime} interactive/>
+        <div class="not-sm:hidden w-full">
+            <ProgressBar min={0} max={$duration} bind:value={$currentTime} interactive/>
+        </div>
 
     </div>
     
     
-    <div class="w-1/4 flex gap-2 sm:gap-4 justify-center items-center">
+    <div class="not-sm:hidden w-full sm:w-1/4 flex gap-2 sm:gap-4 justify-center items-center">
         <ToggleViewButton/>
         <ModeButton/>
         <Volume/>

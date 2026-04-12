@@ -14,6 +14,7 @@
     import PlayButton from "./player/buttons/play-button.svelte";
     import Marquee from "./marquee.svelte";
     import ArtistsLabel from "./artists-label.svelte";
+    import { currentTime } from "$lib/stores/audioState";
 
     interface props{
         collectionId?: string
@@ -26,6 +27,7 @@
 
     let contextMenu = $state<ContextMenu>()
     let isOnQueue = $derived($songQueue.tracks.includes($targetedSong))
+    let windowWidth = $state<number>(10000)
 
     function addToPlaylist(playlistId: string) {
         api.post(`/playlists/${playlistId}/song`, {
@@ -84,8 +86,11 @@
 
         const songIndex = tracks.findIndex(s => s.id === song.id)
         songQueue.playQueue(tracks, songIndex, collectionType, collectionName, collectionId || '')
+        currentTime.set(0)
     }
 </script>
+
+<svelte:window bind:innerWidth={windowWidth}></svelte:window>
 
 {#snippet songItem(song: Song, trackNumber: number, oncontextmenu: (e: MouseEvent) => void)}
     <div
@@ -102,7 +107,7 @@
     >
         <p class="hidden md:block text-center">{trackNumber !== undefined ? trackNumber+1 : ''}</p>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4 overflow-hidden">
             <PlayButton
                 paused={!(song.id === $currentSong?.id) || $songQueue.paused}
                 onclick={() => playItem(song)}
@@ -111,23 +116,32 @@
                 <Marquee>
                     <p class="font-bold text-md text-heading">{song.title}</p>
                 </Marquee>
-                <ArtistsLabel artists={song.authors} size='small'/>
+                {#if collectionType !== 'album' || windowWidth <= 768}
+                    <ArtistsLabel artists={song.authors} size='small'/>
+                {/if}
             </div>
         </div>
-        {#if song.album}
+        {#if song.album && collectionType !== 'album'}
             <a
                 href="/albums/{song.album.id}"
                 class="hidden md:block hover:underline">{song.album.title}</a
             >
         {/if}
+        {#if (collectionType === 'album' && windowWidth > 768)}
+            <ArtistsLabel artists={song.authors} size='default'/>
+        {/if}
     </div>
 {/snippet}
 
 <div class="relative flex flex-col w-full">
-    <div class="sticky w-full -top-6 grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark text-legend">
-        <p class="text-center">#</p>
+    <div class="sticky w-full top-0 grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark text-legend">
+        <p class="hidden md:block text-center">#</p>
         <p class="font-bold text-sm">Title</p>
-        <p class="hidden md:block font-bold text-sm">Album</p>
+        {#if collectionType !== 'album'}
+            <p class="hidden md:block font-bold text-sm">Album</p>
+        {:else}
+            <p class="hidden md:block font-bold text-sm">Artists</p>
+        {/if}
     </div>
     {#each tracks as song, trackNumber (`${song.id}${trackNumber}`)}
         {@render songItem(song, trackNumber, contextMenu ? contextMenu.show: () => {})}

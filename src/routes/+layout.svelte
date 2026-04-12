@@ -84,11 +84,11 @@ onended={handleTrackEnd}
     </div>
 {/snippet}
 
-<div class="flex flex-col w-full mx-auto h-screen bg-neutral-dark overflow-hidden">
+<div class="flex flex-col w-full mx-auto h-dvh bg-transparent overflow-hidden">
     {#if $viewMode === 'default'}
         <Header/>
     {/if}
-    <div class="relative overflow-y-auto flex-1 lg:px-30 pt-6 mb-2">
+    <div class="relative overflow-y-auto flex-1 lg:px-30 mb-2">
         {@render children()}
     </div>
     {#if $currentSong}

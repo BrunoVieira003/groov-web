@@ -12,7 +12,7 @@
 
 <div class="w-full sm:w-10/12 sm:mx-auto">
     <div class="mb-6">
-        <div class="flex flex-wrap justify-center sm:justify-start gap-6 mx-2 sm:mx-auto">
+        <div class="flex flex-col sm:flex-row justify-center sm:justify-start gap-6 mx-2 sm:mx-auto">
             <img
             bind:this={coverImage}
             src="{PUBLIC_API_URL}/albums/{data.album?.id}/cover"
@@ -20,7 +20,7 @@
             class="aspect-square! self-center size-60 rounded-xl object-cover volume-shadow"
             onerror={() => coverImage.src = emptyImage}
             >
-            <div class="flex flex-col mx-auto text-center sm:text-start sm:mx-0 justify-between">
+            <div class="flex flex-col mx-auto text-center justify-center sm:text-start sm:mx-0 sm:justify-between">
                 <div>
                     <h1 class="text-5xl mb-2 text-highlight">{data.album?.title}</h1>
                     <a href="/artists/{data.album?.artist.id}" class="text-xl mb-6 hover:underline text-subheading">{data.album?.artist.name}</a>

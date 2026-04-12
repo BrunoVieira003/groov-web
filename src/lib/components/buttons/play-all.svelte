@@ -19,7 +19,7 @@
 </script>
 
 <button
-class="flex items-center w-fit gap-2 py-1 px-2 rounded-md mb-6 text-heading cursor-pointer hover:bg-neutral-light"
+class="flex items-center w-fit not-sm:mx-auto not-sm:mt-6 gap-2 py-1 px-2 rounded-md sm:mb-6 text-heading cursor-pointer hover:bg-neutral-light"
 onclick={handlePlayAll}
 >
     <div class="size-8">

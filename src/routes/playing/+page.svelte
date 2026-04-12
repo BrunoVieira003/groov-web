@@ -32,7 +32,7 @@
 
 
 {#if $currentSong}
-<div class="flex flex-col gap-4 w-4/12 mx-2 sm:mx-auto" style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;">
+<div class="flex flex-col gap-4 w-full sm:w-4/12 sm:mx-auto" style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;">
     {#if $songQueue.collectionName}
         <div class="-mb-2">
             <p class="text-sm text-legend">Playing from {$songQueue.collectionType}</p>
@@ -44,7 +44,7 @@
     src={coverArtURL()}
     alt="cover_art"
     class:colorful-glow={!!$currentSong.color}
-    class="sm:size-120 rounded-xl object-cover white-glow"
+    class="sm:max-w-120 rounded-xl object-cover white-glow"
     onerror={() => coverImage.src = emptyImage}
     >
     <div class="flex items-center justify-between w-full sm:w-120 overflow-hidden">
@@ -63,7 +63,7 @@
     <h1 class="text-xl mb-4">Queue</h1>
     <SongList 
     collectionName={$songQueue.collectionName}
-    collectionType={$songQueue.collectionType}
+    collectionType={'other'}
     tracks={$songQueue.tracks}
     />
 </div>
