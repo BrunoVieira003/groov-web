@@ -19,17 +19,6 @@
 
     let coverArtURL = $derived(`${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`)
 
-    if(navigator.mediaSession){
-        navigator.mediaSession.setActionHandler('pause', songQueue.togglePlay)
-        navigator.mediaSession.setActionHandler('nexttrack', songQueue.nextTrack)
-        navigator.mediaSession.setActionHandler('previoustrack', songQueue.previousTrack)
-        navigator.mediaSession.setActionHandler('seekto', ({seekTime}) => {
-            if(seekTime){
-                $currentTime = seekTime
-            }
-        })
-    }
-
 </script>
 
 <div class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-30 sm:gap-4 py-10 h-10 bottom-0 bg-neutral-medium" style="--colorful: {$currentSong?.color};">

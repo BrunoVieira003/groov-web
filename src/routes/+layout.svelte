@@ -26,9 +26,21 @@
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
                 artist: song.authors.map(a => a.name).join(', '),
+                album: song.album.title,
                 artwork: [
                     {src: `${PUBLIC_API_URL}/songs/${song.id}/cover`}
                 ]
+            })
+
+            navigator.mediaSession.setActionHandler('pause', songQueue.togglePlay)
+            navigator.mediaSession.setActionHandler('nexttrack', songQueue.nextTrack)
+            navigator.mediaSession.setActionHandler('previoustrack', songQueue.previousTrack)
+            navigator.mediaSession.setActionHandler('seekforward', ({seekOffset}) => $currentTime += seekOffset ?? 5)
+            navigator.mediaSession.setActionHandler('seekbackward', ({seekOffset}) => $currentTime -= seekOffset ?? 5)
+            navigator.mediaSession.setActionHandler('seekto', ({seekTime}) => {
+                if(seekTime){
+                    $currentTime = seekTime
+                }
             })
         }
     });
