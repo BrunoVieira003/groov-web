@@ -14,7 +14,7 @@
 
 <h1 class="page-title w-fit not-sm:mx-auto">Albums</h1>
 <h2 class="w-fit not-sm:mx-auto">{data.albums?.length} albums</h2>
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-6">
     {#each data.albums as album}
         <a class="space-y-4 hover:bg-neutral-medium p-4 rounded-md" href="/albums/{album.id}">
             <img

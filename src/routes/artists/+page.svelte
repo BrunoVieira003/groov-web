@@ -5,7 +5,7 @@
     let { data }: PageProps = $props()
 </script>
 
-<div class="w-full sm:w-10/12 sm:mx-auto">
+<div class="w-11/12 sm:w-10/12 mx-auto">
     <h1 class="page-title w-fit not-sm:mx-auto">Artists</h1>
     <div class="grid gap-4 sm:gap-8 grid-cols-2 w-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {#each data.artists as artist}

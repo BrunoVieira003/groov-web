@@ -18,7 +18,7 @@
 <div class="flex not-sm:flex-col justify-between lg:gap-20 pb-2 sm:py-3 px-2 lg:px-30 bg-neutral-dark z-10" transition:fly={{ duration: 200, y: -100 }}>
     <div class="flex items-center w-full justify-between gap-1 sm:gap-4 lg:gap-8">
         <h1 class="hidden sm:block text-2xl font-medium">Groov</h1>
-        <div class="flex w-10/12 mx-auto items-center not-sm:justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-neutral-light">
+        <div class="flex w-full mx-auto items-center not-sm:justify-between text-sm *:p-2 *:rounded-lg *:hover:bg-neutral-light">
             <a href="/">Home</a>
             <a href="/artists">Artists</a>
             <a href="/albums">Albums</a>

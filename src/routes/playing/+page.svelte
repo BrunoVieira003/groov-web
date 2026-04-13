@@ -32,7 +32,7 @@
 
 
 {#if $currentSong}
-<div class="flex flex-col gap-4 w-full sm:w-4/12 sm:mx-auto" style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;">
+<div class="flex flex-col gap-4 w-10/12 mx-auto sm:w-4/12" style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;">
     {#if $songQueue.collectionName}
         <div class="-mb-2">
             <p class="text-sm text-legend">Playing from {$songQueue.collectionType}</p>
@@ -59,7 +59,7 @@
         </div>
     </div>
 </div>
-<div class="mt-20 w-full sm:w-11/12 sm:mx-auto">
+<div class="mt-20 w-11/12 sm:w-11/12 mx-auto">
     <h1 class="text-xl mb-4">Queue</h1>
     <SongList 
     collectionName={$songQueue.collectionName}
