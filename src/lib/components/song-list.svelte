@@ -94,8 +94,9 @@
 
 {#snippet songItem(song: Song, trackNumber: number, oncontextmenu: (e: MouseEvent) => void)}
     <div
-        class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-lighter data-[active=true]:text-heading"
+        class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-light data-[active=true]:text-heading"
         data-active={song.id === $currentSong?.id}
+        style="--colorful: {$currentSong?.color};"
         oncontextmenu={(e) => {
             targetedSong.set(song)
             targetedTrackNumber.set(trackNumber)
@@ -114,7 +115,7 @@
             />
             <div class="flex flex-col w-full overflow-hidden">
                 <Marquee>
-                    <p class="font-bold text-md text-heading">{song.title}</p>
+                    <p data-active={song.id === $currentSong?.id} class="font-bold text-md text-heading data-[active=true]:text-(--colorful)">{song.title}</p>
                 </Marquee>
                 {#if collectionType !== 'album' || windowWidth <= 768}
                     <ArtistsLabel artists={song.authors} size='small'/>
