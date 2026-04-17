@@ -46,9 +46,9 @@
             </div>
         </div>
 
-        <div class="h-full w-fit flex px-2 py-1 items-start justify-start">
+        <div class="h-full w-fit flex px-2 py-1 items-center justify-start">
             <Marquee>
-                <p class="text-neutral-darker font-semibold">{title}</p>
+                <p class="text-neutral-darker font-semibold text-sm">{title}</p>
             </Marquee>
         </div>
     </div>

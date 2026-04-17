@@ -21,7 +21,7 @@
     />
 
     {#if data.artist?.albums && data.artist?.albums.length > 0}
-        <h2 class="text-2xl mt-6 text-heading">Albums</h2>
+        <h2 class="text-2xl mt-6 mb-2 text-heading">Albums</h2>
         <ArtistAlbums albums={data.artist.albums}/>
     {/if}
 </div>
