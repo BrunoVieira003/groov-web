@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { PageProps } from "./$types";
-    import EmptyArtist from '$lib/assets/images/empty-artist.png'
 
     let { data }: PageProps = $props()
 </script>

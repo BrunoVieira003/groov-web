@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { PUBLIC_API_URL } from "$env/static/public";
-    import type { Album } from "$lib/types/album";
     import Marquee from "./marquee.svelte";
     import emptyImage from '$lib/assets/images/empty.png'
 

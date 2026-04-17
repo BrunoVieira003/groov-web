@@ -13,7 +13,6 @@ export interface Collection{
 
 interface SongQueue {
     tracks: Song[]
-    paused: boolean
     currentIndex: number
     loopMode: PlayModeType
     collection?: Collection
@@ -21,7 +20,6 @@ interface SongQueue {
 
 const defaultValues: SongQueue = {
     tracks: [],
-    paused: true,
     currentIndex: 0,
     loopMode: 'repeat-off'
 }
@@ -70,13 +68,7 @@ const previousTrackStrategies: Record<PlayModeType, Updater<SongQueue>> = {
 
 const songQueueStore = writable<SongQueue>(defaultValues)
 
-const togglePlay = () => songQueueStore.update((state) => {
-    navigator.mediaSession.playbackState = "paused"
-    return {
-        ...state,
-        paused: !state.paused
-    }
-})
+
 
 const playQueue = (songs: Song[], playNowIndex?: number, collection?: Collection) => songQueueStore.update((state) => {
     if (songs.length === 0) {
@@ -141,7 +133,6 @@ const playNext = (song: Song) => songQueueStore.update((state) => {
 function createSongQueueStore(){
     return {
         ...songQueueStore,
-        togglePlay,
         playQueue,
         playSong,
         nextTrack,

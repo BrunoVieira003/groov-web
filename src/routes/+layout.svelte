@@ -15,6 +15,8 @@
         currentTime,
         volume,
         duration,
+        paused,
+        togglePlay,
     } from "$lib/stores/player";
 
     let { children } = $props();
@@ -34,34 +36,16 @@
                 artwork: [{ src: `${PUBLIC_API_URL}/songs/${song.id}/cover` }],
             });
 
-            navigator.mediaSession.setActionHandler(
-                "pause",
-                songQueue.togglePlay,
-            );
-            navigator.mediaSession.setActionHandler(
-                "nexttrack",
-                songQueue.nextTrack,
-            );
-            navigator.mediaSession.setActionHandler(
-                "previoustrack",
-                songQueue.previousTrack,
-            );
-            navigator.mediaSession.setActionHandler(
-                "seekforward",
-                ({ seekOffset }) => ($currentTime += seekOffset ?? 5),
-            );
-            navigator.mediaSession.setActionHandler(
-                "seekbackward",
-                ({ seekOffset }) => ($currentTime -= seekOffset ?? 5),
-            );
-            navigator.mediaSession.setActionHandler(
-                "seekto",
-                ({ seekTime }) => {
+            navigator.mediaSession.setActionHandler("pause", togglePlay);
+            navigator.mediaSession.setActionHandler("nexttrack", songQueue.nextTrack);
+            navigator.mediaSession.setActionHandler("previoustrack",songQueue.previousTrack);
+            navigator.mediaSession.setActionHandler("seekforward",({ seekOffset }) => ($currentTime += seekOffset ?? 5));
+            navigator.mediaSession.setActionHandler("seekbackward",({ seekOffset }) => ($currentTime -= seekOffset ?? 5));
+            navigator.mediaSession.setActionHandler("seekto",({ seekTime }) => {
                     if (seekTime) {
                         $currentTime = seekTime;
                     }
-                },
-            );
+                });
         }
     });
 
@@ -93,7 +77,7 @@
     bind:this={audio}
     bind:duration={$duration}
     bind:currentTime={$currentTime}
-    bind:paused={$songQueue.paused}
+    bind:paused={$paused}
     bind:volume={$volume}
     autoplay
     onended={handleTrackEnd}

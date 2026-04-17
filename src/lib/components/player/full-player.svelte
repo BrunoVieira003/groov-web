@@ -3,7 +3,7 @@
     import { formatSongTime } from "$lib/formatters/songTime";
     import PlayButton from "./buttons/play-button.svelte";
     import { songQueue } from "$lib/stores/queue";
-    import emptyImage from '$lib/assets/images/empty.png'
+    import emptyImage from "$lib/assets/images/empty.png";
     import ArtistsLabel from "../artists-label.svelte";
     import PreviousButton from "./buttons/previous-button.svelte";
     import NextButton from "./buttons/next-button.svelte";
@@ -13,78 +13,100 @@
     import Marquee from "../marquee.svelte";
     import Volume from "./buttons/volume.svelte";
     import { fly } from "svelte/transition";
-    import { currentSong, currentTime, duration } from "$lib/stores/player";
+    import { currentSong, currentTime, duration, paused, togglePlay } from "$lib/stores/player";
 
-    let coverImage: HTMLImageElement
+    let coverImage: HTMLImageElement;
 
-    let coverArtURL = $derived(`${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`)
-
+    let coverArtURL = $derived(
+        `${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`,
+    );
 </script>
 
-<div class="absolute top-0 h-full flex flex-col items-center justify-evenly w-full py-10 bg-neutral-dark"
-style:--colorful={$currentSong?.color}
-style:--colorful-contrast={$currentSong?.contrastColor}
-transition:fly={{ duration: 100 }}
+<div
+    class="absolute top-0 h-full flex flex-col items-center justify-evenly w-full py-10 bg-neutral-dark"
+    style:--colorful={$currentSong?.color}
+    style:--colorful-contrast={$currentSong?.contrastColor}
+    transition:fly={{ duration: 100 }}
 >
-    <div class="w-full h-full full-view" style="background-image: url({coverArtURL});"></div>
+    <div
+        class="w-full h-full full-view"
+        style="background-image: url({coverArtURL});"
+    ></div>
 
-    <div class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col md:flex-row items-center gap-10 xl:gap-16 z-1">
+    <div
+        class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col md:flex-row items-center gap-10 xl:gap-16 z-1"
+    >
         <img
-        bind:this={coverImage}
-        src={coverArtURL}
-        alt="cover_art"
-        class="size-100 aspect-square rounded-lg object-cover"
-        onerror={() => coverImage.src = emptyImage}
-        >
+            bind:this={coverImage}
+            src={coverArtURL}
+            alt="cover_art"
+            class="size-100 aspect-square rounded-lg object-cover"
+            onerror={() => (coverImage.src = emptyImage)}
+        />
         <div class="flex flex-col w-full gap-10 overflow-hidden">
             <div>
                 <Marquee>
-                    <p class="text-(--colorful-contrast) font-bold text-5xl text-shadow-lg">{$currentSong?.title}</p>
+                    <p
+                        class="text-(--colorful-contrast) font-bold text-5xl text-shadow-lg"
+                    >
+                        {$currentSong?.title}
+                    </p>
                 </Marquee>
-                <ArtistsLabel artists={$currentSong?.authors || []} size='big' color='default'/>
+                <ArtistsLabel
+                    artists={$currentSong?.authors || []}
+                    size="big"
+                    color="default"
+                />
             </div>
 
-            <div class="flex flex-col w-full items-center gap-2 justify-center z-1">
-
-                <div class="flex w-full  items-center justify-between gap-2">
-                    <p class="w-fit text-nowrap text-xs text-subheading">{formatSongTime($currentTime, !!$currentSong)}</p>
+            <div
+                class="flex flex-col w-full items-center gap-2 justify-center z-1"
+            >
+                <div class="flex w-full items-center justify-between gap-2">
+                    <p class="w-fit text-nowrap text-xs text-subheading">
+                        {formatSongTime($currentTime, !!$currentSong)}
+                    </p>
                     <div class="flex items-center gap-2">
-                        <PreviousButton/>
+                        <PreviousButton />
 
-                        <PlayButton paused={$songQueue.paused} onclick={songQueue.togglePlay}/>
+                        <PlayButton
+                            paused={$paused}
+                            onclick={togglePlay}
+                        />
 
-                        <NextButton/>
+                        <NextButton />
                     </div>
-                    <p class="w-fit text-nowrap text-xs text-subheading">{formatSongTime($duration, !!$currentSong)}</p>
+                    <p class="w-fit text-nowrap text-xs text-subheading">
+                        {formatSongTime($duration, !!$currentSong)}
+                    </p>
                 </div>
 
-                <ProgressBar min={0} max={$duration} bind:value={$currentTime} interactive/>
-                
+                <ProgressBar
+                    min={0}
+                    max={$duration}
+                    bind:value={$currentTime}
+                    interactive
+                />
             </div>
 
             <div class="w-fit flex gap-4 mx-auto">
-                <ToggleViewButton/>
-                <ModeButton/>
-                <Volume/>
+                <ToggleViewButton />
+                <ModeButton />
+                <Volume />
             </div>
         </div>
     </div>
-    
-    
 
-    
-    <div class="w-1/3 flex justify-center z-1">
-    </div>
+    <div class="w-1/3 flex justify-center z-1"></div>
 </div>
 
-
 <style>
-    .full-view{
+    .full-view {
         position: absolute;
         top: 0;
         background-repeat: no-repeat;
         background-size: cover;
         filter: blur(200px);
-        box-shadow: inset 0 0 150px rgba(0,0,0,0.8);
+        box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.8);
     }
 </style>
