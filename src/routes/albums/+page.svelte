@@ -4,6 +4,8 @@
     import emptyImage from '$lib/assets/images/empty.png'
     import Marquee from "$lib/components/marquee.svelte";
     import { goto } from "$app/navigation";
+    import { albumLayout } from "$lib/stores/settings";
+    import Cassete from "$lib/components/cassete.svelte";
 
     let { data }: PageProps = $props()
 
@@ -14,8 +16,10 @@
 
 <h1 class="page-title w-fit not-sm:mx-auto">Albums</h1>
 <h2 class="w-fit not-sm:mx-auto">{data.albums?.length} albums</h2>
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-6">
     {#each data.albums as album}
+        {#if $albumLayout === 'default'}
+            
         <a class="space-y-4 hover:bg-neutral-medium p-4 rounded-md" href="/albums/{album.id}">
             <img
             bind:this={coverImage}
@@ -34,5 +38,10 @@
                 <Marquee><a href="/artists/{album.artist.id}" class="hover:underline text-sm text-subheading">{album.artist.name}</a></Marquee>
             </div>
         </a>
+    {:else}
+        <a href="/albums/{album.id}" class="hover:brightness-115">
+            <Cassete title={album.artist.name} coverImageSrc="{PUBLIC_API_URL}/albums/{album?.id}/cover"/>
+        </a>
+    {/if}
     {/each}
 </div>
