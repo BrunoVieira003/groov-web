@@ -8,12 +8,11 @@
     import { invalidateAll } from "$app/navigation";
     import api from "$lib/plugins/api";
     import { targetedSong, targetedTrackNumber } from "$lib/stores/songAction";
-    import { currentSong } from "$lib/stores/currentSong";
     import { fly } from "svelte/transition";
     import PlayButton from "./player/buttons/play-button.svelte";
     import Marquee from "./marquee.svelte";
     import ArtistsLabel from "./artists-label.svelte";
-    import { currentTime } from "$lib/stores/audioState";
+    import { currentSong, currentTime } from "$lib/stores/player";
 
     interface props{
         collection?: Collection
@@ -88,7 +87,7 @@
 </script>
 
 <svelte:window bind:innerWidth={windowWidth}></svelte:window>
-<p>{JSON.stringify(collection)}</p>
+
 {#snippet songItem(song: Song, trackNumber: number, oncontextmenu: (e: MouseEvent) => void)}
     <div
         class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-light data-[active=true]:text-heading"

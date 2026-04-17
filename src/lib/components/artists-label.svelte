@@ -1,8 +1,7 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { currentSong } from "$lib/stores/currentSong";
+    import { currentSong } from "$lib/stores/player";
     import { viewMode } from "$lib/stores/viewMode";
-    import type Artist from "$lib/types/artist";
     import Marquee from "./marquee.svelte";
 
     interface Props{

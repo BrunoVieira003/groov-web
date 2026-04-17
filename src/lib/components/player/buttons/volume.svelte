@@ -1,18 +1,18 @@
 <script lang="ts">
-    import { currentVolume } from "$lib/stores/audioState";
-    import volumeIcon from "$lib/assets/icons/volume.svg?raw"
-    import muteIcon from "$lib/assets/icons/mute.svg?raw"
-    
-    let previousVolume = $state($currentVolume)
-    let muted = $derived($currentVolume === 0)
-    let progress = $derived(($currentVolume - 0) / (1 - 0) * 100)
+    import volumeIcon from "$lib/assets/icons/volume.svg?raw";
+    import muteIcon from "$lib/assets/icons/mute.svg?raw";
+    import { volume } from "$lib/stores/player";
 
-    function toggleMute(){
-        if(!muted){
-            previousVolume = $currentVolume
-            currentVolume.set(0)
-        }else{
-            currentVolume.set(previousVolume !== 0 ? previousVolume : 1)
+    let previousVolume = $state($volume);
+    let muted = $derived($volume === 0);
+    let progress = $derived((($volume - 0) / (1 - 0)) * 100);
+
+    function toggleMute() {
+        if (!muted) {
+            previousVolume = $volume;
+            volume.set(0);
+        } else {
+            volume.set(previousVolume !== 0 ? previousVolume : 1);
         }
     }
 </script>
@@ -27,14 +27,16 @@
     </button>
 
     <input
-    type="range" bind:value={$currentVolume}
-    class="volume-control bg-linear-to-l from-neutral-medium to-heading from-0% to-10%"
-    onchange={() => previousVolume = $currentVolume}
-    min="0"
-    max="1"
-    step="0.01"
-    style:--background="linear-gradient(90deg, var(--color-heading) {progress}%, var(--color-neutral-lighter) {progress}%)"
-    >
+        type="range"
+        bind:value={$volume}
+        class="volume-control bg-linear-to-l from-neutral-medium to-heading from-0% to-10%"
+        onchange={() => (previousVolume = $volume)}
+        min="0"
+        max="1"
+        step="0.01"
+        style:--background="linear-gradient(90deg, var(--color-heading) {progress}%,
+        var(--color-neutral-lighter) {progress}%)"
+    />
 </div>
 
 <style>

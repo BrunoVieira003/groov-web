@@ -3,10 +3,8 @@
     import { formatSongTime } from "$lib/formatters/songTime";
     import PlayButton from "./buttons/play-button.svelte";
     import { songQueue } from "$lib/stores/queue";
-    import { currentSong } from "$lib/stores/currentSong";
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "../artists-label.svelte";
-    import { currentTime, duration } from "$lib/stores/audioState";
     import PreviousButton from "./buttons/previous-button.svelte";
     import NextButton from "./buttons/next-button.svelte";
     import ToggleViewButton from "./buttons/toggle-view-button.svelte";
@@ -15,6 +13,7 @@
     import Marquee from "../marquee.svelte";
     import Volume from "./buttons/volume.svelte";
     import { fly } from "svelte/transition";
+    import { currentSong, currentTime, duration } from "$lib/stores/player";
 
     let coverImage: HTMLImageElement
 

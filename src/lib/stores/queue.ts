@@ -1,7 +1,7 @@
 import type Song from "$lib/types/song";
-import { derived, get, writable, type Updater } from "svelte/store";
-import { currentSong } from "./currentSong";
+import { get, writable, type Updater } from "svelte/store";
 import type { CollectionType } from "$lib/contexts/collection-context";
+import { currentSong } from "./player";
 
 type PlayModeType = 'repeat-off' | 'repeat-all' | 'repeat-one'
 

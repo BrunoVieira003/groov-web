@@ -1,11 +1,11 @@
 <script lang="ts">
     import { PUBLIC_API_URL } from "$env/static/public";
-    import { currentSong } from "$lib/stores/currentSong";
     import { songQueue } from "$lib/stores/queue";
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "$lib/components/artists-label.svelte";
     import Marquee from "$lib/components/marquee.svelte";
     import SongList from "$lib/components/song-list.svelte";
+    import { currentSong } from "$lib/stores/player";
 
     // svelte-ignore non_reactive_update
         let coverImage: HTMLImageElement
