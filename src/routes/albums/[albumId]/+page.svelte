@@ -7,6 +7,7 @@
     import { albumLayout } from "$lib/stores/settings";
     import Cassete from "$lib/components/cassete.svelte";
     import { songQueue } from "$lib/stores/queue";
+    import { paused } from "$lib/stores/player";
 
     let { data }: PageProps = $props()
 
@@ -37,7 +38,7 @@
     {:else}
         <div class="flex flex-col w-10/12 md:w-1/3 mx-auto mt-2 sm:mt-4 *:h-fit md:gap-4 items-center">
             <div class="volume-shadow">
-                <Cassete title={data.album?.title} coverImageSrc="{PUBLIC_API_URL}/albums/{data.album?.id}/cover" spinning={$songQueue.collection?.id === data.album?.id}/>
+                <Cassete title={data.album?.title} coverImageSrc="{PUBLIC_API_URL}/albums/{data.album?.id}/cover" spinning={$songQueue.collection?.id === data.album?.id && !$paused}/>
             </div>
             <PlayAll tracks={data.album?.songs || []} collection={ {id: data.album?.id, type: 'album', name: data.album?.title || ''} }/>
         </div>
