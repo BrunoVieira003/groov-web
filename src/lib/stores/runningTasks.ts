@@ -8,7 +8,7 @@ export interface Task{
     label: string
 }
 
-export type TaskType = 'scan-folder' | 'upload' | 'prune-songs' 
+export type TaskType = 'scan-folder' | 'upload' | 'prune-songs' | 'prune-assets'
 
 export const runningTasks = writable<Task[]>([])
 

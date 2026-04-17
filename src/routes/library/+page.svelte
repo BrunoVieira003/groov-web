@@ -43,6 +43,19 @@
             }
         }
     }
+
+    const handlePruneAssets: SubmitFunction = () => {
+        return async ({result, update}) => {
+            await update()
+            if(result.type === 'success'){
+                if(result.data){
+                    trackTask('prune-assets', result.data.taskId, 'Prune assets')
+                }
+            }else{
+                toast.error('Prune failed')
+            }
+        }
+    }
 </script>
 
 <h1 class="page-title w-full text-center sm:text-start sm:w-11/12 md:w-8/12 sm:mx-auto text-highlight">Library</h1>
@@ -75,6 +88,16 @@
             <p class="text-sm text-subheading line-clamp-3">Verify the database for songs with no file associated. This is useful when you delete a file, but the app still has the song on the database</p>
         </div>
         <form method="post" action="?/pruneSongs" class="flex items-center gap-4" use:enhance={handlePruneSongs}>
+            <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
+        </form>
+    </div>
+
+    <div class="flex not-sm:flex-col gap-2 items-stretch justify-between">
+        <div>
+            <p class="font-semibold text-heading">Prune assets</p>
+            <p class="text-sm text-subheading line-clamp-3">Remove unused images for songs and albums</p>
+        </div>
+        <form method="post" action="?/pruneAssets" class="flex items-center gap-4" use:enhance={handlePruneAssets}>
             <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
         </form>
     </div>

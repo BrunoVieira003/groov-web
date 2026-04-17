@@ -19,5 +19,10 @@ export const actions = {
     pruneSongs: async () => {
         const {data} = await api.post('/tasks/prune-songs')
         return {taskId: data.taskId}
+    },
+
+    pruneAssets: async () => {
+        const {data} = await api.post('/tasks/prune-assets')
+        return {taskId: data.taskId}
     }
 } satisfies Actions
