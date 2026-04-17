@@ -5,7 +5,6 @@
     import emptyImage from '$lib/assets/images/empty.png'
     import ArtistsLabel from "$lib/components/artists-label.svelte";
     import Marquee from "$lib/components/marquee.svelte";
-    import type { derived } from "svelte/store";
     import SongList from "$lib/components/song-list.svelte";
 
     // svelte-ignore non_reactive_update
@@ -20,10 +19,10 @@
     })
 
     let collectionLink = $derived(() => {
-        switch ($songQueue.collectionType){
-            case 'artist': return `/artists/${$songQueue.collectionId}`
-            case 'album': return `/albums/${$songQueue.collectionId}`
-            case 'playlist': return `/playlists/${$songQueue.collectionId}`
+        switch ($songQueue.collection?.type){
+            case 'artist': return `/artists/${$songQueue.collection.id}`
+            case 'album': return `/albums/${$songQueue.collection.id}`
+            case 'playlist': return `/playlists/${$songQueue.collection.id}`
             default: return ''
         }
     })
@@ -33,10 +32,10 @@
 
 {#if $currentSong}
 <div class="flex flex-col mt-6 gap-4 w-10/12 mx-auto sm:w-4/12" style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;">
-    {#if $songQueue.collectionName}
+    {#if $songQueue.collection?.name}
         <div class="-mb-2">
-            <p class="text-sm text-legend">Playing from {$songQueue.collectionType}</p>
-            <a href={collectionLink()} class="text-lg text-heading">{$songQueue.collectionName}</a>
+            <p class="text-sm text-legend">Playing from {$songQueue.collection.type}</p>
+            <a href={collectionLink()} class="text-lg text-heading">{$songQueue.collection.name}</a>
         </div>
     {/if}
     <img
@@ -62,8 +61,7 @@
 <div class="mt-20 w-11/12 sm:w-11/12 mx-auto">
     <h1 class="text-xl mb-4">Queue</h1>
     <SongList 
-    collectionName={$songQueue.collectionName}
-    collectionType={'other'}
+    collection={$songQueue.collection}
     tracks={$songQueue.tracks}
     />
 </div>

@@ -33,9 +33,7 @@
             <h2 class="text-3xl mb-2">Songs</h2>
             <p class="mb-6">{data.songs?.length} results</p>
             <SongList
-                collectionId=''
-                collectionName="Search '{page.url.searchParams.get('q')}'" 
-                collectionType='search'
+                collection={ {id: '', name: `Search '${page.url.searchParams.get('q')}'`, type: 'search'} }
                 tracks={data.songs || []}
             />
         </div>

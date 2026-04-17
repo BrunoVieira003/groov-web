@@ -8,11 +8,9 @@
 
 
 <h1 class="page-title w-fit not-sm:mx-auto text-highlight">Songs</h1>
-<PlayAll tracks={data.songs || []} collectionType='library' collectionName='All songs'/>
+<PlayAll tracks={data.songs || []} collection={ {type: 'library', name: 'All songs'} }/>
 
 <SongList
-collectionId=''
-collectionName='All songs'
-collectionType='library'
+collection={ {type: 'library', name: 'All songs'} }
 tracks={data.songs || []}
 />

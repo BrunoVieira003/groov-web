@@ -87,6 +87,7 @@ onended={handleTrackEnd}
 <div class="flex flex-col w-full mx-auto h-dvh bg-transparent overflow-hidden">
     {#if $viewMode === 'default'}
         <Header/>
+        <p>{typeof $songQueue.collection}</p>
     {/if}
     <div class="relative overflow-y-auto flex-1 lg:px-30 mb-2">
         {@render children()}

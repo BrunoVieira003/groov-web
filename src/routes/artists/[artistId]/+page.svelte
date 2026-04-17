@@ -14,9 +14,7 @@
     </div>
 
     <SongList 
-    collectionId={data.artist?.id || ''} 
-    collectionType='artist'
-    collectionName={data.artist?.name}
+    collection={ {id: data.artist?.id, type: 'artist', name: data.artist?.name || ''} }
     tracks={data.artist?.songs || []}
     />
 

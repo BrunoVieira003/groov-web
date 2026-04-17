@@ -1,20 +1,17 @@
 <script lang="ts">
-    import { songQueue } from "$lib/stores/queue";
+    import { songQueue, type Collection } from "$lib/stores/queue";
     import playIcon from '$lib/assets/icons/play.svg?raw'
     import type Song from "$lib/types/song";
-    import type { CollectionType } from "$lib/contexts/collection-context";
 
     interface PropsType{
         tracks: Song[],
-        collectionType?: CollectionType
-        collectionName?: string
-        collectionId?: string
+        collection?: Collection
     }
 
-    let { tracks, collectionType, collectionName, collectionId }: PropsType = $props()
+    let { tracks, collection }: PropsType = $props()
 
     function handlePlayAll(){
-        songQueue.playQueue(tracks, 0, collectionType, collectionName, collectionId)
+        songQueue.playQueue(tracks, 0, collection)
     }
 </script>
 

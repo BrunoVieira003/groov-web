@@ -1,10 +1,9 @@
 <script lang="ts">
-    import { type CollectionType } from "$lib/contexts/collection-context";
     import type Song from "$lib/types/song";
     import ContextMenu from "./context-menu.svelte";
     import Submenu from "./submenu.svelte";
     import PlaylistSelect from "./forms/playlist-select.svelte";
-    import { songQueue } from "$lib/stores/queue";
+    import { songQueue, type Collection } from "$lib/stores/queue";
     import toast from "svelte-hot-french-toast";
     import { invalidateAll } from "$app/navigation";
     import api from "$lib/plugins/api";
@@ -17,13 +16,11 @@
     import { currentTime } from "$lib/stores/audioState";
 
     interface props{
-        collectionId?: string
-        collectionType?: CollectionType
-        collectionName: string | undefined
+        collection?: Collection
         tracks: Song[]
     }
 
-    let {tracks, collectionType, collectionName, collectionId}: props = $props()
+    let {tracks, collection}: props = $props()
 
     let contextMenu = $state<ContextMenu>()
     let isOnQueue = $derived($songQueue.tracks.includes($targetedSong))
@@ -85,13 +82,13 @@
         }
 
         const songIndex = tracks.findIndex(s => s.id === song.id)
-        songQueue.playQueue(tracks, songIndex, collectionType, collectionName, collectionId || '')
+        songQueue.playQueue(tracks, songIndex, collection)
         currentTime.set(0)
     }
 </script>
 
 <svelte:window bind:innerWidth={windowWidth}></svelte:window>
-
+<p>{JSON.stringify(collection)}</p>
 {#snippet songItem(song: Song, trackNumber: number, oncontextmenu: (e: MouseEvent) => void)}
     <div
         class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-light data-[active=true]:text-heading"
@@ -117,18 +114,18 @@
                 <Marquee>
                     <p data-active={song.id === $currentSong?.id} class="font-bold text-md text-heading data-[active=true]:text-(--colorful)">{song.title}</p>
                 </Marquee>
-                {#if collectionType !== 'album' || windowWidth <= 768}
+                {#if collection?.type !== 'album' || windowWidth <= 768}
                     <ArtistsLabel artists={song.authors} size='small'/>
                 {/if}
             </div>
         </div>
-        {#if song.album && collectionType !== 'album'}
+        {#if song.album && collection?.type !== 'album'}
             <a
                 href="/albums/{song.album.id}"
                 class="hidden md:block hover:underline">{song.album.title}</a
             >
         {/if}
-        {#if (collectionType === 'album' && windowWidth > 768)}
+        {#if (collection?.type === 'album' && windowWidth > 768)}
             <ArtistsLabel artists={song.authors} size='default'/>
         {/if}
     </div>
@@ -138,7 +135,7 @@
     <div class="sticky w-full top-0 grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark text-legend">
         <p class="hidden md:block text-center">#</p>
         <p class="font-bold text-sm">Title</p>
-        {#if collectionType !== 'album'}
+        {#if collection?.type !== 'album'}
             <p class="hidden md:block font-bold text-sm">Album</p>
         {:else}
             <p class="hidden md:block font-bold text-sm">Artists</p>
@@ -169,11 +166,11 @@
         >
             <PlaylistSelect onPick={addToPlaylist} />
         </Submenu>
-        {#if collectionType === "playlist"}
+        {#if collection?.type === "playlist"}
             <button
                 class="text-md cursor-pointer px-4 py-2 hover:bg-neutral-light rounded-md"
                 onclick={() =>
-                    removeFromPlaylist(collectionId)}
+                    removeFromPlaylist(collection.id)}
                 >Remove from playlist</button
             >
         {/if}

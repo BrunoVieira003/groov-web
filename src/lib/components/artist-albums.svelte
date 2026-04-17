@@ -25,7 +25,7 @@
         <DefaultAlbum album={album}/>
         {:else}
         <a href="/albums/{album.id}" class="hover:brightness-115">
-            <Cassete title={album.title} coverImageSrc="{PUBLIC_API_URL}/albums/{album.id}/cover" spinning={$songQueue.collectionId === album?.id}/>
+            <Cassete title={album.title} coverImageSrc="{PUBLIC_API_URL}/albums/{album.id}/cover" spinning={$songQueue.collection?.id === album?.id}/>
         </a>
         {/if}
     {/each}

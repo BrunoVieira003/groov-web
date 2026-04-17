@@ -7,9 +7,6 @@
     import { songQueue } from "$lib/stores/queue";
 
     let { data }: PageProps = $props()
-
-    // svelte-ignore non_reactive_update
-    let coverImage: HTMLImageElement
 </script>
 
 
@@ -21,7 +18,7 @@
             <DefaultAlbum album={album}/>
         {:else}
             <a href="/albums/{album.id}" class="hover:brightness-115">
-                <Cassete title={album.title} coverImageSrc="{PUBLIC_API_URL}/albums/{album.id}/cover" spinning={$songQueue.collectionId === album.id && !$songQueue.paused}/>
+                <Cassete title={album.title} coverImageSrc="{PUBLIC_API_URL}/albums/{album.id}/cover" spinning={$songQueue.collection?.id === album.id && !$songQueue.paused}/>
             </a>
         {/if}
     {/each}
