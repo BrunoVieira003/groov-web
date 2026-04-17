@@ -1,9 +1,6 @@
 <script lang="ts">
     import { PUBLIC_API_URL } from "$env/static/public";
     import type { PageProps } from "./$types";
-    import emptyImage from '$lib/assets/images/empty.png'
-    import Marquee from "$lib/components/marquee.svelte";
-    import { goto } from "$app/navigation";
     import { albumLayout } from "$lib/stores/settings";
     import Cassete from "$lib/components/cassete.svelte";
     import DefaultAlbum from "$lib/components/album/DefaultAlbum.svelte";
