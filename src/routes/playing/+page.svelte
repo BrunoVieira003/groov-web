@@ -47,13 +47,13 @@
     onerror={() => coverImage.src = emptyImage}
     >
     <div class="flex items-center justify-between w-full sm:w-120 overflow-hidden">
-        <div class="w-full">
+        <div class="w-full data-hasYear:w-10/12" data-hasYear={$currentSong.year}>
             <Marquee>
                 <p class="colorful text-xl font-bold">{$currentSong?.title}</p>
             </Marquee>
             <ArtistsLabel artists={$currentSong?.authors || []}/>
         </div>
-        <div>
+        <div class="w-fit">
             <p class="text-legend">{$currentSong?.year}</p>
         </div>
     </div>
