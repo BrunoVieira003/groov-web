@@ -14,6 +14,8 @@
     import Volume from "./buttons/volume.svelte";
     import { fly } from "svelte/transition";
     import { currentSong, currentTime, duration, paused, togglePlay } from "$lib/stores/player";
+    import { albumLayout } from "$lib/stores/settings";
+    import Cassete from "../cassete.svelte";
 
     let coverImage: HTMLImageElement;
 
@@ -34,29 +36,41 @@
     ></div>
 
     <div
-        class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col md:flex-row items-center gap-10 xl:gap-16 z-1"
+        class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col data-[layout=cassete]:flex-col md:flex-row items-center data-[layout=cassete]:gap-6 gap-10 xl:gap-16 z-1"
+        data-layout="{$albumLayout}"
     >
-        <img
-            bind:this={coverImage}
-            src={coverArtURL}
-            alt="cover_art"
-            class="size-100 aspect-square rounded-lg object-cover"
-            onerror={() => (coverImage.src = emptyImage)}
-        />
-        <div class="flex flex-col w-full gap-10 overflow-hidden">
+        {#if $albumLayout === 'default'}
+            <img
+                bind:this={coverImage}
+                src={coverArtURL}
+                alt="cover_art"
+                class="size-100 aspect-square rounded-lg object-cover"
+                onerror={() => (coverImage.src = emptyImage)}
+            />
+        {/if}
+
+        {#if $albumLayout === 'cassete'}
             <div>
-                <Marquee>
-                    <p
-                        class="text-(--colorful-contrast) font-bold text-5xl text-shadow-lg"
-                    >
-                        {$currentSong?.title}
-                    </p>
-                </Marquee>
-                <ArtistsLabel
-                    artists={$currentSong?.authors || []}
-                    size="big"
-                    color="default"
-                />
+                <Cassete title={$currentSong?.title} coverImageSrc={coverArtURL} spinning={!$paused}/>
+            </div>
+        {/if}
+
+        <div class="flex flex-col w-full gap-10 overflow-hidden" data-layout="{$albumLayout}">
+            <div>
+                {#if $albumLayout === 'default'}
+                    <Marquee>
+                        <p class="text-(--colorful-contrast) font-bold text-5xl text-shadow-lg">
+                            {$currentSong?.title}
+                        </p>
+                    </Marquee>
+                {/if}
+                <div class="data-[layout=cassete]:mx-auto w-fit" data-layout="{$albumLayout}">
+                    <ArtistsLabel
+                        artists={$currentSong?.authors || []}
+                        size="big"
+                        color="default"
+                    />
+                </div>
             </div>
 
             <div
