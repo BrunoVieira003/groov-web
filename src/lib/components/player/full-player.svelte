@@ -50,7 +50,7 @@
         {/if}
 
         {#if $albumLayout === 'cassete'}
-            <div>
+            <div class="w-2/4">
                 <Cassete title={$currentSong?.title} coverImageSrc={coverArtURL} spinning={!$paused}/>
             </div>
         {/if}
