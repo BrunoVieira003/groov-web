@@ -70,4 +70,8 @@
             <p class="text-center text-2xl text-subheading">{lyric}</p>
         {/each}
     {/if}
+{:else}
+    <div class="flex items-center justify-center size-full">
+        <p class="text-5xl">No lyrics for this song</p>
+    </div>
 {/if}

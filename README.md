@@ -19,7 +19,7 @@ Here's a list of all features that may be available in this project
     - ✅ Songs
     - ✅ Artists
     - 💭 Albums
-    - 💭 Playlists
+    - ✅ Playlists
 - ✅ Loop modes
     - ✅ No repeat
     - ✅ Repeat all
@@ -30,8 +30,8 @@ Here's a list of all features that may be available in this project
 - ✅ Trigger folder scan
 - ✅ Task feedback
 - ✅ Integration with Web Audio API
-- 💭 Display unsynced lyrics
-- 💭 Display synced lyrics
+- ✅ Display unsynced lyrics
+- ✅ Display synced lyrics
 - 💭 Audio visualizers
 - 💭 Artist images auto-download
 - 💭 Internacionalization

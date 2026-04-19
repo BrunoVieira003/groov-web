@@ -16,6 +16,7 @@
     import { currentSong, currentTime, duration, paused, togglePlay } from "$lib/stores/player";
     import { albumLayout } from "$lib/stores/settings";
     import Cassete from "../cassete.svelte";
+    import LyricsButton from "./buttons/lyrics-button.svelte";
 
     let coverImage: HTMLImageElement;
 
@@ -103,9 +104,10 @@
                 />
             </div>
 
-            <div class="w-fit flex gap-4 mx-auto">
-                <ToggleViewButton />
+            <div class="not-sm:hidden mx-auto w-full sm:w-fit flex gap-2 sm:gap-4 justify-center items-center">
                 <ModeButton />
+                <LyricsButton/>
+                <ToggleViewButton />
                 <Volume />
             </div>
         </div>

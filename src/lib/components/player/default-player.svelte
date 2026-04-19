@@ -14,6 +14,7 @@
     import Volume from "./buttons/volume.svelte";
     import { fly } from "svelte/transition";
     import { currentSong, currentTime, duration, paused, togglePlay } from "$lib/stores/player";
+    import LyricsButton from "./buttons/lyrics-button.svelte";
 
     let coverImage: HTMLImageElement;
 
@@ -88,8 +89,9 @@
     <div
         class="not-sm:hidden w-full sm:w-1/4 flex gap-2 sm:gap-4 justify-center items-center"
     >
-        <ToggleViewButton />
         <ModeButton />
+        <LyricsButton/>
+        <ToggleViewButton />
         <Volume />
     </div>
 </div>
