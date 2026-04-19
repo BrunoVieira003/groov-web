@@ -25,6 +25,7 @@
             <a href="/playlists">Playlists</a>
             <a href="/library">Library</a>
             <a href="/settings">Settings</a>
+            <a href="/lyrics">Lyrics</a>
         </div>
     </div>
     <form action="/search" method="get" class="relative text-legend has-[.input:focus]:text-white w-full not-sm:w-11/12 not-sm:mx-auto">
