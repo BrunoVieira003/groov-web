@@ -53,9 +53,16 @@
 
 {#if hasLyrics}
     {#if synced}
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col items-center gap-2">
             {#each syncedLyrics as lyric, line}
-                <button bind:this={syncedElements[line]} class="text-center text-2xl text-legend data-[active=true]:text-highlight transition-all" data-active="{currentLine === line}">{lyric.text}</button>
+                <button
+                bind:this={syncedElements[line]}
+                class="w-fit text-2xl text-legend data-[active=true]:text-highlight transition-all cursor-pointer"
+                data-active="{currentLine === line}"
+                onclick={() => currentTime.set(lyric.time)}
+                >
+                    {lyric.text}
+                </button>
             {/each}
         </div>
     {:else}
