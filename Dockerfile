@@ -19,4 +19,4 @@ COPY --from=build /app/node_modules .
 COPY --from=build /app/.svelte-kit .
 COPY --from=build /app/.static .
 
-CMD ["bun", "run", "preview"]
+CMD ["bun" "./build/index.js"]

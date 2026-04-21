@@ -8,6 +8,7 @@
 		"@tailwindcss/vite": "^4.1.17",
 		"@types/axios": "^0.14.4",
 		"svelte": "^5.45.6",
+		"svelte-adapter-bun": "^1.0.1",
 		"svelte-check": "^4.3.4",
 		"tailwindcss": "^4.1.17",
 		"typescript": "^5.9.3",
