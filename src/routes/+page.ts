@@ -1,10 +1,10 @@
-import { env } from "$env/dynamic/public";
+import { env } from "$env/dynamic/private";
 import type Song from "$lib/types/song";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ fetch }) => {
     try {
-        const response = await fetch(`${env.PUBLIC_API_URL}/songs`)
+        const response = await fetch(`${env.API_URL}/songs`)
         const data = await response.json() as { songs: Song[] }
         return { songs: data.songs }
     } catch (e) {

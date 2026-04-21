@@ -1,8 +1,6 @@
 <script lang="ts">
     import { env } from "$env/dynamic/public";
     import type { AlbumSummary } from "$lib/types/album";
-    import emptyImage from "$lib/assets/images/empty.png";
-    import Marquee from "./marquee.svelte";
     import DefaultAlbum from "./album/DefaultAlbum.svelte";
     import { albumLayout } from "$lib/stores/settings";
     import { songQueue } from "$lib/stores/queue";

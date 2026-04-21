@@ -1,4 +1,3 @@
-import { PUBLIC_API_URL } from '$env/static/public';
 import api from '$lib/plugins/api';
 import type { Actions } from '@sveltejs/kit';
 

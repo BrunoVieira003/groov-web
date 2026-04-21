@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { env } from "$env/dynamic/public";
+    import { env } from "$env/dynamic/private";
     import Cassete from "$lib/components/cassete.svelte";
     import Marquee from "$lib/components/marquee.svelte";
     import { albumLayout } from "$lib/stores/settings";

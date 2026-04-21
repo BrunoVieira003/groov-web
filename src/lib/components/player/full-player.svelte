@@ -2,7 +2,6 @@
     import { env } from "$env/dynamic/public";
     import { formatSongTime } from "$lib/formatters/songTime";
     import PlayButton from "./buttons/play-button.svelte";
-    import { songQueue } from "$lib/stores/queue";
     import emptyImage from "$lib/assets/images/empty.png";
     import ArtistsLabel from "../artists-label.svelte";
     import PreviousButton from "./buttons/previous-button.svelte";
@@ -25,7 +24,7 @@
     import LyricsButton from "./buttons/lyrics-button.svelte";
 
     // svelte-ignore non_reactive_update
-        let coverImage: HTMLImageElement;
+    let coverImage: HTMLImageElement;
 
     let coverArtURL = $derived(
         `${env.PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`,

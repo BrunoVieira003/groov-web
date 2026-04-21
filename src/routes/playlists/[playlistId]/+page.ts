@@ -1,4 +1,4 @@
-import { env } from "$env/dynamic/public";
+import { env } from "$env/dynamic/private";
 import type { Playlist } from "$lib/types/playlist";
 import type { PageLoad } from "./$types";
 
