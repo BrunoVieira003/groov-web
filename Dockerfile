@@ -18,4 +18,4 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/build ./build
 COPY --from=build /app/static ./static
 
-CMD ["bun" "./build/index.js"]
+CMD bun ./build/index.js
