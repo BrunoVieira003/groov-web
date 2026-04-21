@@ -1,8 +1,8 @@
 import { env } from "$env/dynamic/private";
 import type Artist from "$lib/types/artist";
-import type { PageLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params }) => {
     try {
         const response = await fetch(`${env.API_URL}/artist/${params.artistId}`)
         const data = await response.json() as Artist

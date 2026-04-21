@@ -1,8 +1,8 @@
 import { env } from "$env/dynamic/private";
 import type { Playlist } from "$lib/types/playlist";
-import type { PageLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params }) => {
     try {
         const response = await fetch(`${env.PUBLIC_API_URL}/playlists/${params.playlistId}`)
         const data = await response.json() as Playlist
