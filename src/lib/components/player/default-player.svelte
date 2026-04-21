@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { PUBLIC_API_URL } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
     import { formatSongTime } from "$lib/formatters/songTime";
     import PlayButton from "./buttons/play-button.svelte";
     import { songQueue } from "$lib/stores/queue";
@@ -13,13 +13,19 @@
     import Marquee from "../marquee.svelte";
     import Volume from "./buttons/volume.svelte";
     import { fly } from "svelte/transition";
-    import { currentSong, currentTime, duration, paused, togglePlay } from "$lib/stores/player";
+    import {
+        currentSong,
+        currentTime,
+        duration,
+        paused,
+        togglePlay,
+    } from "$lib/stores/player";
     import LyricsButton from "./buttons/lyrics-button.svelte";
 
     let coverImage: HTMLImageElement;
 
     let coverArtURL = $derived(
-        `${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`,
+        `${env.PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`,
     );
 </script>
 
@@ -90,7 +96,7 @@
         class="not-sm:hidden w-full sm:w-1/4 flex gap-2 sm:gap-4 justify-center items-center"
     >
         <ModeButton />
-        <LyricsButton/>
+        <LyricsButton />
         <ToggleViewButton />
         <Volume />
     </div>

@@ -1,7 +1,7 @@
-import { PUBLIC_API_URL } from "$env/static/public";
+import { env } from "$env/dynamic/public";
 import { writable } from "svelte/store";
 
-export interface Task{
+export interface Task {
     id: string
     progress: number
     status: string
@@ -13,7 +13,7 @@ export type TaskType = 'scan-folder' | 'upload' | 'prune-songs' | 'prune-assets'
 export const runningTasks = writable<Task[]>([])
 
 export function trackTask(taskType: TaskType, id: string, label: string) {
-    const events = new EventSource(`${PUBLIC_API_URL}/tasks/${taskType}/${id}`)
+    const events = new EventSource(`${env.PUBLIC_API_URL}/tasks/${taskType}/${id}`)
     const task: Task = {
         id: id,
         progress: 0,
@@ -28,7 +28,7 @@ export function trackTask(taskType: TaskType, id: string, label: string) {
     events.onmessage = (event) => {
         const data = JSON.parse(String(event.data).replace('data: ', ''))
 
-        switch(data.status){
+        switch (data.status) {
             case 'running':
                 runningTasks.update((state) => {
                     task.progress = data.progress

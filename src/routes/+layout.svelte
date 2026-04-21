@@ -4,7 +4,7 @@
     import Player from "$lib/components/player/default-player.svelte";
     import Header from "$lib/components/header.svelte";
     import { Toaster } from "svelte-hot-french-toast";
-    import { PUBLIC_API_URL } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
     import { songQueue } from "$lib/stores/queue";
     import { viewMode } from "$lib/stores/viewMode";
     import FullPlayer from "$lib/components/player/full-player.svelte";
@@ -26,26 +26,43 @@
 
     currentSong.subscribe((song) => {
         if (source && song && navigator.mediaSession) {
-            source.src = `${PUBLIC_API_URL}/songs/${song.id}`;
+            source.src = `${env.PUBLIC_API_URL}/songs/${song.id}`;
             audio.load();
 
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
                 artist: song.authors.map((a) => a.name).join(", "),
                 album: song.album ? song.album.title : "",
-                artwork: [{ src: `${PUBLIC_API_URL}/songs/${song.id}/cover` }],
+                artwork: [
+                    { src: `${env.PUBLIC_API_URL}/songs/${song.id}/cover` },
+                ],
             });
 
             navigator.mediaSession.setActionHandler("pause", togglePlay);
-            navigator.mediaSession.setActionHandler("nexttrack", songQueue.nextTrack);
-            navigator.mediaSession.setActionHandler("previoustrack",songQueue.previousTrack);
-            navigator.mediaSession.setActionHandler("seekforward",({ seekOffset }) => ($currentTime += seekOffset ?? 5));
-            navigator.mediaSession.setActionHandler("seekbackward",({ seekOffset }) => ($currentTime -= seekOffset ?? 5));
-            navigator.mediaSession.setActionHandler("seekto",({ seekTime }) => {
+            navigator.mediaSession.setActionHandler(
+                "nexttrack",
+                songQueue.nextTrack,
+            );
+            navigator.mediaSession.setActionHandler(
+                "previoustrack",
+                songQueue.previousTrack,
+            );
+            navigator.mediaSession.setActionHandler(
+                "seekforward",
+                ({ seekOffset }) => ($currentTime += seekOffset ?? 5),
+            );
+            navigator.mediaSession.setActionHandler(
+                "seekbackward",
+                ({ seekOffset }) => ($currentTime -= seekOffset ?? 5),
+            );
+            navigator.mediaSession.setActionHandler(
+                "seekto",
+                ({ seekTime }) => {
                     if (seekTime) {
                         $currentTime = seekTime;
                     }
-                });
+                },
+            );
         }
     });
 

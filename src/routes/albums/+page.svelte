@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { PUBLIC_API_URL } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
     import type { PageProps } from "./$types";
     import { albumLayout } from "$lib/stores/settings";
     import Cassete from "$lib/components/cassete.svelte";
@@ -22,8 +22,9 @@
             <a href="/albums/{album.id}" class="hover:brightness-115">
                 <Cassete
                     title={album.title}
-                    coverImageSrc="{PUBLIC_API_URL}/albums/{album.id}/cover"
-                    spinning={$songQueue.collection?.id === album.id && !$paused}
+                    coverImageSrc="{env.PUBLIC_API_URL}/albums/{album.id}/cover"
+                    spinning={$songQueue.collection?.id === album.id &&
+                        !$paused}
                 />
             </a>
         {/if}

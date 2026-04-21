@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { PUBLIC_API_URL } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
     import { formatSongTime } from "$lib/formatters/songTime";
     import PlayButton from "./buttons/play-button.svelte";
     import { songQueue } from "$lib/stores/queue";
@@ -13,15 +13,22 @@
     import Marquee from "../marquee.svelte";
     import Volume from "./buttons/volume.svelte";
     import { fly } from "svelte/transition";
-    import { currentSong, currentTime, duration, paused, togglePlay } from "$lib/stores/player";
+    import {
+        currentSong,
+        currentTime,
+        duration,
+        paused,
+        togglePlay,
+    } from "$lib/stores/player";
     import { albumLayout } from "$lib/stores/settings";
     import Cassete from "../cassete.svelte";
     import LyricsButton from "./buttons/lyrics-button.svelte";
 
-    let coverImage: HTMLImageElement;
+    // svelte-ignore non_reactive_update
+        let coverImage: HTMLImageElement;
 
     let coverArtURL = $derived(
-        `${PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`,
+        `${env.PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`,
     );
 </script>
 
@@ -38,9 +45,9 @@
 
     <div
         class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col data-[layout=cassete]:flex-col md:flex-row items-center data-[layout=cassete]:gap-6 gap-10 xl:gap-16 z-1"
-        data-layout="{$albumLayout}"
+        data-layout={$albumLayout}
     >
-        {#if $albumLayout === 'default'}
+        {#if $albumLayout === "default"}
             <img
                 bind:this={coverImage}
                 src={coverArtURL}
@@ -50,22 +57,34 @@
             />
         {/if}
 
-        {#if $albumLayout === 'cassete'}
+        {#if $albumLayout === "cassete"}
             <div class="w-2/4">
-                <Cassete title={$currentSong?.title} coverImageSrc={coverArtURL} spinning={!$paused}/>
+                <Cassete
+                    title={$currentSong?.title}
+                    coverImageSrc={coverArtURL}
+                    spinning={!$paused}
+                />
             </div>
         {/if}
 
-        <div class="flex flex-col w-full gap-10 overflow-hidden" data-layout="{$albumLayout}">
+        <div
+            class="flex flex-col w-full gap-10 overflow-hidden"
+            data-layout={$albumLayout}
+        >
             <div>
-                {#if $albumLayout === 'default'}
+                {#if $albumLayout === "default"}
                     <Marquee>
-                        <p class="text-(--colorful-contrast) font-bold text-5xl text-shadow-lg">
+                        <p
+                            class="text-(--colorful-contrast) font-bold text-5xl text-shadow-lg"
+                        >
                             {$currentSong?.title}
                         </p>
                     </Marquee>
                 {/if}
-                <div class="data-[layout=cassete]:mx-auto w-fit" data-layout="{$albumLayout}">
+                <div
+                    class="data-[layout=cassete]:mx-auto w-fit"
+                    data-layout={$albumLayout}
+                >
                     <ArtistsLabel
                         artists={$currentSong?.authors || []}
                         size="big"
@@ -84,10 +103,7 @@
                     <div class="flex items-center gap-2">
                         <PreviousButton />
 
-                        <PlayButton
-                            paused={$paused}
-                            onclick={togglePlay}
-                        />
+                        <PlayButton paused={$paused} onclick={togglePlay} />
 
                         <NextButton />
                     </div>
@@ -104,9 +120,11 @@
                 />
             </div>
 
-            <div class="not-sm:hidden mx-auto w-full sm:w-fit flex gap-2 sm:gap-4 justify-center items-center">
+            <div
+                class="not-sm:hidden mx-auto w-full sm:w-fit flex gap-2 sm:gap-4 justify-center items-center"
+            >
                 <ModeButton />
-                <LyricsButton/>
+                <LyricsButton />
                 <ToggleViewButton />
                 <Volume />
             </div>
