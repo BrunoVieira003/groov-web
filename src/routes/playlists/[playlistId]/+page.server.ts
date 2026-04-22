@@ -4,7 +4,7 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params }) => {
     try {
-        const response = await fetch(`${env.PUBLIC_API_URL}/playlists/${params.playlistId}`)
+        const response = await fetch(`${env.API_URL}/playlists/${params.playlistId}`)
         const data = await response.json() as Playlist
         return { playlist: data }
     } catch (e) {
