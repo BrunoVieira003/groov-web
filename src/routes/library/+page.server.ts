@@ -6,7 +6,7 @@ export const actions = {
     upload: async ({request, fetch}) => {
         const formData = await request.formData()
 
-        const response = await fetch(`${env.API_URL}/tasks/prune-assets`, {
+        const response = await fetch(`${env.API_URL}/songs/upload`, {
             method: 'post',
             body: JSON.stringify(formData)
         })
@@ -15,13 +15,13 @@ export const actions = {
     },
 
     scan: async ({fetch}) => {
-        const response = await fetch(`${env.API_URL}/tasks/prune-assets`, {method: 'post'})
+        const response = await fetch(`${env.API_URL}/tasks/scan-folder`, {method: 'post'})
         const data = await response.json() as {taskId: string}
         return data
     },
 
     pruneSongs: async ({fetch}) => {
-        const response = await fetch(`${env.API_URL}/tasks/prune-assets`, {method: 'post'})
+        const response = await fetch(`${env.API_URL}/tasks/prune-songs`, {method: 'post'})
         const data = await response.json() as {taskId: string}
         return data
     },
