@@ -4,19 +4,14 @@ import type { Actions } from '@sveltejs/kit';
 
 export const actions = {
     upload: async ({request, fetch}) => {
-        try{
+        const formData = await request.formData()
 
-            const formData = await request.formData()
-    
-            const response = await fetch(`${env.API_URL}/songs/upload`, {
-                method: 'post',
-                body: formData
-            })
-            const data = await response.json() as {taskId: string}
-            return data
-        }catch(e){
-            console.log(e)
-        }
+        const response = await fetch(`${env.API_URL}/songs/upload`, {
+            method: 'post',
+            body: formData
+        })
+        const data = await response.json() as {taskId: string}
+        return data
     },
 
     scan: async ({fetch}) => {
