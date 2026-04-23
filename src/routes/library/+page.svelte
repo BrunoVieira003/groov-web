@@ -10,7 +10,7 @@
             await update()
             if(result.type === 'success'){
                 if(result.data){
-                    trackTask('upload', result.data.taskId, 'Upload')
+                    toast.success('File uploaded')
                 }
             }else{
                 toast.error('Upload failed')
@@ -23,7 +23,7 @@
             await update()
             if(result.type === 'success'){
                 if(result.data){
-                    trackTask('scan-folder', result.data.taskId, 'Scan folder')
+                    toast.success('Scan folder task initialized')
                 }
             }else{
                 toast.error('Scan failed')
@@ -36,7 +36,7 @@
             await update()
             if(result.type === 'success'){
                 if(result.data){
-                    trackTask('prune-songs', result.data.taskId, 'Prune songs')
+                    toast.success('Prune songs task initialized')
                 }
             }else{
                 toast.error('Prune failed')
@@ -49,7 +49,7 @@
             await update()
             if(result.type === 'success'){
                 if(result.data){
-                    trackTask('prune-assets', result.data.taskId, 'Prune assets')
+                    toast.success('Prune assets task initialized')
                 }
             }else{
                 toast.error('Prune failed')
