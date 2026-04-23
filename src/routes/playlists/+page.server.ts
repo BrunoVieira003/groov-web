@@ -14,13 +14,11 @@ export const load: PageServerLoad = async () => {
 
 export const actions = {
     default: async ({ request, fetch }) => {
-        const data = await request.formData()
-        const title = data.get('title')
+        const formData = await request.formData()
+
         await fetch(`${env.API_URL}/playlists`, {
             method: 'post',
-            body: JSON.stringify({
-                title
-            })
+            body: formData
         })
     }
 } satisfies Actions

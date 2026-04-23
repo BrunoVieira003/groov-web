@@ -106,7 +106,7 @@
         tabindex="-1"
         transition:fly={{ duration: 100 }}
     >
-        <p class="hidden md:block text-center">
+        <p class="hidden md:block text-center text-legend font-semibold">
             {trackNumber !== undefined ? trackNumber + 1 : ""}
         </p>
 
@@ -165,7 +165,7 @@
 <ContextMenu bind:this={contextMenu}>
     <div class="flex flex-col">
         <p
-            class="font-semibold text-heading text-sm text-center py-2 w-full mx-auto"
+            class="font-semibold text-legend text-sm text-center py-2 w-full mx-auto"
         >
             Options
         </p>

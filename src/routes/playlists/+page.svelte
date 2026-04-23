@@ -15,7 +15,7 @@
         api.delete(`/playlists/${playlistId}`)
         .then(() => toast.success('Playlist removed'))
         .catch(() => toast.error('Failed to remove playlist'))
-        .finally(invalidateAll)
+        .finally(() => invalidateAll())
     }
 
 </script>

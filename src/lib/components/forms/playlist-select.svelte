@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { invalidateAll } from "$app/navigation";
     import playlistStore from "$lib/stores/playlistList";
 
 
@@ -18,7 +19,11 @@
         >
             {playlist.title}
         </button>
+    {:else}
+        <p class="px-4 py-2 w-full text-start text-nowrap text-legend rounded-md">No playlists found</p>
     {/each}
+
+    <button onclick={invalidateAll} class="bg-neutral-light cursor-pointer hover:bg-neutral-lighter px-4 py-2 w-full text-nowrap rounded-md">Refresh</button>
 </div>
 
 <style>
