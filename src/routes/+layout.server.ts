@@ -1,6 +1,7 @@
 import { env } from "$env/dynamic/private"
 import playlistStore from "$lib/stores/playlistList"
 import type { PlaylistSummary } from "$lib/types/playlist"
+import { get } from "svelte/store"
 import type { PageServerLoad } from "./library/$types"
 
 export const load: PageServerLoad = async () => {
@@ -8,7 +9,7 @@ export const load: PageServerLoad = async () => {
         const response = await fetch(`${env.API_URL}/playlists`,)
         const data = await response.json() as { playlists: PlaylistSummary[] }
 
-        playlistStore.set({ items: data.playlists })
+        return {playlists: data.playlists}
     } catch (e) {
         console.log(e)
     }

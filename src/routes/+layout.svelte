@@ -18,8 +18,11 @@
         paused,
         togglePlay,
     } from "$lib/stores/player";
+    import playlistStore from "$lib/stores/playlistList";
+    import type { PageProps } from "./$types";
+    import type { Snippet } from "svelte";
 
-    let { children } = $props();
+    let { children, data }: PageProps & {children: Snippet} = $props();
 
     let audio: HTMLAudioElement;
     let source = $state<HTMLSourceElement>();
@@ -82,6 +85,10 @@
 
         return "Groov";
     });
+
+    $effect(() => {
+        playlistStore.set({items: data.playlists || []})
+    })
 </script>
 
 <svelte:head>
