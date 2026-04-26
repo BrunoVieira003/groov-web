@@ -1,5 +1,7 @@
 import type Song from "$lib/types/song"
-import { get, writable } from "svelte/store"
+import {  writable } from "svelte/store"
+
+export const audioElement = writable<HTMLAudioElement>()
 
 export const currentSong = writable<Song | undefined>()
 

@@ -13,6 +13,7 @@
     import Volume from "./buttons/volume.svelte";
     import { fly } from "svelte/transition";
     import {
+    audioElement,
         currentSong,
         currentTime,
         duration,
@@ -22,6 +23,7 @@
     import { albumLayout } from "$lib/stores/settings";
     import Cassete from "../cassete.svelte";
     import LyricsButton from "./buttons/lyrics-button.svelte";
+    import BarVisualizer from "../visualizers/bar-visualizer.svelte";
 
     // svelte-ignore non_reactive_update
     let coverImage: HTMLImageElement;
@@ -37,10 +39,14 @@
     style:--colorful-contrast={$currentSong?.contrastColor}
     transition:fly={{ duration: 100 }}
 >
+    <div class="absolute bottom-0 w-full h-1/2">
+        <BarVisualizer audio={$audioElement}/>
+    </div>
     <div
         class="w-full h-full full-view"
         style="background-image: url({coverArtURL});"
     ></div>
+
 
     <div
         class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col data-[layout=cassete]:flex-col md:flex-row items-center data-[layout=cassete]:gap-6 gap-10 xl:gap-16 z-1"
@@ -128,8 +134,11 @@
                 <Volume />
             </div>
         </div>
-    </div>
 
+    </div>
+    
+    
+    
     <div class="w-1/3 flex justify-center z-1"></div>
 </div>
 

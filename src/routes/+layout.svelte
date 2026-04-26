@@ -17,20 +17,21 @@
         duration,
         paused,
         togglePlay,
+        audioElement,
     } from "$lib/stores/player";
     import playlistStore from "$lib/stores/playlistList";
     import type { PageProps } from "./$types";
     import type { Snippet } from "svelte";
+    import BarVisualizer from "$lib/components/visualizers/bar-visualizer.svelte";
 
-    let { children, data }: PageProps & {children: Snippet} = $props();
+    let { children, data }: PageProps & { children: Snippet } = $props();
 
-    let audio: HTMLAudioElement;
     let source = $state<HTMLSourceElement>();
 
     currentSong.subscribe((song) => {
         if (source && song && navigator.mediaSession) {
             source.src = `${env.PUBLIC_API_URL}/songs/${song.id}`;
-            audio.load();
+            $audioElement.load();
 
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
@@ -87,8 +88,8 @@
     });
 
     $effect(() => {
-        playlistStore.set({items: data.playlists || []})
-    })
+        playlistStore.set({ items: data.playlists || [] });
+    });
 </script>
 
 <svelte:head>
@@ -98,11 +99,12 @@
 
 <audio
     class="hidden"
-    bind:this={audio}
+    bind:this={$audioElement}
     bind:duration={$duration}
     bind:currentTime={$currentTime}
     bind:paused={$paused}
     bind:volume={$volume}
+    crossorigin="anonymous"
     autoplay
     onended={handleTrackEnd}
 >
