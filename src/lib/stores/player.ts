@@ -1,7 +1,34 @@
 import type Song from "$lib/types/song"
-import {  writable } from "svelte/store"
+import {  get, writable } from "svelte/store"
 
 export const audioElement = writable<HTMLAudioElement>()
+
+let audioContext: AudioContext
+let analyser: AnalyserNode
+let audioSource: MediaElementAudioSourceNode
+
+export function getAudioAnalyzer(){
+    if(!get(audioElement)){
+        return null
+    }
+
+    if(!audioContext){
+        audioContext = new window.AudioContext
+
+        analyser = audioContext.createAnalyser()
+        if(get(audioElement)){
+            audioSource = audioContext.createMediaElementSource(get(audioElement))
+            audioSource.connect(analyser)
+            analyser.connect(audioContext.destination)
+        }
+    }
+
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+
+    return analyser
+}
 
 export const currentSong = writable<Song | undefined>()
 
