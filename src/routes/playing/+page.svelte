@@ -52,7 +52,7 @@
             src={coverArtURL()}
             alt="cover_art"
             class:colorful-glow={!!$currentSong.color}
-            class="sm:max-w-120 rounded-xl object-cover white-glow"
+            class="sm:max-w-120 rounded-xl object-cover aspect-square white-glow"
             onerror={() => (coverImage.src = emptyImage)}
         />
         <div
