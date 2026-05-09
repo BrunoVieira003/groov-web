@@ -22,15 +22,33 @@
     import playlistStore from "$lib/stores/playlistList";
     import type { PageProps } from "./$types";
     import type { Snippet } from "svelte";
-    import BarVisualizer from "$lib/components/visualizers/bar-visualizer.svelte";
+    import type { Snapshot } from "@sveltejs/kit";
+    import { albumLayout, audioVisualizer, type AlbumLayout, type AudioVisualizerOptions } from "$lib/stores/settings";
+    import { get } from "svelte/store";
 
-    let { children, data }: PageProps & { children: Snippet } = $props();
+    let { children, data }: PageProps & { children: Snippet } = $props()
 
-    let source = $state<HTMLSourceElement>();
+    let source = $state<HTMLSourceElement>()
+
+    interface PersistedConfigs{
+        layout: AlbumLayout,
+        visualizer: AudioVisualizerOptions
+    }
+
+    export const snapshot: Snapshot<PersistedConfigs> = {
+        capture: () => ({
+            layout: $albumLayout,
+            visualizer: $audioVisualizer
+        }),
+        restore: (stored) => {
+            albumLayout.set(stored.layout)
+            audioVisualizer.set(stored.visualizer)
+        }
+    }
 
     currentSong.subscribe((song) => {
         if (source && song && navigator.mediaSession) {
-            source.src = `${env.PUBLIC_API_URL}/songs/${song.id}`;
+            source.src = `${env.PUBLIC_API_URL}/songs/${song.id}`
             $audioElement.load();
 
             navigator.mediaSession.metadata = new MediaMetadata({
@@ -63,7 +81,7 @@
                 "seekto",
                 ({ seekTime }) => {
                     if (seekTime) {
-                        $currentTime = seekTime;
+                        $currentTime = seekTime
                     }
                 },
             );
