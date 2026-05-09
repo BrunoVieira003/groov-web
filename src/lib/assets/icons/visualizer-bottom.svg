@@ -1,0 +1,10 @@
+<svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <g data-name="Layer 2">
+    <path fill="none" data-name="invisible box" d="M0 0h48v48H0z"/>
+    <g data-name="Layer 7">
+      <rect x="33" y="4" width="10" height="40" rx="2"/>
+      <rect x="19" y="19" width="10" height="25" rx="2"/>
+      <rect x="5" y="33" width="10" height="11" rx="2"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <g class="layer">
+  <title>Layer 1</title>
+  <g data-name="Layer 2" id="svg_1">
+   <path d="m0,0l48,0l0,48l-48,0l0,-48z" data-name="invisible box" fill="none" id="svg_2"/>
+   <g data-name="Layer 7" id="svg_3">
+    <rect height="40" id="svg_4" rx="2" width="10" x="19.15" y="4"/>
+    <rect height="25" id="svg_5" rx="2" width="10" x="32.85" y="11.5"/>
+    <rect height="25" id="svg_6" rx="2" width="10" x="5" y="11.5"/>
+   </g>
+  </g>
+ </g>
+</svg>
