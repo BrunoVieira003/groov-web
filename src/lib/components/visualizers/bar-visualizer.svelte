@@ -1,19 +1,20 @@
 <script lang="ts">
     import { currentSong, getAudioAnalyzer, paused } from "$lib/stores/player";
+    import { audioVisualizer, type AudioVisualizerOptions } from "$lib/stores/settings";
 
     interface PropsType{
         audio: HTMLAudioElement
-        alignment: 'bottom' | 'middle' | 'top'
     }
 
     let canvas = $state<HTMLCanvasElement>()
-    let { audio, alignment = 'bottom' }: PropsType = $props()
+    let { audio }: PropsType = $props()
 
     let audioContext: AudioContext
     let analyser: AnalyserNode | null
     let animationId: number
 
-    const drawBarStrategies = {
+    const drawBarStrategies: Record<AudioVisualizerOptions, Function> = {
+        'disabled': () => {},
         'bottom': drawBarBottom,
         'middle': drawBarMiddle,
         'top': drawBarTop,
@@ -24,7 +25,7 @@
             cancelAnimationFrame(animationId);
         }else{
             analyser = getAudioAnalyzer()
-            if(analyser){
+            if(analyser && $audioVisualizer !== 'disabled'){
                 draw()
             }
         }
@@ -72,7 +73,7 @@
 
             const barValue = total / avgAmount
 
-            drawBarStrategies[alignment](ctx, x, barWidth, barValue)
+            drawBarStrategies[$audioVisualizer](ctx, x, barWidth, barValue)
             
             x += barWidth + gap
         }

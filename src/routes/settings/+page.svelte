@@ -1,7 +1,7 @@
 <script lang="ts">
     import Cassete from "$lib/components/cassete.svelte";
     import Marquee from "$lib/components/marquee.svelte";
-    import { albumLayout } from "$lib/stores/settings";
+    import { albumLayout, audioVisualizer } from "$lib/stores/settings";
     import emptyImage from "$lib/assets/images/empty.png";
 </script>
 
@@ -59,5 +59,18 @@
                 </div>
             </div>
         {/if}
+    
+    <hr class="mx-auto text-neutral-medium">
+
+    <h2>Audio visualizer</h2>
+        <select
+            bind:value={$audioVisualizer}
+            class="p-2 outline-none border-none bg-neutral-medium text-heading"
+        >
+            <option value="disabled">Disabled</option>
+            <option value="bottom">Bottom</option>
+            <option value="middle">Middle</option>
+            <option value="top">Top</option>
+        </select>
     </div>
 </div>
