@@ -3,14 +3,21 @@
 
     interface PropsType{
         audio: HTMLAudioElement
+        alignment: 'bottom' | 'middle' | 'top'
     }
 
     let canvas = $state<HTMLCanvasElement>()
-    let { audio, ...rest }: PropsType = $props()
+    let { audio, alignment = 'bottom' }: PropsType = $props()
 
     let audioContext: AudioContext
     let analyser: AnalyserNode | null
     let animationId: number
+
+    const drawBarStrategies = {
+        'bottom': drawBarBottom,
+        'middle': drawBarMiddle,
+        'top': drawBarTop,
+    }
 
     $effect(() => {
         if($paused){
@@ -44,17 +51,18 @@
 
         const width = canvas.width
         const height = canvas.height
-        console.log('width', width)
         
         ctx.clearRect(0, 0, width, height)
         
-        const avgAmount = 8
+        const avgAmount = 16
+        const gap = avgAmount / 2
         const maxIndex = Math.floor((16000 * analyser.fftSize) / analyser.context.sampleRate)
         const totalBars = Math.floor(maxIndex / avgAmount)
-        const barWidth = (width / totalBars ) - 1
-        let barHeight
+        const barWidth = (width / totalBars ) - gap
 
-        let x = 0;
+        
+        let x = 0
+
         for (let i = 0; i < totalBars; i++) {
 
             let total = 0
@@ -64,14 +72,34 @@
 
             const barValue = total / avgAmount
 
-            barHeight = (barValue / 255) * height; // 0-255
-
-            ctx.fillStyle = $currentSong?.color ?? '#f0f0f0'
+            drawBarStrategies[alignment](ctx, x, barWidth, barValue)
             
-            ctx.fillRect(x, height - barHeight, barWidth, barHeight)
-
-            x += barWidth + 1
+            x += barWidth + gap
         }
+
+        ctx.fillStyle = $currentSong?.color ?? '#f0f0f0'
+        ctx.fill()
+    }
+
+    function drawBarBottom(ctx: CanvasRenderingContext2D, x: number, width: number, value: number){
+        const canva = ctx.canvas
+        const maxHeight = canva.height
+        const barHeight = (value / 255) * maxHeight
+        ctx.roundRect(x, maxHeight - barHeight, width, barHeight, [8,8,0,0])
+    }
+
+    function drawBarMiddle(ctx: CanvasRenderingContext2D, x: number, width: number, value: number){
+        const canva = ctx.canvas
+        const baseHeight = Math.floor(canva.height / 2)
+        const barHeight = (value / 255) * canva.height
+        ctx.roundRect(x, baseHeight - barHeight/2, width, barHeight, 8)
+    }
+
+    function drawBarTop(ctx: CanvasRenderingContext2D, x: number, width: number, value: number){
+        const canva = ctx.canvas
+        const maxHeight = canva.height
+        const barHeight = (value / 255) * maxHeight
+        ctx.roundRect(x, 0, width, barHeight, [0,0,8,8])
     }
 </script>
 
