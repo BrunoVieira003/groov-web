@@ -10,8 +10,8 @@
     let {currentTab = $bindable(), tabs, children}: PropsType = $props()
 </script>
 
-<div class="flex flex-col w-full justify-stretch">
-    <div class="flex w-full justify-stretch items-stretch h-min z-10">
+<div class="flex flex-col w-full justify-stretch gap-4">
+    <div class="flex w-full justify-stretch items-stretch h-min">
         {#each tabs as tab}
             <button 
             class="text-lg text-subheading text-center p-2 border-b-2 border-neutral-medium data-[active=true]:border-legend data-[active=true]:text-heading"
