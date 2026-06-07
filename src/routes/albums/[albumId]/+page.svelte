@@ -36,7 +36,7 @@
                     class="flex flex-col mx-auto text-center justify-center sm:text-start sm:mx-0 sm:justify-between"
                 >
                     <div>
-                        <h1 class="text-5xl mb-2 text-highlight">
+                        <h1 class="text-5xl mb-2 text-highlight font-bold">
                             {data.album?.title}
                         </h1>
                         <a

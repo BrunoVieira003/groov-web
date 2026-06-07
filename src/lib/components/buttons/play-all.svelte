@@ -22,5 +22,5 @@ onclick={handlePlayAll}
     <div class="size-8">
         {@html playIcon}
     </div>
-    Play all
+    Play
 </button>
