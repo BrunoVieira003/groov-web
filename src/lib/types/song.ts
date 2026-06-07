@@ -6,6 +6,7 @@ export default interface Song{
     year?: number
     color?: string
     contrastColor?: string
+    duration?: number
     createdAt: string
     updatedAt: string
     album: AlbumSummary

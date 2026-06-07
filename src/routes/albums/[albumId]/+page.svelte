@@ -8,8 +8,10 @@
     import Cassete from "$lib/components/cassete.svelte";
     import { songQueue } from "$lib/stores/queue";
     import { paused } from "$lib/stores/player";
+    import { formatSongTime } from "$lib/formatters/songTime";
 
     let { data }: PageProps = $props();
+    let albumDuration = $derived(data.album?.songs.reduce((acc: number, song) => acc + (song.duration || 0), 0) || 0)
 
     let coverImage: HTMLImageElement;
 </script>
@@ -42,12 +44,16 @@
                             class="text-xl mb-6 hover:underline text-subheading"
                             >{data.album?.artist.name}</a
                         >
-                        <p class="text-sm text-legend">
-                            {data.album?.songs.length}
-                            {data.album && data.album?.songs.length > 1
-                                ? "songs"
-                                : "song"}
-                        </p>
+                        <div class="flex gap-2 items-center">
+                            <p class="text-sm text-legend">
+                                {data.album?.songs.length}
+                                {data.album && data.album?.songs.length > 1
+                                    ? "songs"
+                                    : "song"}
+                            </p>
+                            <p class="text-sm text-legend">•</p>
+                            <p class="text-sm text-legend">{formatSongTime(albumDuration)} min</p>
+                        </div>
                     </div>
                     <PlayAll
                         tracks={data.album?.songs || []}

@@ -31,5 +31,7 @@
                 />
             </a>
         {/if}
+    {:else}
+        <p class="text-heading text-lg">No albums here yet!</p>
     {/each}
 </div>
