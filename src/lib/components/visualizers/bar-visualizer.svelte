@@ -44,6 +44,9 @@
         canvas.height = rect.height * dpr
         ctx.scale(dpr, dpr)
 
+        analyser.fftSize = 1024
+        analyser.smoothingTimeConstant = 0.9
+
         const bufferLength = analyser.frequencyBinCount
         const dataArray = new Uint8Array(bufferLength)
         analyser.getByteFrequencyData(dataArray)
@@ -55,25 +58,20 @@
         
         ctx.clearRect(0, 0, width, height)
         
-        const avgAmount = 16
+        const avgAmount = 8
         const gap = avgAmount / 2
-        const maxIndex = Math.floor((16000 * analyser.fftSize) / analyser.context.sampleRate)
+        const maxIndex = Math.floor((25000 * analyser.fftSize) / analyser.context.sampleRate)
         const totalBars = Math.floor(maxIndex / avgAmount)
         const barWidth = (width / totalBars ) - gap
 
         
         let x = 0
 
-        for (let i = 0; i < totalBars; i++) {
+        for (let i = 0; i < bufferLength; i++) {
 
-            let total = 0
-            for (let j = 0; j < avgAmount; j++){
-                total += dataArray[(i * avgAmount) + j]
-            }
+            const barValue = (dataArray[i] * 100) / 255
 
-            const barValue = total / avgAmount
-
-            drawBarStrategies[$audioVisualizer](ctx, x, barWidth, barValue)
+            drawBarStrategies[$audioVisualizer](ctx, x, barWidth, Math.max(10, barValue))
             
             x += barWidth + gap
         }
@@ -85,21 +83,21 @@
     function drawBarBottom(ctx: CanvasRenderingContext2D, x: number, width: number, value: number){
         const canva = ctx.canvas
         const maxHeight = canva.height
-        const barHeight = (value / 255) * maxHeight
+        const barHeight = (value * canva.height) / 100
         ctx.roundRect(x, maxHeight - barHeight, width, barHeight, [8,8,0,0])
     }
 
     function drawBarMiddle(ctx: CanvasRenderingContext2D, x: number, width: number, value: number){
         const canva = ctx.canvas
         const baseHeight = Math.floor(canva.height / 2)
-        const barHeight = (value / 255) * canva.height
+        const barHeight = (value * canva.height) / 100
         ctx.roundRect(x, baseHeight - barHeight/2, width, barHeight, 8)
     }
 
     function drawBarTop(ctx: CanvasRenderingContext2D, x: number, width: number, value: number){
         const canva = ctx.canvas
         const maxHeight = canva.height
-        const barHeight = (value / 255) * maxHeight
+        const barHeight = (value * maxHeight) / 100
         ctx.roundRect(x, 0, width, barHeight, [0,0,8,8])
     }
 </script>
