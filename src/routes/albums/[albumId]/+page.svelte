@@ -68,15 +68,15 @@
         </div>
     {:else}
         <div
-            class="flex flex-col w-10/12 md:w-1/3 mx-auto mt-2 sm:mt-4 *:h-fit md:gap-4 items-center"
+            class="flex flex-col w-10/12 md:w-1/3 mx-auto mt-2 sm:mt-4 *:h-fit md:gap-4 items-center sticky top-0"
         >
-            <div class="volume-shadow">
+            <div class="volume-shadow w-full">
                 <Cassete
-                    title={data.album?.title}
-                    coverImageSrc="{env.PUBLIC_API_URL}/albums/{data.album
-                        ?.id}/cover"
-                    spinning={$songQueue.collection?.id === data.album?.id &&
-                        !$paused}
+                    title={data.album?.title || ''}
+                    sidetitle={data.album?.artist?.name || ''}
+                    subtitle={data.album?.artist?.name || ''}
+                    tagText={data.album?.year || ""}
+                    spinning={$songQueue.collection?.id === data.album?.id && !$paused}
                 />
             </div>
             <PlayAll

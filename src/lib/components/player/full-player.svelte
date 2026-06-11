@@ -66,7 +66,10 @@
             <div class="w-2/4">
                 <Cassete
                     title={$currentSong?.title}
-                    coverImageSrc={coverArtURL}
+                    sidetitle={$currentSong?.authors.map(a => a.name).join(' • ')}
+                    tagText={String($currentSong?.year || '')}
+                    subtitle={$currentSong?.album?.title || ''}
+                    color={$currentSong?.color}
                     spinning={!$paused}
                 />
             </div>

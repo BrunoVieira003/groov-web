@@ -1,70 +1,611 @@
 <script lang="ts">
-    import Marquee from "./marquee.svelte";
-    import emptyImage from '$lib/assets/images/empty.png'
 
     interface PropsType{
         title?: string
-        coverImageSrc?: string
+        sidetitle?: string
+        subtitle?: string
+        tagText?: string
+        color?: string
         spinning?: boolean
+        currentTime?: number
+        duration?: number
     }
 
-    let {title = '', coverImageSrc = emptyImage, spinning = false}: PropsType = $props()
+    let {
+      title = '',
+      sidetitle = '',
+      subtitle = '',
+      tagText = '',
+      color = 'black',
+      spinning = false,
+      duration = 0,
+      currentTime = 0
+    }: PropsType = $props()
 
-    // svelte-ignore non_reactive_update
-    let coverImage: HTMLImageElement
 
 </script>
-<div class="flex flex-col items-center justify-between pt-4 bg-neutral-medium w-full aspect-video rounded-md">
-    <div class="flex flex-col items-center justify-center bg-highlight w-6/7 h-2/3 rounded-md overflow-hidden">
-        <div class="h-full min-h-10 w-full flex justify-center overflow-hidden">
-            <img
-            bind:this={coverImage}
-            src={coverImageSrc}
-            alt="album_cover_art"
-            class="w-full rounded-t-md object-cover"
-            onerror={() => coverImage.src = emptyImage}
-            >
-        </div>
-
-        <div class="w-8/12 h-2/4 flex items-center justify-evenly bg-neutral-light p-2 rounded-xs outline-8 outline-highlight">
-            <div class="w-1/5 bg-neutral-dark aspect-square rounded-full relative border-4 border-highlight">
-                <div class="absolute left-1/2 -translate-x-1/2 h-full w-1/10 mx-auto bg-highlight" class:spinning></div>
-                <div class="absolute left-1/2 -translate-x-1/2 h-full w-1/10 mx-auto bg-highlight rotate-45" class:spinning></div>
-                <div class="absolute left-1/2 -translate-x-1/2 h-full w-1/10 mx-auto bg-highlight rotate-90" class:spinning></div>
-                <div class="absolute left-1/2 -translate-x-1/2 h-full w-1/10 mx-auto bg-highlight rotate-135" class:spinning></div>
-                <div class="absolute w-9/12 h-9/12 right-1/2 translate-x-1/2 -translate-y-1/2 top-1/2 bg-neutral-dark rounded-full"></div>
-            </div>
-            <div class="w-2/5 bg-neutral-dark h-2/3 glass"></div>
-            <div class="w-1/5 bg-neutral-dark aspect-square rounded-full relative border-4 border-highlight">
-                <div class="absolute left-1/2 -translate-x-1/2 h-full w-1/10 mx-auto bg-highlight" class:spinning></div>
-                <div class="absolute left-1/2 -translate-x-1/2 h-full w-1/10 mx-auto bg-highlight rotate-45" class:spinning></div>
-                <div class="absolute left-1/2 -translate-x-1/2 h-full w-1/10 mx-auto bg-highlight rotate-90" class:spinning></div>
-                <div class="absolute left-1/2 -translate-x-1/2 h-full w-1/10 mx-auto bg-highlight rotate-135" class:spinning></div>
-                <div class="absolute w-9/12 h-9/12 left-1/2 -translate-x-1/2 center translate-y-1/2 bottom-1/2 bg-neutral-dark rounded-full" class:spinning></div>
-            </div>
-        </div>
-
-        <div class="h-full w-fit flex px-2 py-1 items-center justify-start">
-            <Marquee>
-                <p class="text-neutral-darker font-semibold text-sm">{title}</p>
-            </Marquee>
-        </div>
-    </div>
-
-    <div class="h-1/4 bg-neutral-light w-4/6 rounded-t-md cassete-shadow"></div>
-</div>
 
 <style>
-    .spinning {
-        animation: spin 3s linear infinite;
+    .top-strip,
+    .detail-strip{
+        color: var(--highlightColor);
     }
 
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
+    .forward *{
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: reelAnimation 10s linear reverse;
+        animation-play-state: paused;
+    }
+
+    .backward *{
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: reelAnimation 10s linear forwards;
+        animation-play-state: paused;
+    }
+
+    .animation-playing{
+        #Tape1 {
+            transform-origin: 234px 234px;
         }
+
+        #Tape2 {
+            transform-origin: 576px 234px;
+        }
+
+        #Tape1,
+        #Tape2 {
+            animation: tapeAnimation 1s linear infinite;
+        }
+
+        .backward *,
+        .forward *{
+          animation-play-state: running;
+        }
+    }
+
+
+    @keyframes tapeAnimation {
+        from {
+            tranform: rotate(0);
+        }
+
         to {
-            transform: rotate(360deg);
+            transform: rotate(-360deg);
+        }
+    }
+
+    @keyframes reelAnimation {
+        from {
+            transform: scale(1);
+        }
+
+        to{
+            transform: scale(0.75);
         }
     }
 </style>
+
+<div class="flex flex-col items-center justify-between w-full"
+style="--highlightColor: {color}; --animation-duration: {duration}; --playing: {spinning ? 'running' : 'paused'};"
+
+class:animation-playing={spinning}
+>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 513.5">
+        <g id="Tape">
+          <g id="Tape1">
+            <g id="TapeReel" class="backward">
+              <circle cx="234" cy="234" r="160" fill="#1a1a1a" style:transform="">
+              </circle>
+              <circle cx="234" cy="234" r="140" stroke="#333" fill="none">
+              </circle>
+              <circle cx="234" cy="234" r="120" stroke="#333" fill="none">
+              </circle>
+              <circle cx="234" cy="234" r="100" stroke="#333" fill="none">
+              </circle>
+            </g>
+
+            <circle cx="234" cy="234" r="86.05" fill="#f2f2f2" />
+            <circle cx="234" cy="234" r="40.49" fill="#bfbfbf" />
+            <rect
+              x="246.52"
+              y="198.18"
+              width="10.12"
+              height="10.12"
+              transform="translate(133.98 -98.04) rotate(29.74)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="211.36"
+              y="259.7"
+              width="10.12"
+              height="10.12"
+              transform="translate(159.87 -72.49) rotate(29.74)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="264.37"
+              y="228.74"
+              width="10.12"
+              height="10.12"
+              transform="translate(501.7 -36.95) rotate(89.68)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="193.51"
+              y="229.14"
+              width="10.12"
+              height="10.12"
+              transform="translate(431.64 34.31) rotate(89.68)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="210.95"
+              y="198.41"
+              width="10.12"
+              height="10.12"
+              transform="translate(-73.39 137.84) rotate(-30.51)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="246.93"
+              y="259.46"
+              width="10.12"
+              height="10.12"
+              transform="translate(-99.41 164.56) rotate(-30.51)"
+              fill="#f2f2f2"
+            />
+            <circle cx="234" cy="234" r="24.18" fill="#1a1a1a" />
+            <polygon
+              points="234 198.38 203.15 251.81 264.85 251.81 234 198.38"
+              fill="#1a1a1a"
+            />
+            <line
+              x1="234"
+              y1="198.38"
+              x2="234"
+              y2="234"
+              fill="none"
+              stroke="#f2f2f2"
+              stroke-miterlimit="10"
+            />
+            <line
+              x1="203.15"
+              y1="251.81"
+              x2="234"
+              y2="234"
+              fill="none"
+              stroke="#f2f2f2"
+              stroke-miterlimit="10"
+            />
+            <line
+              x1="264.85"
+              y1="251.81"
+              x2="234"
+              y2="234"
+              fill="none"
+              stroke="#f2f2f2"
+              stroke-miterlimit="10"
+            />
+          </g>
+          <g id="Tape2">
+            <g id="TapeReel" class="forward">
+              <circle cx="576" cy="234" r="161.97" fill="#1a1a1a">
+              </circle>
+              <circle cx="576" cy="234" r="140" stroke="#333" fill="none">
+              </circle>
+              <circle cx="576" cy="234" r="120" stroke="#333" fill="none">
+              </circle>
+              <circle cx="576" cy="234" r="100" stroke="#333" fill="none">
+              </circle>
+            </g>
+            <circle cx="576" cy="234" r="86.05" fill="#f2f2f2" />
+            <circle cx="576" cy="234" r="40.49" fill="#bfbfbf" />
+            <rect
+              x="588.52"
+              y="198.18"
+              width="10.12"
+              height="10.12"
+              transform="translate(179.04 -267.72) rotate(29.74)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="553.36"
+              y="259.7"
+              width="10.12"
+              height="10.12"
+              transform="translate(204.94 -242.17) rotate(29.74)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="606.37"
+              y="228.74"
+              width="10.12"
+              height="10.12"
+              transform="translate(841.77 -378.94) rotate(89.68)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="535.51"
+              y="229.14"
+              width="10.12"
+              height="10.12"
+              transform="translate(771.71 -307.68) rotate(89.68)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="552.95"
+              y="198.41"
+              width="10.12"
+              height="10.12"
+              transform="translate(-26.04 311.47) rotate(-30.51)"
+              fill="#f2f2f2"
+            />
+            <rect
+              x="588.93"
+              y="259.46"
+              width="10.12"
+              height="10.12"
+              transform="translate(-52.05 338.19) rotate(-30.51)"
+              fill="#f2f2f2"
+            />
+            <circle cx="576" cy="234" r="24.18" fill="#1a1a1a" />
+            <polygon
+              points="576 198.38 545.15 251.81 606.85 251.81 576 198.38"
+              fill="#1a1a1a"
+            />
+            <line
+              x1="576"
+              y1="198.38"
+              x2="576"
+              y2="234"
+              fill="none"
+              stroke="#f2f2f2"
+              stroke-miterlimit="10"
+            />
+            <line
+              x1="545.15"
+              y1="251.81"
+              x2="576"
+              y2="234"
+              fill="none"
+              stroke="#f2f2f2"
+              stroke-miterlimit="10"
+            />
+            <line
+              x1="606.85"
+              y1="251.81"
+              x2="576"
+              y2="234"
+              fill="none"
+              stroke="#f2f2f2"
+              stroke-miterlimit="10"
+            />
+          </g>
+        </g>
+        <g id="Cassette">
+          <path
+            d="M780.41,0H29.59A20.59,20.59,0,0,0,9,20.59V483.41A20.59,20.59,0,0,0,29.59,504H780.41A20.59,20.59,0,0,0,801,483.41V20.59A20.59,20.59,0,0,0,780.41,0ZM297,189H513v90H297ZM220.5,486A13.5,13.5,0,1,1,234,472.5,13.49,13.49,0,0,1,220.5,486ZM234,279a45,45,0,1,1,45-45A45,45,0,0,1,234,279Zm58.5,198A13.5,13.5,0,1,1,306,463.5,13.49,13.49,0,0,1,292.5,477Zm225,0A13.5,13.5,0,1,1,531,463.5,13.49,13.49,0,0,1,517.5,477Zm72,9A13.5,13.5,0,1,1,603,472.5,13.49,13.49,0,0,1,589.5,486ZM576,279a45,45,0,1,1,45-45A45,45,0,0,1,576,279Z"
+            fill="#262626"
+          />
+          <path
+            d="M654.47,501.21,631.65,394.7a9.74,9.74,0,0,0-9.53-7.7H187.88a9.74,9.74,0,0,0-9.53,7.7L155.53,501.21A9.74,9.74,0,0,0,165.06,513H644.94A9.74,9.74,0,0,0,654.47,501.21ZM220.5,486A13.5,13.5,0,1,1,234,472.5,13.49,13.49,0,0,1,220.5,486Zm72-9A13.5,13.5,0,1,1,306,463.5,13.49,13.49,0,0,1,292.5,477Zm225,0A13.5,13.5,0,1,1,531,463.5,13.49,13.49,0,0,1,517.5,477Zm72,9A13.5,13.5,0,1,1,603,472.5,13.49,13.49,0,0,1,589.5,486Z"
+            fill="#262626"
+            stroke="#bfbfbf"
+            stroke-miterlimit="10"
+          />
+          <rect
+            x="297"
+            y="189"
+            width="216"
+            height="90"
+            fill="#262626"
+            opacity="0.67"
+          />
+          <rect y="288" width="18" height="144" rx="3.98" fill="#262626" />
+          <rect
+            x="792"
+            y="288"
+            width="18"
+            height="144"
+            rx="3.98"
+            fill="#262626"
+          />
+        </g>
+        <g id="Label">
+          <path d="M45,36V369H765V36ZM648,297H162V171H648Z" fill="#bfbfbf" />
+          <rect x="45" y="36" width="720" height="27" fill="currentColor" class="top-strip" />
+          <rect x="45" y="63" width="720" height="81" fill="#f2f2f2" />
+          <rect x="45" y="315" width="720" height="54" fill="#1a1a1a" />
+          <line
+            x1="45"
+            y1="171"
+            x2="162"
+            y2="171"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="180"
+            x2="162"
+            y2="180"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="189"
+            x2="162"
+            y2="189"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="198"
+            x2="162"
+            y2="198"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="207"
+            x2="162"
+            y2="207"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="216"
+            x2="162"
+            y2="216"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="225"
+            x2="162"
+            y2="225"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="234"
+            x2="162"
+            y2="234"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="243"
+            x2="162"
+            y2="243"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="252"
+            x2="162"
+            y2="252"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="261"
+            x2="162"
+            y2="261"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="270"
+            x2="162"
+            y2="270"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="279"
+            x2="162"
+            y2="279"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="288"
+            x2="162"
+            y2="288"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="45"
+            y1="297"
+            x2="162"
+            y2="297"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="171"
+            x2="765"
+            y2="171"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="180"
+            x2="765"
+            y2="180"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="189"
+            x2="765"
+            y2="189"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="198"
+            x2="765"
+            y2="198"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="207"
+            x2="765"
+            y2="207"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="216"
+            x2="765"
+            y2="216"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="225"
+            x2="765"
+            y2="225"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="234"
+            x2="765"
+            y2="234"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="243"
+            x2="765"
+            y2="243"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="252"
+            x2="765"
+            y2="252"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="261"
+            x2="765"
+            y2="261"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="270"
+            x2="765"
+            y2="270"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="279"
+            x2="765"
+            y2="279"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="288"
+            x2="765"
+            y2="288"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <line
+            x1="648"
+            y1="297"
+            x2="765"
+            y2="297"
+            fill="none"
+            stroke="#f2f2f2"
+            stroke-miterlimit="10"
+          />
+          <text x="54" y="115" font-size="30" class="uppercase font-bold">
+            {title}
+          </text>
+          
+          <text x="757" y="83" text-anchor="end">
+            {sidetitle}
+          </text>
+          
+          
+          <text x="522" y="342" fill="white" text-anchor="end">
+            {subtitle}
+          </text>
+          <rect x="531" y="297" width="104" height="72" fill="currentColor" class="detail-strip"/>
+          
+          <text x="610" y="340" font-size="26" fill="white" text-anchor="end">
+            {tagText}
+          </text>
+        </g>
+      </svg>
+</div>
+    
