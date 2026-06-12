@@ -4,5 +4,5 @@
 
 </script>
 <button onclick={toggleViewMode} title="Change view mode" class="w-fit cursor-pointer text-heading">
-    {@html fullModeIcon}
+    <div class="size-6">{@html fullModeIcon}</div>
 </button>

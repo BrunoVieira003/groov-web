@@ -9,6 +9,7 @@
     import { songQueue } from "$lib/stores/queue";
     import { paused } from "$lib/stores/player";
     import { formatSongTime } from "$lib/formatters/songTime";
+    import AddToQueue from "$lib/components/buttons/add-to-queue.svelte";
 
     let { data }: PageProps = $props();
     let albumDuration = $derived(data.album?.songs.reduce((acc: number, song) => acc + (song.duration || 0), 0) || 0)
@@ -29,7 +30,7 @@
                     bind:this={coverImage}
                     src="{env.PUBLIC_API_URL}/albums/{data.album?.id}/cover"
                     alt="album_cover_art"
-                    class="aspect-square! self-center size-60 rounded-xl object-cover volume-shadow"
+                    class="aspect-square! self-center size-80 rounded-xl object-cover volume-shadow"
                     onerror={() => (coverImage.src = emptyImage)}
                 />
                 <div
@@ -55,14 +56,19 @@
                             <p class="text-sm text-legend">{formatSongTime(albumDuration)} min</p>
                         </div>
                     </div>
-                    <PlayAll
-                        tracks={data.album?.songs || []}
-                        collection={{
-                            id: data.album?.id,
-                            type: "album",
-                            name: data.album?.title || "",
-                        }}
-                    />
+
+                    <div class="flex gap-2 items-center">
+                        <PlayAll
+                            tracks={data.album?.songs || []}
+                            collection={{
+                                id: data.album?.id,
+                                type: "album",
+                                name: data.album?.title || "",
+                            }}
+                        />
+
+                        <AddToQueue tracks={data.album?.songs || []}/>
+                    </div>
                 </div>
             </div>
         </div>
