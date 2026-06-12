@@ -8,7 +8,7 @@
     import Cassete from "$lib/components/cassete.svelte";
     import { songQueue } from "$lib/stores/queue";
     import { paused } from "$lib/stores/player";
-    import { formatSongTime } from "$lib/formatters/songTime";
+    import { formatAlbumDuration, formatSongTime } from "$lib/formatters/songTime";
     import AddToQueue from "$lib/components/buttons/add-to-queue.svelte";
 
     let { data }: PageProps = $props();
@@ -53,7 +53,7 @@
                                     : "song"}
                             </p>
                             <p class="text-sm text-legend">•</p>
-                            <p class="text-sm text-legend">{formatSongTime(albumDuration)} min</p>
+                            <p class="text-sm text-legend">{formatAlbumDuration(albumDuration)}</p>
                         </div>
                     </div>
 
