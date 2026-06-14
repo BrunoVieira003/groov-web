@@ -8,7 +8,15 @@ const noSongPhrases = [
     "Not saying much is only enough when you're already listening",
     "First things first, play some song",
     "Just doing some tests, could you play some song for me?",
-    "We are [Copyrighted] and we're here to make you think about [Censored] and get sad and stuff!"
+    "We are [Copyrighted] and we're here to make you think about [Censored] and get sad and stuff!",
+    "ON BREAK - Will Return In 15 Minutes",
+    "See you, space cowboy",
+    "Have you forgotten me?",
+    "Please insert coin to continue",
+    "USER ERROR: NO INPUT",
+    "Be seeing you",
+    "Now let's listen to some real music",
+    "Winter is coming",
 ]
 
 export function randomNoSongPhrases(){
