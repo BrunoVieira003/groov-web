@@ -1,7 +1,6 @@
 <script lang="ts">
     import type Song from "$lib/types/song";
-    import ContextMenu from "./context-menu.svelte";
-    import Submenu from "./submenu.svelte";
+    import ContextMenu from "./context-menu/context-menu.svelte";
     import PlaylistSelect from "./forms/playlist-select.svelte";
     import { songQueue, type Collection } from "$lib/stores/queue";
     import toast from "svelte-hot-french-toast";
@@ -13,6 +12,9 @@
     import Marquee from "./marquee.svelte";
     import ArtistsLabel from "./artists-label.svelte";
     import { currentSong, currentTime, paused, togglePlay } from "$lib/stores/player";
+    import ContextMenuButton from "./context-menu/context-menu-button.svelte";
+    import ContextMenuSubmenu from "./context-menu/context-menu-submenu.svelte";
+    import ContextMenuDivider from "./context-menu/context-menu-divider.svelte";
 
     interface props {
         collection?: Collection;
@@ -162,41 +164,20 @@
     {/each}
 </div>
 
-<ContextMenu bind:this={contextMenu}>
+<ContextMenu bind:this={contextMenu} title="Options">
     <div class="flex flex-col">
-        <p
-            class="font-semibold text-legend text-sm text-center py-2 w-full mx-auto"
-        >
-            Options
-        </p>
-
-        <button
-            class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light"
-            onclick={playNextQueue}>Play next</button
-        >
-        <button
-            class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light"
-            onclick={addToQueue}>Add to the queue</button
-        >
+        <ContextMenuButton onclick={playNextQueue}>Play next</ContextMenuButton>
+        <ContextMenuButton onclick={addToQueue}>Add to the queue</ContextMenuButton>
         {#if isOnQueue}
-            <button
-                class="px-4 py-2 cursor-pointer rounded-md hover:bg-neutral-light"
-                onclick={removeFromQueue}>Remove from queue</button
-            >
+            <ContextMenuButton onclick={removeFromQueue}>Remove from queue</ContextMenuButton>
         {/if}
 
-        <Submenu
-            label="Add to playlist"
-            labelClass="w-full px-4 py-2 rounded-md hover:bg-neutral-light cursor-pointer"
-        >
+        <ContextMenuSubmenu label="Add to playlist" title="Playlists">
             <PlaylistSelect onPick={addToPlaylist} />
-        </Submenu>
+        </ContextMenuSubmenu>
         {#if collection?.type === "playlist"}
-            <button
-                class="text-md cursor-pointer px-4 py-2 hover:bg-neutral-light rounded-md"
-                onclick={() => removeFromPlaylist(collection.id)}
-                >Remove from playlist</button
-            >
+            <ContextMenuDivider title="Playlist actions"/>
+            <ContextMenuButton onclick={() => removeFromPlaylist(collection.id)}>Remove from playlist</ContextMenuButton>
         {/if}
     </div>
 </ContextMenu>

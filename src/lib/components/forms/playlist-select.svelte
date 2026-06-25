@@ -13,7 +13,7 @@
 <div class="flex flex-col items-start bg-neutral-medium rounded-md p-1 max-h-50 overflow-y-auto">
     {#each $playlistStore.items as playlist (playlist.id)}
         <button
-        class="cursor-pointer hover:bg-neutral-lighter px-4 py-2 w-full text-start rounded-md"
+        class="cursor-pointer hover:bg-neutral-lighter px-4 py-2 w-full text-start rounded-md text-nowrap"
         value={playlist.id}
         onclick={() => onPick(playlist.id || '')}
         >

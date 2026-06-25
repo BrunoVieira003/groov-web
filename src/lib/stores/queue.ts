@@ -116,7 +116,6 @@ const removeFromQueue = (trackIndex: number) => songQueueStore.update((state) =>
 })
 
 const playNext = (song: Song) => songQueueStore.update((state) => {
-    console.log('next')
     if(state.currentIndex + 1 < state.tracks.length){
         const postIndexTracks = state.tracks.slice(state.currentIndex + 1)
         postIndexTracks.unshift(song)

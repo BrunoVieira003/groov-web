@@ -1,9 +1,15 @@
 <script lang="ts">
     import currentContextMenu from "$lib/stores/currentContextMenu";
     import { onClickOutside } from "runed";
+    import type { Snippet } from "svelte";
     import { fade } from "svelte/transition";
 
-    let { children } = $props();
+    interface PropsType{
+        children: Snippet
+        title?: string
+    }
+
+    let { children, title }: PropsType = $props();
 
     let open = $state(false);
     let top = $state(0);
@@ -38,11 +44,14 @@
 
 {#if open}
     <div
-        class="flex flex-col bg-neutral-medium rounded-md fixed z-50 shadow-md shadow-neutral-darker p-1 pt-0"
+        class="flex flex-col bg-neutral-medium fixed z-50 shadow-md shadow-neutral-darker p-1 pt-0 border border-neutral-light rounded-lg"
         style="top: {top}px; left: {left}px;"
         bind:this={container}
         transition:fade={{ duration: 50 }}
     >
+        {#if title}
+            <p class="font-semibold text-legend text-sm py-2 px-4 -mb-1 w-full mx-auto">{title}</p>
+        {/if}
         {@render children()}
     </div>
 {/if}
