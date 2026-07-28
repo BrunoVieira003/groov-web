@@ -6,7 +6,7 @@
 </script>
 
 <button onclick={songQueue.previousTrack} class="data-[enabled=true]:cursor-pointer" data-enabled={enabled}>
-    <div class="text-heading size-5 data-[enabled=false]:opacity-20" data-enabled={enabled}>
+    <div class="text-heading size-5.5 data-[enabled=false]:opacity-20" data-enabled={enabled}>
         {@html previousIcon}
     </div>
 </button>
