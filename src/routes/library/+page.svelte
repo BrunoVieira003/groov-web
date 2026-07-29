@@ -44,6 +44,32 @@
         }
     }
 
+    const handlePruneArtists: SubmitFunction = () => {
+        return async ({result, update}) => {
+            await update()
+            if(result.type === 'success'){
+                if(result.data){
+                    toast.success('Prune artists task initialized')
+                }
+            }else{
+                toast.error('Prune failed')
+            }
+        }
+    }
+
+    const handlePruneAlbums: SubmitFunction = () => {
+        return async ({result, update}) => {
+            await update()
+            if(result.type === 'success'){
+                if(result.data){
+                    toast.success('Prune albums task initialized')
+                }
+            }else{
+                toast.error('Prune failed')
+            }
+        }
+    }
+
     const handlePruneAssets: SubmitFunction = () => {
         return async ({result, update}) => {
             await update()
@@ -88,6 +114,26 @@
             <p class="text-sm text-subheading line-clamp-3">Verify the database for songs with no file associated. This is useful when you delete a file, but the app still has the song on the database</p>
         </div>
         <form method="post" action="?/pruneSongs" class="flex items-center gap-4" use:enhance={handlePruneSongs}>
+            <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
+        </form>
+    </div>
+
+    <div class="flex not-sm:flex-col gap-2 items-stretch justify-between">
+        <div>
+            <p class="font-semibold text-heading">Prune artists</p>
+            <p class="text-sm text-subheading line-clamp-3">Verify the database for artists with no song associated.</p>
+        </div>
+        <form method="post" action="?/pruneArtists" class="flex items-center gap-4" use:enhance={handlePruneArtists}>
+            <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
+        </form>
+    </div>
+
+    <div class="flex not-sm:flex-col gap-2 items-stretch justify-between">
+        <div>
+            <p class="font-semibold text-heading">Prune albums</p>
+            <p class="text-sm text-subheading line-clamp-3">Verify the database for albums with no song associated.</p>
+        </div>
+        <form method="post" action="?/pruneAlbums" class="flex items-center gap-4" use:enhance={handlePruneAlbums}>
             <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
         </form>
     </div>

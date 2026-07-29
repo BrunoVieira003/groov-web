@@ -26,6 +26,18 @@ export const actions = {
         return data
     },
 
+    pruneArtists: async ({fetch}) => {
+        const response = await fetch(`${env.API_URL}/tasks/prune-artists`, {method: 'post'})
+        const data = await response.json() as {taskId: string}
+        return data
+    },
+
+    pruneAlbums: async ({fetch}) => {
+        const response = await fetch(`${env.API_URL}/tasks/prune-albums`, {method: 'post'})
+        const data = await response.json() as {taskId: string}
+        return data
+    },
+
     pruneAssets: async ({fetch}) => {
         const response = await fetch(`${env.API_URL}/tasks/prune-assets`, {method: 'post'})
         const data = await response.json() as {taskId: string}
