@@ -9,6 +9,7 @@
     import libraryIcon from  "$lib/assets/icons/library.svg?raw"
     import settingsIcon from  "$lib/assets/icons/settings.svg?raw"
     import homeIcon from  "$lib/assets/icons/home.svg?raw"
+    import logo from "$lib/assets/icons/logo.svg?raw"
 
     let searchText = $state(page.url.searchParams.get('q'))
 
@@ -23,11 +24,9 @@
 
 <div class="flex not-sm:flex-col justify-between lg:gap-20 pb-2 sm:py-3 px-2 lg:px-30 bg-neutral-dark z-10" transition:fly={{ duration: 200, y: -100 }}>
     <div class="flex items-center w-full justify-between gap-1 sm:gap-4 lg:gap-8">
-        <h1 class="hidden sm:block text-2xl font-medium text-subheading">Groov</h1>
         <div class="flex w-full mx-auto items-center not-sm:justify-between text-sm text-subheading *:hover:text-heading *:p-2 *:rounded-lg">
-            <a href="/" class="flex justify-between items-center gap-1">
-                <div class="size-6">{@html homeIcon}</div>
-                Home
+            <a href="/" class="flex justify-between items-center">
+                <div class="size-10">{@html logo}</div>
             </a>
             <a href="/artists" class="flex justify-between items-center gap-1">
                 <div class="size-6">{@html artistIcon}</div>
