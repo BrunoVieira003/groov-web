@@ -57,12 +57,12 @@
 
 {#if hasLyrics}
     {#if synced}
-        <div class="flex flex-col items-center gap-2">
+        <div class="flex flex-col items-center gap-2" style="--colorful: {$currentSong?.color}">
             {#each syncedLyrics as lyric, line}
                 <button
                     bind:this={syncedElements[line]}
-                    class="w-fit text-2xl text-legend data-[active=true]:text-highlight transition-all cursor-pointer"
-                    data-active={currentLine === line}
+                    class="w-fit text-2xl text-legend transition-all cursor-pointer"
+                    class:active={currentLine === line}
                     onclick={() => currentTime.set(lyric.time)}
                 >
                     {lyric.text}
@@ -79,3 +79,11 @@
         <p class="text-5xl">No lyrics for this song</p>
     </div>
 {/if}
+
+<style>
+    .active{
+        color: var(--colorful);
+        font-size: xx-large;
+    }
+
+</style>
