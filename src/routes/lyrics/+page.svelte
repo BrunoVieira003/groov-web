@@ -1,6 +1,5 @@
 <script lang="ts">
     import { env } from "$env/dynamic/public";
-    import api from "$lib/plugins/api";
     import { currentSong, currentTime } from "$lib/stores/player";
 
     type UnsyncedLyrics = string[];
@@ -29,29 +28,43 @@
     });
 
     $effect(() => {
-        if (!$currentSong || !$currentSong.id) {
+        const song = $currentSong
+        if (!song?.id) {
             unsyncedLyrics = [];
+            syncedLyrics = []
             return;
         }
 
-        api.get<LyricResponse>(
-            `${env.PUBLIC_API_URL}/songs/${$currentSong?.id}/lyrics`,
-        )
-            .then((response) => {
-                if (response.data.synced) {
-                    syncedLyrics = response.data.lyrics;
-                } else {
-                    unsyncedLyrics = response.data.lyrics;
+
+        (async () => {
+            try{
+                const response = await fetch(`/media/songs/${$currentSong?.id}/lyrics`)
+                console.log(response.ok)
+                if(!response.ok){
+                    unsyncedLyrics = []
+                    syncedLyrics = []
+                    hasLyrics = false
+                    return
+                }
+                
+                const data: LyricResponse = await response.json() satisfies LyricResponse
+
+                synced = data.synced
+                if(data.synced){
+                    syncedLyrics = data.lyrics
+                }else{
+                    unsyncedLyrics = data.lyrics
                 }
 
-                synced = response.data.synced;
-                hasLyrics = true;
-            })
-            .catch(() => {
-                unsyncedLyrics = [];
-                syncedLyrics = [];
-                hasLyrics = false;
-            });
+                hasLyrics = true
+
+
+            }catch(e){
+                unsyncedLyrics = []
+                syncedLyrics = []
+                hasLyrics = false
+            }
+        })()
     });
 </script>
 

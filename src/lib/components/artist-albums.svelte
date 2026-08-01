@@ -26,7 +26,6 @@
             <a href="/albums/{album.id}" class="hover:brightness-115">
                 <Cassete
                     title={album.title}
-                    coverImageSrc="{env.PUBLIC_API_URL}/albums/{album.id}/cover"
                     spinning={$songQueue.collection?.id === album?.id}
                 />
             </a>

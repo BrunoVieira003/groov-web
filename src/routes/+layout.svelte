@@ -48,7 +48,7 @@
 
     currentSong.subscribe((song) => {
         if (source && song && navigator.mediaSession) {
-            source.src = `${env.PUBLIC_API_URL}/songs/${song.id}`
+            source.src = `media/songs/${song.id}`
             $audioElement.load();
 
             navigator.mediaSession.metadata = new MediaMetadata({
@@ -56,7 +56,7 @@
                 artist: song.authors.map((a) => a.name).join(", "),
                 album: song.album ? song.album.title : "",
                 artwork: [
-                    { src: `${env.PUBLIC_API_URL}/songs/${song.id}/cover` },
+                    { src: `media/songs/${song.id}/cover` },
                 ],
             });
 

@@ -24,7 +24,7 @@
     let coverImage: HTMLImageElement;
 
     let coverArtURL = $derived(
-        `${env.PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`,
+        `/media/songs/${$currentSong?.id}/cover`,
     );
 </script>
 

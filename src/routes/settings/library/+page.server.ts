@@ -1,5 +1,4 @@
 import { env } from '$env/dynamic/private';
-import api from '$lib/plugins/api';
 import type { Actions } from '@sveltejs/kit';
 
 export const actions = {

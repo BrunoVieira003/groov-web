@@ -15,7 +15,7 @@
             return "https://robohash.org/groov";
         }
 
-        return `${env.PUBLIC_API_URL}/songs/${$currentSong.id}/cover`;
+        return `/media/songs/${$currentSong.id}/cover`;
     });
 
     let collectionLink = $derived(() => {

@@ -5,7 +5,6 @@
     import { songQueue, type Collection } from "$lib/stores/queue";
     import toast from "svelte-hot-french-toast";
     import { invalidateAll } from "$app/navigation";
-    import api from "$lib/plugins/api";
     import { targetedSong, targetedTrackNumber } from "$lib/stores/songAction";
     import { fly } from "svelte/transition";
     import PlayButton from "./player/buttons/play-button.svelte";
@@ -28,8 +27,9 @@
     let windowWidth = $state<number>(10000);
 
     function addToPlaylist(playlistId: string) {
-        api.post(`/playlists/${playlistId}/song`, {
-            songId: $targetedSong.id,
+        fetch(`/playlists/${playlistId}/song`, {
+            method: 'post',
+            body: JSON.stringify({songId: $targetedSong.id}),
         })
             .then(() => {
                 toast.success("Song added to playlist");
@@ -43,8 +43,9 @@
     function removeFromPlaylist(playlistId: string | undefined) {
         if (!playlistId) return;
 
-        api.delete(`/playlists/${playlistId}/song`, {
-            data: { songId: $targetedSong.id },
+        fetch(`/playlists/${playlistId}/song`, {
+            method: 'delete',
+            body: JSON.stringify({ songId: $targetedSong.id })
         })
             .then(() => {
                 toast.success("Song removed from playlist");

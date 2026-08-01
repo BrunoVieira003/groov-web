@@ -28,7 +28,7 @@
             >
                 <img
                     bind:this={coverImage}
-                    src="{env.PUBLIC_API_URL}/albums/{data.album?.id}/cover"
+                    src="/media/albums/{data.album?.id}/cover"
                     alt="album_cover_art"
                     class="aspect-square! self-center size-80 rounded-xl object-cover volume-shadow"
                     onerror={() => (coverImage.src = emptyImage)}

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import type { PageProps } from "./$types";
-    import api from "$lib/plugins/api";
     import toast from "svelte-hot-french-toast";
     import { invalidateAll } from "$app/navigation";
     import PlaylistList from "$lib/components/playlist-list.svelte";
@@ -12,7 +11,7 @@
     let title = $state('')
 
     function deletePlaylist(playlistId: string){
-        api.delete(`/playlists/${playlistId}`)
+        fetch(`/playlists/${playlistId}`, {method: 'delete'})
         .then(() => toast.success('Playlist removed'))
         .catch(() => toast.error('Failed to remove playlist'))
         .finally(() => invalidateAll())
