@@ -23,9 +23,7 @@
 
     let coverImage: HTMLImageElement;
 
-    let coverArtURL = $derived(
-        `/media/songs/${$currentSong?.id}/cover`,
-    );
+    let coverArtURL = $derived(`/api/media/songs/${$currentSong?.id}/cover`);
 </script>
 
 <div class="sm:hidden h-px">

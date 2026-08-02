@@ -27,8 +27,8 @@
     let windowWidth = $state<number>(10000);
 
     function addToPlaylist(playlistId: string) {
-        fetch(`/playlists/${playlistId}/song`, {
-            method: 'post',
+        fetch(`/api/playlists/${playlistId}/song`, {
+            method: 'POST',
             body: JSON.stringify({songId: $targetedSong.id}),
         })
             .then(() => {
@@ -43,8 +43,8 @@
     function removeFromPlaylist(playlistId: string | undefined) {
         if (!playlistId) return;
 
-        fetch(`/playlists/${playlistId}/song`, {
-            method: 'delete',
+        fetch(`/api/playlists/${playlistId}/song`, {
+            method: 'DELETE',
             body: JSON.stringify({ songId: $targetedSong.id })
         })
             .then(() => {

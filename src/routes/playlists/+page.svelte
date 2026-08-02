@@ -11,7 +11,7 @@
     let title = $state('')
 
     function deletePlaylist(playlistId: string){
-        fetch(`/playlists/${playlistId}`, {method: 'delete'})
+        fetch(`/api/playlists/${playlistId}`, {method: 'delete'})
         .then(() => toast.success('Playlist removed'))
         .catch(() => toast.error('Failed to remove playlist'))
         .finally(() => invalidateAll())

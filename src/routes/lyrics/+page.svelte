@@ -28,49 +28,52 @@
     });
 
     $effect(() => {
-        const song = $currentSong
+        const song = $currentSong;
         if (!song?.id) {
             unsyncedLyrics = [];
-            syncedLyrics = []
+            syncedLyrics = [];
             return;
         }
 
-
         (async () => {
-            try{
-                const response = await fetch(`/media/songs/${$currentSong?.id}/lyrics`)
-                console.log(response.ok)
-                if(!response.ok){
-                    unsyncedLyrics = []
-                    syncedLyrics = []
-                    hasLyrics = false
-                    return
-                }
-                
-                const data: LyricResponse = await response.json() satisfies LyricResponse
-
-                synced = data.synced
-                if(data.synced){
-                    syncedLyrics = data.lyrics
-                }else{
-                    unsyncedLyrics = data.lyrics
+            try {
+                const response = await fetch(
+                    `/api/media/songs/${$currentSong?.id}/lyrics`,
+                );
+                console.log(response.ok);
+                if (!response.ok) {
+                    unsyncedLyrics = [];
+                    syncedLyrics = [];
+                    hasLyrics = false;
+                    return;
                 }
 
-                hasLyrics = true
+                const data: LyricResponse =
+                    (await response.json()) satisfies LyricResponse;
 
+                synced = data.synced;
+                if (data.synced) {
+                    syncedLyrics = data.lyrics;
+                } else {
+                    unsyncedLyrics = data.lyrics;
+                }
 
-            }catch(e){
-                unsyncedLyrics = []
-                syncedLyrics = []
-                hasLyrics = false
+                hasLyrics = true;
+            } catch (e) {
+                unsyncedLyrics = [];
+                syncedLyrics = [];
+                hasLyrics = false;
             }
-        })()
+        })();
     });
 </script>
 
 {#if hasLyrics}
     {#if synced}
-        <div class="flex flex-col items-center gap-2" style="--colorful: {$currentSong?.color}">
+        <div
+            class="flex flex-col items-center gap-2"
+            style="--colorful: {$currentSong?.color}"
+        >
             {#each syncedLyrics as lyric, line}
                 <button
                     bind:this={syncedElements[line]}
@@ -94,9 +97,8 @@
 {/if}
 
 <style>
-    .active{
+    .active {
         color: var(--colorful);
         font-size: xx-large;
     }
-
 </style>

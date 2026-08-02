@@ -8,11 +8,19 @@
     import Cassete from "$lib/components/cassete.svelte";
     import { songQueue } from "$lib/stores/queue";
     import { paused } from "$lib/stores/player";
-    import { formatAlbumDuration, formatSongTime } from "$lib/formatters/songTime";
+    import {
+        formatAlbumDuration,
+        formatSongTime,
+    } from "$lib/formatters/songTime";
     import AddToQueue from "$lib/components/buttons/add-to-queue.svelte";
 
     let { data }: PageProps = $props();
-    let albumDuration = $derived(data.album?.songs.reduce((acc: number, song) => acc + (song.duration || 0), 0) || 0)
+    let albumDuration = $derived(
+        data.album?.songs.reduce(
+            (acc: number, song) => acc + (song.duration || 0),
+            0,
+        ) || 0,
+    );
 
     let coverImage: HTMLImageElement;
 </script>
@@ -28,7 +36,7 @@
             >
                 <img
                     bind:this={coverImage}
-                    src="/media/albums/{data.album?.id}/cover"
+                    src="/api/media/albums/{data.album?.id}/cover"
                     alt="album_cover_art"
                     class="aspect-square! self-center size-80 rounded-xl object-cover volume-shadow"
                     onerror={() => (coverImage.src = emptyImage)}
@@ -53,7 +61,9 @@
                                     : "song"}
                             </p>
                             <p class="text-sm text-legend">•</p>
-                            <p class="text-sm text-legend">{formatAlbumDuration(albumDuration)}</p>
+                            <p class="text-sm text-legend">
+                                {formatAlbumDuration(albumDuration)}
+                            </p>
                         </div>
                     </div>
 
@@ -67,7 +77,7 @@
                             }}
                         />
 
-                        <AddToQueue tracks={data.album?.songs || []}/>
+                        <AddToQueue tracks={data.album?.songs || []} />
                     </div>
                 </div>
             </div>
@@ -78,11 +88,12 @@
         >
             <div class="volume-shadow w-full">
                 <Cassete
-                    title={data.album?.title || ''}
-                    sidetitle={data.album?.artist?.name || ''}
-                    subtitle={data.album?.artist?.name || ''}
+                    title={data.album?.title || ""}
+                    sidetitle={data.album?.artist?.name || ""}
+                    subtitle={data.album?.artist?.name || ""}
                     tagText={data.album?.year || ""}
-                    spinning={$songQueue.collection?.id === data.album?.id && !$paused}
+                    spinning={$songQueue.collection?.id === data.album?.id &&
+                        !$paused}
                 />
             </div>
             <PlayAll

@@ -6,15 +6,15 @@
     import ContextMenu from "../context-menu/context-menu.svelte";
     import ContextMenuButton from "../context-menu/context-menu-button.svelte";
     import { goto } from "$app/navigation";
-    import ArtistIcon from "$lib/assets/icons/artist.svg?raw"
+    import ArtistIcon from "$lib/assets/icons/artist.svg?raw";
 
     let { album }: AlbumProps = $props();
 
     let coverImage: HTMLImageElement;
-    let contextMenu = $state<ContextMenu>()
+    let contextMenu = $state<ContextMenu>();
 
-    function goToArtist(){
-        goto(`/artists/${album.artist.id}`)
+    function goToArtist() {
+        goto(`/artists/${album.artist.id}`);
     }
 </script>
 
@@ -32,7 +32,7 @@
 >
     <img
         bind:this={coverImage}
-        src="/media/albums/{album.id}/cover"
+        src="/api/media/albums/{album.id}/cover"
         alt="album_cover_art"
         class="aspect-square! self-center w-full rounded-xl object-cover"
         onerror={() => (coverImage.src = emptyImage)}

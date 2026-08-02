@@ -23,40 +23,43 @@
     import type { PageProps } from "./$types";
     import type { Snippet } from "svelte";
     import type { Snapshot } from "@sveltejs/kit";
-    import { albumLayout, audioVisualizer, type AlbumLayout, type AudioVisualizerOptions } from "$lib/stores/settings";
+    import {
+        albumLayout,
+        audioVisualizer,
+        type AlbumLayout,
+        type AudioVisualizerOptions,
+    } from "$lib/stores/settings";
 
-    let { children, data }: PageProps & { children: Snippet } = $props()
+    let { children, data }: PageProps & { children: Snippet } = $props();
 
-    let source = $state<HTMLSourceElement>()
+    let source = $state<HTMLSourceElement>();
 
-    interface PersistedConfigs{
-        layout: AlbumLayout,
-        visualizer: AudioVisualizerOptions
+    interface PersistedConfigs {
+        layout: AlbumLayout;
+        visualizer: AudioVisualizerOptions;
     }
 
     export const snapshot: Snapshot<PersistedConfigs> = {
         capture: () => ({
             layout: $albumLayout,
-            visualizer: $audioVisualizer
+            visualizer: $audioVisualizer,
         }),
         restore: (stored) => {
-            albumLayout.set(stored.layout)
-            audioVisualizer.set(stored.visualizer)
-        }
-    }
+            albumLayout.set(stored.layout);
+            audioVisualizer.set(stored.visualizer);
+        },
+    };
 
     currentSong.subscribe((song) => {
         if (source && song && navigator.mediaSession) {
-            source.src = `/media/songs/${song.id}`
+            source.src = `/api/media/songs/${song.id}`;
             $audioElement.load();
 
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
                 artist: song.authors.map((a) => a.name).join(", "),
                 album: song.album ? song.album.title : "",
-                artwork: [
-                    { src: `/media/songs/${song.id}/cover` },
-                ],
+                artwork: [{ src: `/api/media/songs/${song.id}/cover` }],
             });
 
             navigator.mediaSession.setActionHandler("pause", togglePlay);
@@ -80,7 +83,7 @@
                 "seekto",
                 ({ seekTime }) => {
                     if (seekTime) {
-                        $currentTime = seekTime
+                        $currentTime = seekTime;
                     }
                 },
             );

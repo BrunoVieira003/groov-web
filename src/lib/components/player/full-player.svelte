@@ -13,7 +13,7 @@
     import Volume from "./buttons/volume.svelte";
     import { fly } from "svelte/transition";
     import {
-    audioElement,
+        audioElement,
         currentSong,
         currentTime,
         duration,
@@ -28,9 +28,7 @@
     // svelte-ignore non_reactive_update
     let coverImage: HTMLImageElement;
 
-    let coverArtURL = $derived(
-        `/media/songs/${$currentSong?.id}/cover`,
-    );
+    let coverArtURL = $derived(`/api/media/songs/${$currentSong?.id}/cover`);
 </script>
 
 <div
@@ -40,13 +38,12 @@
     transition:fly={{ duration: 100 }}
 >
     <div class="absolute bottom-0 w-full h-1/2">
-        <BarVisualizer audio={$audioElement}/>
+        <BarVisualizer audio={$audioElement} />
     </div>
     <div
         class="w-full h-full full-view"
         style="background-image: url({coverArtURL});"
     ></div>
-
 
     <div
         class="w-11/12 sm:w-5/6 lg:w-3/5 flex flex-col data-[layout=cassete]:flex-col md:flex-row items-center data-[layout=cassete]:gap-6 gap-10 xl:gap-16 z-1"
@@ -66,9 +63,11 @@
             <div class="w-2/4">
                 <Cassete
                     title={$currentSong?.title}
-                    sidetitle={$currentSong?.authors.map(a => a.name).join(' • ')}
-                    tagText={String($currentSong?.year || '')}
-                    subtitle={$currentSong?.album?.title || ''}
+                    sidetitle={$currentSong?.authors
+                        .map((a) => a.name)
+                        .join(" • ")}
+                    tagText={String($currentSong?.year || "")}
+                    subtitle={$currentSong?.album?.title || ""}
                     color={$currentSong?.color}
                     spinning={!$paused}
                 />
@@ -137,11 +136,8 @@
                 <Volume />
             </div>
         </div>
-
     </div>
-    
-    
-    
+
     <div class="w-1/3 flex justify-center z-1"></div>
 </div>
 

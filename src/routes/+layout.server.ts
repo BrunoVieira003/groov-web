@@ -1,7 +1,5 @@
 import { env } from "$env/dynamic/private"
-import playlistStore from "$lib/stores/playlistList"
 import type { PlaylistSummary } from "$lib/types/playlist"
-import { get } from "svelte/store"
 import type { PageServerLoad } from "./library/$types"
 
 export const load: PageServerLoad = async () => {
