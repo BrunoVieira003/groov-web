@@ -11,12 +11,12 @@
 </script>
 
 <h1
-    class="page-title w-full text-center sm:text-start sm:w-11/12 md:w-8/12 sm:mx-auto text-highlight"
+    class="page-title w-full text-center sm:text-start sm:mx-auto text-highlight"
 >
     Settings
 </h1>
 
-<div class="flex w-full sm:text-start sm:w-11/12 md:w-9/12 sm:mx-auto gap-2">
+<div class="flex w-full sm:text-start sm:mx-auto gap-2">
     <div class="flex flex-col gap-4 p-2 h-fit sticky top-0 border border-neutral-light rounded-lg">
         <a 
         href="/settings/appearance"

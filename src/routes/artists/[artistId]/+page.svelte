@@ -9,7 +9,7 @@
     let currentTab = $state("Songs")
 </script>
 
-<div class="w-11/12 sm:w-10/12 mx-auto">
+<div class="">
     <div class="mb-4 text-center sm:text-start">
         <p class="mb-1 text-sm text-legend">Artist</p>
         <h1 class="text-5xl mb-6 text-highlight">{data.artist?.name}</h1>

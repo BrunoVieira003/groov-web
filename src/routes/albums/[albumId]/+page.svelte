@@ -26,7 +26,7 @@
 </script>
 
 <div
-    class="w-full flex flex-col md:flex-row data-[layout=default]:flex-col gap-4 sm:w-10/12 sm:mx-auto items-start"
+    class="w-full flex flex-col md:flex-row data-[layout=default]:flex-col gap-4 items-start"
     data-layout={$albumLayout}
 >
     {#if $albumLayout === "default"}

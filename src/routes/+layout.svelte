@@ -26,9 +26,12 @@
     import {
         albumLayout,
         audioVisualizer,
+        menuOption,
         type AlbumLayout,
         type AudioVisualizerOptions,
+        type MenuOption,
     } from "$lib/stores/settings";
+    import Sidemenu from "$lib/components/sidemenu.svelte";
 
     let { children, data }: PageProps & { children: Snippet } = $props();
 
@@ -37,16 +40,19 @@
     interface PersistedConfigs {
         layout: AlbumLayout;
         visualizer: AudioVisualizerOptions;
+        menuOption: MenuOption
     }
 
     export const snapshot: Snapshot<PersistedConfigs> = {
         capture: () => ({
             layout: $albumLayout,
             visualizer: $audioVisualizer,
+            menuOption: $menuOption
         }),
         restore: (stored) => {
             albumLayout.set(stored.layout);
             audioVisualizer.set(stored.visualizer);
+            menuOption.set(stored.menuOption)
         },
     };
 
@@ -140,22 +146,27 @@
     </div>
 {/snippet}
 
-<div class="flex flex-col w-full mx-auto h-dvh bg-transparent overflow-hidden">
-    {#if $viewMode === "default"}
-        <Header />
+<div class="flex w-full">
+    {#if $viewMode === "default" && $menuOption === 'sidemenu'}
+        <Sidemenu/>
     {/if}
-    <div class="relative overflow-y-auto flex-1 lg:px-30 mb-2">
-        {@render children()}
-    </div>
-    {#if $currentSong}
-        {#if $viewMode === "full"}
-            <FullPlayer />
-        {:else}
-            <Player />
+    <div class="flex flex-1 flex-col mx-auto h-dvh bg-transparent overflow-hidden">
+        {#if $viewMode === "default" && $menuOption === 'header'}
+            <Header />
         {/if}
-    {:else}
-        {@render emptyPlayer()}
-    {/if}
+        <div class="relative overflow-y-auto w-full sm:px-40 flex-1 mb-2 pt-4">
+            {@render children()}
+        </div>
+        {#if $currentSong}
+            {#if $viewMode === "full"}
+                <FullPlayer />
+            {:else}
+                <Player />
+            {/if}
+        {:else}
+            {@render emptyPlayer()}
+        {/if}
+    </div>
 </div>
 
 <TaskList />

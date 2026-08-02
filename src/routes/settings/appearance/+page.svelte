@@ -1,7 +1,7 @@
 <script lang="ts">
     import Cassete from "$lib/components/cassete.svelte";
     import Marquee from "$lib/components/marquee.svelte";
-    import { albumLayout, audioVisualizer } from "$lib/stores/settings";
+    import { albumLayout, audioVisualizer, menuOption } from "$lib/stores/settings";
     import emptyImage from "$lib/assets/images/empty.png";
     import TabSelect from "$lib/components/tab-select.svelte";
     import VisualizerBottomIcon from '$lib/assets/icons/visualizer-bottom.svg?raw'
@@ -85,3 +85,12 @@ bind:value={$audioVisualizer}
         {@html VisualizerDisabledIcon}
     {/if}
 </div>
+
+<h2 class="text-xl">Menu</h2>
+<p class="text-subheading text-sm mb-6">Change layout position of menu</p>
+<TabSelect options={[
+    {label: 'Header', value: 'header'},
+    {label: 'Sidemenu', value: 'sidemenu'},
+]}
+bind:value={$menuOption}
+/>
