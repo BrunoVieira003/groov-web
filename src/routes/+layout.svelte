@@ -24,7 +24,6 @@
     import type { Snippet } from "svelte";
     import type { Snapshot } from "@sveltejs/kit";
     import { albumLayout, audioVisualizer, type AlbumLayout, type AudioVisualizerOptions } from "$lib/stores/settings";
-    import { get } from "svelte/store";
 
     let { children, data }: PageProps & { children: Snippet } = $props()
 
@@ -48,7 +47,7 @@
 
     currentSong.subscribe((song) => {
         if (source && song && navigator.mediaSession) {
-            source.src = `media/songs/${song.id}`
+            source.src = `/media/songs/${song.id}`
             $audioElement.load();
 
             navigator.mediaSession.metadata = new MediaMetadata({
@@ -56,7 +55,7 @@
                 artist: song.authors.map((a) => a.name).join(", "),
                 album: song.album ? song.album.title : "",
                 artwork: [
-                    { src: `media/songs/${song.id}/cover` },
+                    { src: `/media/songs/${song.id}/cover` },
                 ],
             });
 
