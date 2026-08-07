@@ -49,9 +49,9 @@
                             {data.album?.title}
                         </h1>
                         <a
-                            href="/artists/{data.album?.artist.id}"
+                            href="/artists/{data.album?.artist?.id}"
                             class="text-xl mb-6 hover:underline text-subheading"
-                            >{data.album?.artist.name}</a
+                            >{data.album?.artist?.name}</a
                         >
                         <div class="flex gap-2 items-center">
                             <p class="text-sm text-legend">
