@@ -4,7 +4,7 @@
     import PlaylistSelect from "./forms/playlist-select.svelte";
     import { songQueue, type Collection } from "$lib/stores/queue";
     import toast from "svelte-hot-french-toast";
-    import { invalidateAll } from "$app/navigation";
+    import { invalidate, invalidateAll } from "$app/navigation";
     import { targetedSong, targetedTrackNumber } from "$lib/stores/songAction";
     import { fly } from "svelte/transition";
     import PlayButton from "./player/buttons/play-button.svelte";
@@ -14,17 +14,30 @@
     import ContextMenuButton from "./context-menu/context-menu-button.svelte";
     import ContextMenuSubmenu from "./context-menu/context-menu-submenu.svelte";
     import ContextMenuDivider from "./context-menu/context-menu-divider.svelte";
+    import type { DragEventHandler } from "svelte/elements";
 
     interface props {
         collection?: Collection;
         tracks: Song[];
     }
 
-    let { tracks, collection }: props = $props();
+    let { collection, ...rest }: props = $props();
+
+    type DragTargetEvent = DragEvent & {
+        currentTarget: EventTarget & HTMLDivElement;
+    }
+
+    let tracks = $state(rest.tracks)
+    $effect(() => {
+        tracks = rest.tracks
+    })
 
     let contextMenu = $state<ContextMenu>();
     let isOnQueue = $derived($songQueue.tracks.includes($targetedSong));
     let windowWidth = $state<number>(10000);
+
+    let dragFrom = $state<number | null>(null);
+    let dragTo = $state<number | null>(null);
 
     function addToPlaylist(playlistId: string) {
         fetch(`/api/playlists/${playlistId}/song`, {
@@ -45,7 +58,7 @@
 
         fetch(`/api/playlists/${playlistId}/song`, {
             method: 'DELETE',
-            body: JSON.stringify({ songId: $targetedSong.id })
+            body: JSON.stringify({ relationId: $targetedSong?.relationId })
         })
             .then(() => {
                 toast.success("Song removed from playlist");
@@ -87,6 +100,46 @@
         songQueue.playQueue(tracks, songIndex, collection);
         currentTime.set(0);
     }
+
+    function dragStart(e: DragTargetEvent) {
+        dragFrom = parseInt(e.currentTarget.dataset.index ?? '')
+        if(e.dataTransfer){
+            e.dataTransfer.effectAllowed = "move";
+        }
+    }
+
+    function dragOver(e: DragTargetEvent) {
+        e.preventDefault();
+
+        const currentIndex = e.currentTarget.dataset.index
+        console.log(dragFrom, currentIndex)
+
+        if (currentIndex !== undefined && dragFrom !== null && dragFrom !== parseInt(currentIndex)) {
+            dragTo = parseInt(currentIndex)
+            let [item] = tracks.splice(dragFrom, 1);
+            tracks.splice(dragTo, 0, item);
+            dragFrom = dragTo;
+        }
+    }
+
+    function dragEnd(e: DragTargetEvent) {
+        dragFrom = null;
+        dragTo = null
+        const relationIds = tracks.map(s => s.relationId)
+
+        fetch(`/api/playlists/${collection?.id}/reorder`, {
+            method: 'PATCH',
+            body: JSON.stringify({relationIds}),
+        })
+            .then(() => {
+                toast.success("Order saved");
+                invalidateAll()
+            })
+            .catch(() => {
+                toast.error("Failed to save change playlist order");
+            })
+            .finally(contextMenu?.hide);
+    }
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
@@ -94,6 +147,7 @@
 {#snippet songItem(
     song: Song,
     trackNumber: number,
+    index: number,
     oncontextmenu: (e: MouseEvent) => void,
 )}
     <div
@@ -105,12 +159,18 @@
             targetedTrackNumber.set(trackNumber);
             oncontextmenu(e);
         }}
+        class:target={dragTo === index}
+        draggable={collection?.type === 'playlist'}
+        data-index={index}
+        ondragstart={dragStart}
+        ondragover={dragOver}
+        ondragend={dragEnd}
         role="button"
         tabindex="-1"
         transition:fly={{ duration: 100 }}
     >
         <p class="hidden md:block text-center text-legend font-semibold">
-            {trackNumber !== undefined ? trackNumber + 1 : ""}
+            {trackNumber !== undefined ? trackNumber : ""}
         </p>
 
         <div class="flex items-center gap-4 overflow-hidden">
@@ -156,10 +216,11 @@
             <p class="hidden md:block font-bold text-sm">Artists</p>
         {/if}
     </div>
-    {#each tracks as song, trackNumber (`${song.id}${trackNumber}`)}
+    {#each tracks as song, index (collection?.type === 'playlist' ? song.relationId : song)}
         {@render songItem(
             song,
-            trackNumber,
+            song.trackNumber ?? index+1,
+            index,
             contextMenu ? contextMenu.show : () => {},
         )}
     {/each}
@@ -182,3 +243,10 @@
         {/if}
     </div>
 </ContextMenu>
+
+
+<style>
+    .target{
+        border-top: 0.1rem solid var(--color-neutral-lighter);
+    }
+</style>

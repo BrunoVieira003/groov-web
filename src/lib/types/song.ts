@@ -13,5 +13,7 @@ export default interface Song{
     authors: {
         id: string
         name: string
-    }[]
+    }[],
+    trackNumber?: number | null
+    relationId?: string
 }
