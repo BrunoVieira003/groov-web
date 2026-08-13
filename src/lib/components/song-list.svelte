@@ -102,6 +102,7 @@
     }
 
     function dragStart(e: DragTargetEvent) {
+        if(collection?.type !== 'playlist') return;
         dragFrom = parseInt(e.currentTarget.dataset.index ?? '')
         if(e.dataTransfer){
             e.dataTransfer.effectAllowed = "move";
@@ -109,6 +110,7 @@
     }
 
     function dragOver(e: DragTargetEvent) {
+        if(collection?.type !== 'playlist') return;
         e.preventDefault();
 
         const currentIndex = e.currentTarget.dataset.index
@@ -123,6 +125,7 @@
     }
 
     function dragEnd(e: DragTargetEvent) {
+        if(collection?.type !== 'playlist') return;
         dragFrom = null;
         dragTo = null
         const relationIds = tracks.map(s => s.relationId)
