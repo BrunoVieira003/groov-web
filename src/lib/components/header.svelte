@@ -3,6 +3,7 @@
     import { onClickOutside } from "runed";
     import { fly } from "svelte/transition";
     import searchIcon from "$lib/assets/icons/search.svg?raw"
+    import songIcon from  "$lib/assets/icons/song.svg?raw"
     import artistIcon from  "$lib/assets/icons/artist.svg?raw"
     import albumIcon from  "$lib/assets/icons/album.svg?raw"
     import playlistIcon from  "$lib/assets/icons/playlist.svg?raw"
@@ -26,6 +27,10 @@
             <a href="/" class="flex justify-start gap-2 items-center">
                 <div class="size-10">{@html logo}</div>
                 <p class="text-xl text-[#a21894] font-semibold">Groov</p>
+            </a>
+            <a href="/" class="flex justify-between items-center gap-1">
+                <div class="size-6">{@html songIcon}</div>
+                Songs
             </a>
             <a href="/artists" class="flex justify-between items-center gap-1">
                 <div class="size-6">{@html artistIcon}</div>
