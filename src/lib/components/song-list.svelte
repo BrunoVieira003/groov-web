@@ -14,7 +14,12 @@
     import ContextMenuButton from "./context-menu/context-menu-button.svelte";
     import ContextMenuSubmenu from "./context-menu/context-menu-submenu.svelte";
     import ContextMenuDivider from "./context-menu/context-menu-divider.svelte";
-    import type { DragEventHandler } from "svelte/elements";
+    import emptyImage from "$lib/assets/images/empty.png";
+    import { fallbackImage } from "$lib/plugins/fallbackImage";
+    
+    type ImageEvent = Event & {
+        currentTarget: EventTarget & Element & HTMLImageElement
+    }
 
     interface props {
         collection?: Collection;
@@ -177,6 +182,12 @@
         </p>
 
         <div class="flex items-center gap-4 overflow-hidden">
+            <img
+                src="/api/media/songs/{song.id}/cover"
+                alt="album_cover_art"
+                class="aspect-square! self-center size-12 rounded-xl object-cover"
+                onerror={fallbackImage}
+            />
             <PlayButton
                 paused={!(song.id === $currentSong?.id) || $paused}
                 onclick={() => playItem(song)}
