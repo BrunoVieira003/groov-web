@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { PageProps } from "./$types";
-     import emptyImage from "$lib/assets/images/empty.png";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
 
     let { data }: PageProps = $props()

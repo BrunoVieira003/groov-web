@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { env } from "$env/dynamic/public";
     import { formatSongTime } from "$lib/formatters/songTime";
     import PlayButton from "./buttons/play-button.svelte";
-    import emptyImage from "$lib/assets/images/empty.png";
     import ArtistsLabel from "../artists-label.svelte";
     import PreviousButton from "./buttons/previous-button.svelte";
     import NextButton from "./buttons/next-button.svelte";
@@ -20,8 +18,7 @@
         togglePlay,
     } from "$lib/stores/player";
     import LyricsButton from "./buttons/lyrics-button.svelte";
-
-    let coverImage: HTMLImageElement;
+    import { fallbackImage } from "$lib/plugins/fallbackImage";
 
     let coverArtURL = $derived(`/api/media/songs/${$currentSong?.id}/cover`);
 </script>
@@ -44,11 +41,10 @@
         class="w-full sm:w-1/4 flex items-center gap-2 sm:gap-4 overflow-hidden"
     >
         <img
-            bind:this={coverImage}
             src={coverArtURL}
             alt="cover_art"
             class="size-16 aspect-square rounded object-cover"
-            onerror={() => (coverImage.src = emptyImage)}
+            onerror={fallbackImage}
         />
         <div class="w-full overflow-hidden">
             <Marquee

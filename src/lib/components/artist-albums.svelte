@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { env } from "$env/dynamic/public";
     import type { AlbumSummary } from "$lib/types/album";
     import DefaultAlbum from "./album/DefaultAlbum.svelte";
     import { albumLayout } from "$lib/stores/settings";
@@ -11,9 +10,6 @@
     }
 
     let { albums }: PropsType = $props();
-
-    // svelte-ignore non_reactive_update
-    let coverImage: HTMLImageElement;
 </script>
 
 <div

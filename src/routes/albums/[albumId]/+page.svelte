@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { env } from "$env/dynamic/public";
-    import emptyImage from "$lib/assets/images/empty.png";
     import type { PageProps } from "./$types";
     import PlayAll from "$lib/components/buttons/play-all.svelte";
     import SongList from "$lib/components/song-list.svelte";
@@ -10,9 +8,9 @@
     import { paused } from "$lib/stores/player";
     import {
         formatAlbumDuration,
-        formatSongTime,
     } from "$lib/formatters/songTime";
     import AddToQueue from "$lib/components/buttons/add-to-queue.svelte";
+    import { fallbackImage } from "$lib/plugins/fallbackImage";
 
     let { data }: PageProps = $props();
     let albumDuration = $derived(
@@ -22,7 +20,6 @@
         ) || 0,
     );
 
-    let coverImage: HTMLImageElement;
 </script>
 
 <div
@@ -35,11 +32,10 @@
                 class="flex flex-col sm:flex-row justify-center sm:justify-start gap-6 mx-2 sm:mx-auto"
             >
                 <img
-                    bind:this={coverImage}
                     src="/api/media/albums/{data.album?.id}/cover"
                     alt="album_cover_art"
                     class="aspect-square! self-center size-80 rounded-xl object-cover volume-shadow"
-                    onerror={() => (coverImage.src = emptyImage)}
+                    onerror={fallbackImage}
                 />
                 <div
                     class="flex flex-col mx-auto text-center justify-center sm:text-start sm:mx-0 sm:justify-between"

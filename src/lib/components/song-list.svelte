@@ -14,7 +14,6 @@
     import ContextMenuButton from "./context-menu/context-menu-button.svelte";
     import ContextMenuSubmenu from "./context-menu/context-menu-submenu.svelte";
     import ContextMenuDivider from "./context-menu/context-menu-divider.svelte";
-    import emptyImage from "$lib/assets/images/empty.png";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
     
     type ImageEvent = Event & {

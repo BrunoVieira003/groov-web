@@ -1,14 +1,11 @@
 <script lang="ts">
-    import { env } from "$env/dynamic/public";
     import { songQueue } from "$lib/stores/queue";
-    import emptyImage from "$lib/assets/images/empty.png";
     import ArtistsLabel from "$lib/components/artists-label.svelte";
     import Marquee from "$lib/components/marquee.svelte";
     import SongList from "$lib/components/song-list.svelte";
     import { currentSong } from "$lib/stores/player";
+    import { fallbackImage } from "$lib/plugins/fallbackImage";
 
-    // svelte-ignore non_reactive_update
-    let coverImage: HTMLImageElement;
 
     let coverArtURL = $derived(() => {
         if (!$currentSong) {
@@ -48,12 +45,11 @@
             </div>
         {/if}
         <img
-            bind:this={coverImage}
             src={coverArtURL()}
             alt="cover_art"
             class:colorful-glow={!!$currentSong.color}
             class="sm:max-w-120 rounded-xl object-cover aspect-square white-glow"
-            onerror={() => (coverImage.src = emptyImage)}
+            onerror={fallbackImage}
         />
         <div
             class="flex items-center justify-between w-full sm:w-120 overflow-hidden"

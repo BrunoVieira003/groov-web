@@ -1,16 +1,14 @@
 <script lang="ts">
-    import { env } from "$env/dynamic/public";
     import type { AlbumProps } from "./album-props";
-    import emptyImage from "$lib/assets/images/empty.png";
     import Marquee from "../marquee.svelte";
     import ContextMenu from "../context-menu/context-menu.svelte";
     import ContextMenuButton from "../context-menu/context-menu-button.svelte";
     import { goto } from "$app/navigation";
     import ArtistIcon from "$lib/assets/icons/artist.svg?raw";
+    import { fallbackImage } from "$lib/plugins/fallbackImage";
 
     let { album }: AlbumProps = $props();
 
-    let coverImage: HTMLImageElement;
     let contextMenu = $state<ContextMenu>();
 
     function goToArtist() {
@@ -31,11 +29,10 @@
     oncontextmenu={contextMenu.show}
 >
     <img
-        bind:this={coverImage}
         src="/api/media/albums/{album.id}/cover"
         alt="album_cover_art"
         class="aspect-square! self-center w-full rounded-xl object-cover"
-        onerror={() => (coverImage.src = emptyImage)}
+        onerror={fallbackImage}
     />
     <div>
         <div class="flex">
