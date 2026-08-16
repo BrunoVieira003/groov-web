@@ -15,10 +15,7 @@
     import ContextMenuSubmenu from "./context-menu/context-menu-submenu.svelte";
     import ContextMenuDivider from "./context-menu/context-menu-divider.svelte";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
-    
-    type ImageEvent = Event & {
-        currentTarget: EventTarget & Element & HTMLImageElement
-    }
+    import SongItem from "./song-item.svelte";
 
     interface props {
         collection?: Collection;
@@ -145,77 +142,11 @@
             .catch(() => {
                 toast.error("Failed to save change playlist order");
             })
-            .finally(contextMenu?.hide);
     }
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
 
-{#snippet songItem(
-    song: Song,
-    trackNumber: number,
-    index: number,
-    oncontextmenu: (e: MouseEvent) => void,
-)}
-    <div
-        class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-light data-[active=true]:text-heading"
-        data-active={song.id === $currentSong?.id}
-        style="--colorful: {$currentSong?.color};"
-        oncontextmenu={(e) => {
-            targetedSong.set(song);
-            targetedTrackNumber.set(trackNumber);
-            oncontextmenu(e);
-        }}
-        class:target={dragTo === index}
-        draggable={collection?.type === 'playlist'}
-        data-index={index}
-        ondragstart={dragStart}
-        ondragover={dragOver}
-        ondragend={dragEnd}
-        role="button"
-        tabindex="-1"
-        transition:fly={{ duration: 100 }}
-    >
-        <p class="hidden md:block text-center text-legend font-semibold">
-            {trackNumber !== undefined ? trackNumber : ""}
-        </p>
-
-        <div class="flex items-center gap-4 overflow-hidden">
-            <img
-                src="/api/media/songs/{song.id}/cover"
-                alt="album_cover_art"
-                class="aspect-square! self-center size-12 rounded-xl object-cover"
-                onerror={fallbackImage}
-            />
-            <PlayButton
-                paused={!(song.id === $currentSong?.id) || $paused}
-                onclick={() => playItem(song)}
-            />
-            <div class="flex flex-col w-full overflow-hidden">
-                <Marquee>
-                    <p
-                        data-active={song.id === $currentSong?.id}
-                        class="font-bold text-md text-heading data-[active=true]:text-(--colorful)"
-                    >
-                        {song.title}
-                    </p>
-                </Marquee>
-                {#if collection?.type !== "album" || windowWidth <= 768}
-                    <ArtistsLabel artists={song.authors} size="small" />
-                {/if}
-            </div>
-        </div>
-        {#if song.album && collection?.type !== "album"}
-            <a
-                href="/albums/{song.album.id}"
-                class="hidden md:block hover:underline">{song.album.title}</a
-            >
-        {/if}
-        {#if collection?.type === "album" && windowWidth > 768}
-            <ArtistsLabel artists={song.authors} size="default" />
-        {/if}
-    </div>
-{/snippet}
 
 <div class="relative flex flex-col w-full">
     <div
@@ -230,12 +161,22 @@
         {/if}
     </div>
     {#each tracks as song, index (collection?.type === 'playlist' ? song.relationId : song)}
-        {@render songItem(
-            song,
-            song.trackNumber ?? index+1,
-            index,
-            contextMenu ? contextMenu.show : () => {},
-        )}
+        <SongItem
+        {song} 
+        {index} 
+        trackNumber={song.trackNumber ?? index+1} 
+        onPlay={() => playItem(song)} 
+        collectionType={collection?.type}
+        onContextMenu={(e) => {
+            targetedSong.set(song);
+            targetedTrackNumber.set(song.trackNumber ?? index+1);
+            contextMenu && contextMenu.show(e)
+        }}
+        draggable={collection?.type === 'playlist'}
+        onDragStart={dragStart}
+        onDragOver={dragOver}
+        onDragEnd={dragEnd}
+        />
     {/each}
 </div>
 
@@ -256,10 +197,3 @@
         {/if}
     </div>
 </ContextMenu>
-
-
-<style>
-    .target{
-        border-top: 0.1rem solid var(--color-neutral-lighter);
-    }
-</style>
