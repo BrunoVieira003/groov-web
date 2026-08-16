@@ -5,6 +5,7 @@
     import { slide } from "svelte/transition";
     import type { PageProps } from "./$types";
     import SongList from "$lib/components/song-list.svelte";
+    import ArtistItem from "$lib/components/artist/artist-item.svelte";
 
     let { data }: PageProps = $props();
     let filters = $state({
@@ -43,16 +44,9 @@
         <div transition:slide={{ duration: 200 }} class="mb-10 text-center sm:text-start">
             <h2 class="text-3xl mb-2">Artists</h2>
             <p class="mb-6">{data.artists?.length} results</p>
-            <div class="grid grid-cols-2 w-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 grid-flow-row gap-2">
+            <div class="grid gap-4 sm:gap-8 grid-cols-2 w-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 {#each data.artists as artist}
-                    <div class="flex flex-col aspect-square p-2 bg-neutral-medium w-fit items-center justify-between rounded-xl">
-                        <img
-                            class="size-9/12 rounded-full aspect-square"
-                            src="https://robohash.org/${artist.name}"
-                            alt="artist"
-                        />
-                        <a href="/artists/{artist.id}" class="hover:underline line-clamp-2">{artist.name}</a>
-                    </div>
+                    <ArtistItem {artist} />
                 {/each}
             </div>
         </div>
