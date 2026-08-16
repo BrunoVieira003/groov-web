@@ -22,7 +22,7 @@
             <a href="/albums/{album.id}" class="hover:brightness-115">
                 <Cassete
                     title={album.title}
-                    sidetitle={album.artist.name}
+                    sidetitle={album?.artist?.name}
                     spinning={$songQueue.collection?.id === album.id &&
                         !$paused}
                 />
