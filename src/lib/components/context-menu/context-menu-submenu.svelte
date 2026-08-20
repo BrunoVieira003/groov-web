@@ -7,10 +7,9 @@
         children: Snippet
         label: string
         labelClass?: ClassValue
-        title?: string
     }
 
-    let {children, label, labelClass, title}: PropsType = $props()
+    let {children, label, labelClass}: PropsType = $props()
 
     let active = $state(false)
 </script>
@@ -24,9 +23,6 @@
     {#if active}
         
         <div class="absolute bg-neutral-medium rounded-lg align-middle right-0 top-0 translate-x-full border border-neutral-light">
-            {#if title}
-                <p class="font-semibold text-legend text-sm py-2 px-4 -mb-1 w-full mx-auto">{title}</p>
-            {/if}
             {@render children()}
         </div>
     {/if}

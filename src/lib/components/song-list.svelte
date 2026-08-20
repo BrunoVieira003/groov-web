@@ -180,7 +180,7 @@
     {/each}
 </div>
 
-<ContextMenu bind:this={contextMenu} title="Options">
+<ContextMenu bind:this={contextMenu}>
     <div class="flex flex-col">
         <ContextMenuButton onclick={playNextQueue}>Play next</ContextMenuButton>
         <ContextMenuButton onclick={addToQueue}>Add to the queue</ContextMenuButton>
@@ -188,7 +188,7 @@
             <ContextMenuButton onclick={removeFromQueue}>Remove from queue</ContextMenuButton>
         {/if}
 
-        <ContextMenuSubmenu label="Add to playlist" title="Playlists">
+        <ContextMenuSubmenu label="Add to playlist">
             <PlaylistSelect onPick={addToPlaylist} />
         </ContextMenuSubmenu>
         {#if collection?.type === "playlist"}
