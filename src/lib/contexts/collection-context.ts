@@ -8,6 +8,3 @@ interface CollectionContextType{
     collection: Collection
     tracks: Song[]
 }
-
-
-export const [getCollectionContext, setCollectionContext] = createContext<CollectionContextType>()

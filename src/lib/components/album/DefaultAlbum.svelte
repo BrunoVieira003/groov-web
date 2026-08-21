@@ -16,7 +16,7 @@
     }
 </script>
 
-<ContextMenu bind:this={contextMenu} title="Options">
+<ContextMenu bind:this={contextMenu}>
     <ContextMenuButton onclick={goToArtist} class="flex items-center gap-2">
         <div class="size-7">{@html ArtistIcon}</div>
         Go to artist
@@ -32,7 +32,7 @@
         src="/api/media/albums/{album.id}/cover"
         alt="album_cover_art"
         class="aspect-square! self-center w-full rounded-xl object-cover"
-        onerror={fallbackImage}
+        {@attach fallbackImage}
     />
     <div>
         <div class="flex">

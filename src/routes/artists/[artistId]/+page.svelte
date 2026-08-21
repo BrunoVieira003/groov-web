@@ -12,7 +12,7 @@
 
 <div>
     <div class="flex mb-4 text-center sm:text-start gap-10">
-        <img class="size-50 rounded-full aspect-square" src="/api/media/artists/{data.artist?.id}/cover" alt="artist_cover" onerror={fallbackImage}>
+        <img class="size-50 rounded-full aspect-square" src="/api/media/artists/{data.artist?.id}/cover" alt="artist_cover" {@attach fallbackImage}>
         <div class="mt-4 mb-6">
             <p class="mb-1 text-sm text-legend">Artist</p>
             <h1 class="text-5xl mb-2 text-highlight">{data.artist?.name}</h1>

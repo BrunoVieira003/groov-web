@@ -6,9 +6,7 @@
     import Cassete from "$lib/components/cassete.svelte";
     import { songQueue } from "$lib/stores/queue";
     import { paused } from "$lib/stores/player";
-    import {
-        formatAlbumDuration,
-    } from "$lib/formatters/songTime";
+    import { formatAlbumDuration } from "$lib/formatters/songTime";
     import AddToQueue from "$lib/components/buttons/add-to-queue.svelte";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
 
@@ -35,7 +33,7 @@
                     src="/api/media/albums/{data.album?.id}/cover"
                     alt="album_cover_art"
                     class="aspect-square! self-center size-80 rounded-xl object-cover volume-shadow"
-                    onerror={fallbackImage}
+                    {@attach fallbackImage}
                 />
                 <div
                     class="flex flex-col mx-auto text-center justify-center sm:text-start sm:mx-0 sm:justify-between"
