@@ -9,7 +9,6 @@
     import {
         currentSong,
         currentTime,
-        paused,
         togglePlay,
     } from "$lib/stores/player";
     import ContextMenuButton from "./context-menu/context-menu-button.svelte";
@@ -23,20 +22,19 @@
         tracks: Song[];
     }
 
-    let { collection, ...rest }: props = $props();
+    let {collection, ...props}: props = $props();
 
     type DragTargetEvent = DragEvent & {
         currentTarget: EventTarget & HTMLDivElement;
     };
 
-    let tracks = $state(rest.tracks);
-    $effect(() => {
-        tracks = rest.tracks;
-    });
+    let tracks = $state(props.tracks);
 
+    // svelte-ignore state_referenced_locally
     if (collection) {
-        setCollection({ collection, tracks: rest.tracks });
+        setCollection({ collection, tracks });
     }
+
 
     let contextMenu = $state<ContextMenu>();
     let isOnQueue = $derived($songQueue.tracks.includes($targetedSong));
