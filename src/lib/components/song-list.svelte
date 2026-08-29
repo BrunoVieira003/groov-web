@@ -170,6 +170,7 @@
         {/if}
     </div>
     {#each tracks as song, index (collection?.type === "playlist" ? song.relationId : song)}
+        <hr class="text-neutral-medium">
         <SongItem
             {song}
             {index}

@@ -154,7 +154,7 @@
         {#if $viewMode === "default" && $menuOption === 'header'}
             <Header />
         {/if}
-        <div class="relative overflow-y-auto w-full sm:px-40 flex-1 mb-2 pt-4">
+        <div class="relative overflow-y-auto w-full lg:px-40 flex-1 mb-2 pt-4">
             {@render children()}
         </div>
         {#if $currentSong}
