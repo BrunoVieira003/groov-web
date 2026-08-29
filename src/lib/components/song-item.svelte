@@ -1,7 +1,15 @@
 <script lang="ts">
-    import type { CollectionType } from "$lib/contexts/collection-context";
+    import {
+        getCollection,
+        type CollectionType,
+    } from "$lib/contexts/collection-context";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
-    import { currentSong, currentTime, paused, togglePlay } from "$lib/stores/player";
+    import {
+        currentSong,
+        currentTime,
+        paused,
+        togglePlay,
+    } from "$lib/stores/player";
     import { targetedSong, targetedTrackNumber } from "$lib/stores/songAction";
     import type Song from "$lib/types/song";
     import { fly } from "svelte/transition";
@@ -10,34 +18,33 @@
     import ArtistsLabel from "./artists-label.svelte";
     import type { DragEventHandler, MouseEventHandler } from "svelte/elements";
 
-    interface PropsType{
-        song: Song
-        trackNumber: number
-        index: number
-        collectionType?: CollectionType
-        onPlay: MouseEventHandler<HTMLButtonElement> | null | undefined
-        onContextMenu?: MouseEventHandler<Element>
-        draggable?: boolean
-        onDragStart?: DragEventHandler<HTMLDivElement> | null | undefined
-        onDragEnd?: DragEventHandler<HTMLDivElement> | null | undefined
-        onDragOver?: DragEventHandler<HTMLDivElement> | null | undefined
+    interface PropsType {
+        song: Song;
+        trackNumber: number;
+        index: number;
+        onPlay: MouseEventHandler<HTMLButtonElement> | null | undefined;
+        onContextMenu?: MouseEventHandler<Element>;
+        draggable?: boolean;
+        onDragStart?: DragEventHandler<HTMLDivElement> | null | undefined;
+        onDragEnd?: DragEventHandler<HTMLDivElement> | null | undefined;
+        onDragOver?: DragEventHandler<HTMLDivElement> | null | undefined;
     }
 
-    let { 
-        song, 
-        trackNumber, 
-        index, 
-        collectionType = 'other', 
+    let {
+        song,
+        trackNumber,
+        index,
         onPlay,
         onContextMenu,
-        draggable = false, 
-        onDragStart, 
-        onDragOver, 
-        onDragEnd 
-    }: PropsType = $props()
+        draggable = false,
+        onDragStart,
+        onDragOver,
+        onDragEnd,
+    }: PropsType = $props();
 
     let windowWidth = $state<number>(10000);
 
+    const collection = getCollection();
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
@@ -80,18 +87,18 @@
                     {song.title}
                 </p>
             </Marquee>
-            {#if collectionType !== "album" || windowWidth <= 768}
+            {#if collection?.collection.type !== "album" || windowWidth <= 768}
                 <ArtistsLabel artists={song.authors} size="small" />
             {/if}
         </div>
     </div>
-    {#if song.album && collectionType !== "album"}
+    {#if song.album && collection?.collection.type !== "album"}
         <a
             href="/albums/{song.album.id}"
             class="hidden md:block hover:underline">{song.album.title}</a
         >
     {/if}
-    {#if collectionType === "album" && windowWidth > 768}
+    {#if collection?.collection?.type === "album" && windowWidth > 768}
         <ArtistsLabel artists={song.authors} size="default" />
     {/if}
 </div>
