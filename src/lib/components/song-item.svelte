@@ -50,7 +50,7 @@
 <svelte:window bind:innerWidth={windowWidth} />
 
 <div
-    class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark rounded-md text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-light data-[active=true]:text-heading"
+    class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 bg-neutral-dark text-subheading hover:bg-neutral-medium data-[active=true]:bg-neutral-light data-[active=true]:text-heading"
     data-active={song.id === $currentSong?.id}
     style="--colorful: {$currentSong?.color};"
     oncontextmenu={onContextMenu}
