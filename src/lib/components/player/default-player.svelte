@@ -44,7 +44,7 @@
             src={coverArtURL}
             alt="cover_art"
             class="size-16 aspect-square rounded object-cover"
-            onerror={fallbackImage}
+            {@attach fallbackImage}
         />
         <div class="w-full overflow-hidden">
             <Marquee

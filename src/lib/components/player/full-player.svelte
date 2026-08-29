@@ -50,7 +50,7 @@
                 src={coverArtURL}
                 alt="cover_art"
                 class="size-100 aspect-square rounded-lg object-cover"
-                onerror={fallbackImage}
+                {@attach fallbackImage}
             />
         {/if}
 
