@@ -28,7 +28,7 @@
 </script>
 
 <div
-    class="absolute top-0 h-full flex flex-col items-center justify-evenly w-full py-10 bg-neutral-dark"
+    class="absolute top-0 h-full flex flex-col items-center justify-evenly w-full py-10 bg-background"
     style:--colorful={$currentSong?.color}
     style:--colorful-contrast={$currentSong?.contrastColor}
     transition:fly={{ duration: 100 }}

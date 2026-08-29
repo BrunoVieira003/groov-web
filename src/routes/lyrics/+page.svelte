@@ -73,7 +73,7 @@
 {#if hasLyrics}
     {#if synced}
         {#if isScrollFree}
-            <button onclick={() => isScrollFree = false} class="sticky top-11/12 left-1/2 -translate-x-1/2 bg-neutral-100 text-neutral-dark px-4 py-2 rounded-full font-bold cursor-pointer text-xl">Sync</button>
+            <button onclick={() => isScrollFree = false} class="sticky top-11/12 left-1/2 -translate-x-1/2 bg-surface text-highlight border border-border shadow shadow-shadow px-4 py-2 rounded-full font-bold cursor-pointer text-xl">Sync</button>
         {/if}
         <div
             onwheel={() => {isScrollFree = true}}

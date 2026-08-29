@@ -9,7 +9,7 @@
 
 <div class="flex flex-col my-2">
     {#if !noLine}
-        <hr class="text-neutral-light"/>
+        <hr class="text-divider"/>
     {/if}
     {#if title}
         <p class="font-semibold text-legend text-sm py-2 px-4 -mb-2 w-full mx-auto">{title}</p>

@@ -10,10 +10,10 @@
     let { onPick }: Props = $props()
 </script>
 
-<div class="flex flex-col items-start bg-neutral-medium rounded-md p-1 max-h-50 overflow-y-auto">
+<div class="flex flex-col items-start bg-surface rounded-md p-1 max-h-50 overflow-y-auto">
     {#each $playlistStore.items as playlist (playlist.id)}
         <button
-        class="cursor-pointer hover:bg-neutral-lighter px-4 py-2 w-full text-start rounded-md text-nowrap"
+        class="cursor-pointer hover:bg-surface-hover px-4 py-2 w-full text-start rounded-md text-nowrap"
         value={playlist.id}
         onclick={() => onPick(playlist.id || '')}
         >
@@ -23,7 +23,7 @@
         <p class="px-4 py-2 w-full text-start text-nowrap text-legend rounded-md">No playlists found</p>
     {/each}
 
-    <button onclick={invalidateAll} class="bg-neutral-light cursor-pointer hover:bg-neutral-lighter px-4 py-2 w-full text-nowrap rounded-md">Refresh</button>
+    <button onclick={invalidateAll} class="cursor-pointer bg-surface hover:bg-surface-hover px-4 py-2 w-full text-nowrap rounded-md">Refresh</button>
 </div>
 
 <style>
@@ -37,11 +37,11 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        background-color: var(--color-neutral-light);
+        background-color: var(--color-surface);
         border-radius: 100px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background-color: var(--color-neutral-lighter);
+        background-color: var(--color-surface-hover);
     }
 </style>

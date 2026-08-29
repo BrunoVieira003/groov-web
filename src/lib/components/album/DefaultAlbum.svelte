@@ -24,7 +24,7 @@
 </ContextMenu>
 
 <a
-    class="space-y-4 hover:bg-neutral-medium p-4 rounded-md"
+    class="space-y-4 hover:bg-bg-hover p-4 rounded-md"
     href="/albums/{album.id}"
     oncontextmenu={contextMenu.show}
 >

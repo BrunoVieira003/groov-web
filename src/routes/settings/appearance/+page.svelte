@@ -29,7 +29,7 @@
     {#if $albumLayout === "default"}
         <div class="min-h-81">
             <div
-                class="space-y-4 hover:bg-neutral-medium p-4 rounded-md w-full sm:w-1/2 xl:w-1/4 mx-auto"
+                class="space-y-4 hover:bg-bg-hover p-4 rounded-md w-full sm:w-1/2 xl:w-1/4 mx-auto"
             >
                 <img
                     src={emptyImage}
@@ -61,7 +61,7 @@
         </div>
     {/if}
 
-<hr class="mx-auto text-neutral-medium">
+<hr class="mx-auto text-divider">
 
 <h2 class="text-xl">Audio visualizer</h2>
 <p class="text-subheading text-sm mb-6">Change audio visualizer appearance in full view player mode</p>

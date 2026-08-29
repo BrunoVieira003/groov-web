@@ -95,7 +95,7 @@
         <p class="text-sm text-subheading w-full">Scans your music directory and update database with new files or tags</p>
     </div>
     <form method="post" action="?/scan" class="flex gap-4" use:enhance={handleScan}>
-        <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
+        <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading">
     </form>
 </div>
 
@@ -106,7 +106,7 @@
     </div>
     <form method="post" action="?/upload" class="flex gap-4 not-sm:flex-col not-sm:items-stretch items-center" enctype="multipart/form-data" use:enhance={handleUpload}>
         <UploadButton name='file' id='file' accept='.mp3' placeholder='Choose audio file'/>
-        <input type="submit" value="Execute" class="cursor-pointer p-2 w-full rounded-lg bg-neutral-light hover:bg-neutral-lighter text-heading">
+        <input type="submit" value="Execute" class="cursor-pointer p-2 w-full rounded-lg bg-surface hover:bg-surface-hover text-heading">
     </form>
 </div>
 
@@ -116,7 +116,7 @@
         <p class="text-sm text-subheading line-clamp-3">Verify the database for songs with no file associated. This is useful when you delete a file, but the app still has the song on the database</p>
     </div>
     <form method="post" action="?/pruneSongs" class="flex items-center gap-4" use:enhance={handlePruneSongs}>
-        <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
+        <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading">
     </form>
 </div>
 
@@ -126,7 +126,7 @@
         <p class="text-sm text-subheading line-clamp-3">Verify the database for artists with no song associated.</p>
     </div>
     <form method="post" action="?/pruneArtists" class="flex items-center gap-4" use:enhance={handlePruneArtists}>
-        <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
+        <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading">
     </form>
 </div>
 
@@ -136,7 +136,7 @@
         <p class="text-sm text-subheading line-clamp-3">Verify the database for albums with no song associated.</p>
     </div>
     <form method="post" action="?/pruneAlbums" class="flex items-center gap-4" use:enhance={handlePruneAlbums}>
-        <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
+        <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading">
     </form>
 </div>
 
@@ -146,6 +146,6 @@
         <p class="text-sm text-subheading line-clamp-3">Remove unused images for songs and albums</p>
     </div>
     <form method="post" action="?/pruneAssets" class="flex items-center gap-4" use:enhance={handlePruneAssets}>
-        <input type="submit" value="Execute" class="cursor-pointer bg-neutral-light hover:bg-neutral-lighter p-2 w-full rounded-lg text-heading">
+        <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading">
     </form>
 </div>

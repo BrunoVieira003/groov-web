@@ -6,13 +6,13 @@
     let {active = $bindable(false)}: Props = $props()
 </script>
 
-<button class="py-1 px-3 text-legend bg-neutral-medium opacity-90 w-fit text-sm rounded-lg cursor-pointer" class:active={active} onclick={() => active = !active}>
+<button class="py-1 px-3 text-legend bg-surface opacity-90 w-fit text-sm rounded-lg cursor-pointer" class:active={active} onclick={() => active = !active}>
     <slot/>
 </button>
 
 <style>
     .active{
-        background-color: var(--color-neutral-light);
+        background-color: var(--color-surface-active);
         color: var(--color-heading);
         opacity: 100%;
     }

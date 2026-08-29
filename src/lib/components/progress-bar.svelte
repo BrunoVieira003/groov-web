@@ -18,7 +18,7 @@
         bind:value={value}
         min={min}
         max={max}
-        class="range-slider bg-neutral-lighter"
+        class="range-slider bg-border"
         type="range"
         step="0.01"
         />

@@ -33,7 +33,7 @@
 </div>
 
 <div
-    class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-30 gap-2 sm:gap-4 py-10 h-1/12 bottom-0 bg-neutral-medium"
+    class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-30 gap-2 sm:gap-4 py-10 h-1/12 bottom-0 bg-surface"
     style="--colorful: {$currentSong?.color};"
     transition:fly={{ duration: 200, y: 100 }}
 >

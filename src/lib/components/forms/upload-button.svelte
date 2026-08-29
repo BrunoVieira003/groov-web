@@ -34,7 +34,7 @@
     bind:this={button}
     onclick={() => fileInput?.click()}
     type="button"
-    class='bg-neutral-light hover:bg-neutral-lighter rounded-lg cursor-pointer w-full'
+    class='bg-surface hover:bg-surface-hover rounded-lg cursor-pointer w-full'
     class:big={size === 'big'}
     class:normal={size === 'normal'}
     class:filled={value}
@@ -60,6 +60,6 @@
     }
 
     .filled{
-        background-color: var(--color-neutral-dark);
+        background-color: var(--color-surface-active);
     }
 </style>

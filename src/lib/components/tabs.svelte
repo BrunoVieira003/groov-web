@@ -14,14 +14,14 @@
     <div class="flex w-full justify-stretch items-stretch h-min">
         {#each tabs as tab}
             <button 
-            class="text-lg text-subheading text-center p-2 border-b-2 border-neutral-medium data-[active=true]:border-legend data-[active=true]:text-heading"
+            class="text-lg text-subheading text-center p-2 border-b-2 border-border data-[active=true]:border-legend data-[active=true]:text-heading"
             data-active={tab === currentTab}
             onclick={() => {currentTab = tab}}
             >
                 {tab}
             </button>
         {/each}
-        <span class="flex-1 p-2 border-b-2 border-neutral-medium"></span>
+        <span class="flex-1 p-2 border-b-2 border-border"></span>
     </div>
     <div>
         {@render children()}

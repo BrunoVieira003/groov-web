@@ -16,13 +16,13 @@
 
 
 <button class="relative text-heading" onmouseenter={() => active = true} onmouseleave={() => active = false}>
-    <div class={["flex w-full items-center justify-between px-4 py-2 rounded-md hover:bg-neutral-light cursor-pointer text-heading", labelClass]}>
+    <div class={["flex w-full items-center justify-between px-4 py-2 rounded-md bg-surface hover:bg-surface-hover cursor-pointer text-heading", labelClass]}>
         <p>{label}</p>
         <div class="size-4">{@html RightArrowIcon}</div>
     </div>
     {#if active}
         
-        <div class="absolute bg-neutral-medium rounded-lg align-middle right-0 top-0 translate-x-full border border-neutral-light">
+        <div class="absolute bg-surface rounded-lg align-middle right-0 top-0 translate-x-full border border-border">
             {@render children()}
         </div>
     {/if}

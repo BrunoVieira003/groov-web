@@ -58,7 +58,7 @@
             <p class="mb-6">{data.playlists?.length} results</p>
             <div class="grid grid-cols-1 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 grid-flow-row gap-2">
                 {#each data.playlists as playlist}
-                    <div class="flex flex-col flex-wrap p-2 bg-neutral-medium justify-between rounded-xl">
+                    <div class="flex flex-col flex-wrap p-2 bg-surface justify-between rounded-xl">
                         <a href="/playlists/{playlist.id}" class="hover:underline text-center">{playlist.title}</a>
                     </div>
                 {/each}

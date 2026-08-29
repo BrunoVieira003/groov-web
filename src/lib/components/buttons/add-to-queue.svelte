@@ -17,7 +17,7 @@
 </script>
 
 <button
-class="flex items-center w-fit not-sm:mx-auto not-sm:mt-6 gap-2 py-1.5 px-2 rounded-md sm:mb-6 text-heading cursor-pointer hover:bg-neutral-light"
+class="flex items-center w-fit not-sm:mx-auto not-sm:mt-6 gap-2 py-1.5 px-2 rounded-md sm:mb-6 text-heading cursor-pointer hover:bg-bg-hover"
 onclick={handleAddToQueue}
 >
     <div class="size-7">

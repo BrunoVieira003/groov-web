@@ -140,7 +140,7 @@
 
 {#snippet emptyPlayer()}
     <div
-        class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 sm:gap-4 py-10 h-10 bottom-0 bg-neutral-medium"
+        class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 sm:gap-4 py-10 h-10 bottom-0 bg-surface"
     >
         <p class="font-bold">{randomNoSongPhrases()}</p>
     </div>
@@ -182,11 +182,11 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        background-color: var(--color-neutral-medium);
+        background-color: var(--color-border);
         border-radius: 100px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background-color: var(--color-neutral-lighter);
+        background-color: var(--color-border-hover);
     }
 </style>

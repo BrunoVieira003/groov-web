@@ -43,7 +43,7 @@
 
 {#if open}
     <div
-        class="flex flex-col bg-neutral-medium fixed z-50 shadow-md shadow-neutral-darker p-1 border border-neutral-light rounded-lg"
+        class="flex flex-col bg-surface fixed z-50 shadow-md shadow-shadow p-1 border border-border rounded-lg"
         style="top: {top}px; left: {left}px;"
         bind:this={container}
         transition:fade={{ duration: 50 }}
