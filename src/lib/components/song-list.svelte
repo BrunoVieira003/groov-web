@@ -159,7 +159,7 @@
 
 <div class="relative flex flex-col w-full">
     <div
-        class="sticky w-full -top-4 grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 text-legend"
+        class="sticky w-full bg-background -top-4 grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 text-legend"
     >
         <p class="hidden md:block text-center">#</p>
         <p class="font-bold text-sm">Title</p>
