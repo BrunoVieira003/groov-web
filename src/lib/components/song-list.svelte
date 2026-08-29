@@ -28,6 +28,9 @@
         currentTarget: EventTarget & HTMLDivElement;
     };
 
+    $effect(() => {
+        tracks = props.tracks
+    })
     let tracks = $state(props.tracks);
 
     // svelte-ignore state_referenced_locally
