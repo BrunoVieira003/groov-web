@@ -11,7 +11,7 @@
 </script>
 
 <h1
-    class="page-title w-full text-center sm:text-start sm:mx-auto text-highlight"
+    class="page-title w-full text-center sm:text-start sm:mx-auto text-heading"
 >
     Settings
 </h1>

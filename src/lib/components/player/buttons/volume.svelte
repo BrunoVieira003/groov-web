@@ -18,7 +18,7 @@
 </script>
 
 <div class="flex items-center gap-1">
-    <button class="cursor-pointer *:size-7" onclick={toggleMute}>
+    <button class="cursor-pointer *:size-7 text-heading" onclick={toggleMute}>
         {#if muted}
             {@html muteIcon}
         {:else}
@@ -56,7 +56,7 @@
         width: 1rem;
         height: 1rem;
         border-radius: 100%;
-        background: #ffffff;
+        background: var(--color-heading);
         box-shadow: none;
     }
 
@@ -66,7 +66,7 @@
         width: 1rem;
         height: 1rem;
         border-radius: 100%;
-        background: #ffffff;
+        background: var(--color-heading);
         box-shadow: none;
     }
 </style>

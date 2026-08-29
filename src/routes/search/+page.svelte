@@ -21,7 +21,7 @@
     }
 </script>
 
-<h1 class="text-5xl mb-4 text-center sm:text-start">Results for "{page.url.searchParams.get("q")}"</h1>
+<h1 class="text-5xl text-heading mb-4 text-center sm:text-start">Results for "{page.url.searchParams.get("q")}"</h1>
 <div class="flex gap-2 mb-10 w-fit mx-auto sm:mx-0">
     <Chip bind:active={filters.songs}>Songs</Chip>
     <Chip bind:active={filters.artists}>Artists</Chip>
@@ -31,7 +31,7 @@
 <div class="w-full *:w-full">
     {#if filters.songs}
         <div class="mb-10 text-center sm:text-start" transition:slide={{ duration: 200 }}>
-            <h2 class="text-3xl mb-2">Songs</h2>
+            <h2 class="text-3xl text-subheading mb-2">Songs</h2>
             <p class="mb-6">{data.songs?.length} results</p>
             <SongList
                 collection={ {id: '', name: `Search '${page.url.searchParams.get('q')}'`, type: 'search'} }
@@ -42,7 +42,7 @@
 
     {#if filters.artists}
         <div transition:slide={{ duration: 200 }} class="mb-10 text-center sm:text-start">
-            <h2 class="text-3xl mb-2">Artists</h2>
+            <h2 class="text-3xl text-subheading mb-2">Artists</h2>
             <p class="mb-6">{data.artists?.length} results</p>
             <div class="grid gap-4 sm:gap-8 grid-cols-2 w-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 {#each data.artists as artist}
@@ -54,7 +54,7 @@
 
     {#if filters.playlists}
         <div transition:slide={{ duration: 200 }} class="text-center sm:text-start">
-            <h2 class="text-3xl mb-2">Playlists</h2>
+            <h2 class="text-3xl text-subheading mb-2">Playlists</h2>
             <p class="mb-6">{data.playlists?.length} results</p>
             <div class="grid grid-cols-1 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 grid-flow-row gap-2">
                 {#each data.playlists as playlist}

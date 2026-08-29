@@ -49,7 +49,7 @@
             alt="cover_art"
             class:colorful-glow={!!$currentSong.color}
             class="sm:max-w-120 rounded-xl object-cover aspect-square white-glow"
-            onerror={fallbackImage}
+            {@attach fallbackImage}
         />
         <div
             class="flex items-center justify-between w-full sm:w-120 overflow-hidden"
@@ -71,7 +71,7 @@
         </div>
     </div>
     <div class="mt-20 w-11/12 sm:w-11/12 mx-auto">
-        <h1 class="text-xl mb-4">Queue</h1>
+        <h1 class="text-xl text-heading mb-4">Queue</h1>
         <SongList
             collection={$songQueue.collection}
             tracks={$songQueue.tracks}

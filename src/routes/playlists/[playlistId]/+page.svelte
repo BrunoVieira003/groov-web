@@ -9,7 +9,7 @@
 
 <div class="w-full">
     <p class="mb-1 text-sm text-legend">Playlist</p>
-    <h1 class="text-5xl mb-1 text-highlight">{data.playlist?.title}</h1>
+    <h1 class="text-5xl mb-1 text-heading">{data.playlist?.title}</h1>
     <p class="text-sm text-legend mb-4">{data.playlist?.songs.length} {data.playlist && data.playlist?.songs.length > 1 ? 'songs': 'song'}</p>
     <PlayAll tracks={data.playlist?.songs || []} collection={ {id: data.playlist?.id || '', type: 'playlist', name: data.playlist?.title || ''} }/>
 </div>

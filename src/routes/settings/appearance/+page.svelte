@@ -13,7 +13,7 @@
     activeTab.set('appearance')
 </script>
     
-<h2 class="page-title w-full text-highlight">Appearance</h2>
+<h2 class="page-title w-full text-subheading">Appearance</h2>
 
     <p class="text-heading text-xl">Album layout</p>
     <p class="text-subheading text-sm mb-6">
@@ -63,7 +63,7 @@
 
 <hr class="mx-auto text-divider">
 
-<h2 class="text-xl">Audio visualizer</h2>
+<h2 class="text-xl text-subheading">Audio visualizer</h2>
 <p class="text-subheading text-sm mb-6">Change audio visualizer appearance in full view player mode</p>
 <TabSelect options={[
     {label: 'Disabled', value: 'disabled'},
@@ -86,7 +86,7 @@ bind:value={$audioVisualizer}
     {/if}
 </div>
 
-<h2 class="text-xl">Menu</h2>
+<h2 class="text-xl text-subheading">Menu</h2>
 <p class="text-subheading text-sm mb-6">Change layout position of menu</p>
 <TabSelect options={[
     {label: 'Header', value: 'header'},

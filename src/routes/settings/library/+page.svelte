@@ -87,7 +87,7 @@
     }
 </script>
 
-<h2 class="page-title w-full text-highlight">Library</h2>
+<h2 class="page-title w-full text-subheading">Library</h2>
     
 <div class="flex not-sm:flex-col gap-2 items-stretch justify-between">
     <div>

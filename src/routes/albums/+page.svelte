@@ -10,8 +10,8 @@
     let { data }: PageProps = $props();
 </script>
 
-<h1 class="page-title w-fit not-sm:mx-auto">Albums</h1>
-<h2 class="w-fit not-sm:mx-auto">{data.albums?.length} albums</h2>
+<h1 class="page-title w-fit text-heading not-sm:mx-auto">Albums</h1>
+<h2 class="w-fit not-sm:mx-auto text-subheading">{data.albums?.length} albums</h2>
 <div
     class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 sm:gap-6"
 >

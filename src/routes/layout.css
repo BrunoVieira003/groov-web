@@ -38,7 +38,7 @@
 body{
     background-color: var(--color-background);
     font-family: "Google Sans Flex", sans-serif;
-    color: white;
+    color: var(--color-text-content);
 }
 
 .page-title{

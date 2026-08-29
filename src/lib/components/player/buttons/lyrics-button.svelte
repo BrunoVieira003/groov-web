@@ -9,4 +9,4 @@
     }
 </script>
 
-<button class="cursor-pointer size-5" onclick={gotoLyrics}>{@html lyricsIcon}</button>
+<button class="cursor-pointer size-5 text-heading" onclick={gotoLyrics}>{@html lyricsIcon}</button>

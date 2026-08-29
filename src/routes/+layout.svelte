@@ -140,7 +140,7 @@
 
 {#snippet emptyPlayer()}
     <div
-        class="text-white flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 sm:gap-4 py-10 h-10 bottom-0 bg-surface"
+        class="text-heading flex items-center justify-center lg:justify-evenly w-full px-2 sm:px-10 lg:px-20 sm:gap-4 py-10 h-10 bottom-0 bg-surface"
     >
         <p class="font-bold">{randomNoSongPhrases()}</p>
     </div>
