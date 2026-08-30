@@ -1,8 +1,7 @@
 <script lang="ts">
     import type { AlbumProps } from "./album-props";
     import Marquee from "../marquee.svelte";
-    import ContextMenu from "../context-menu/context-menu.svelte";
-    import ContextMenuButton from "../context-menu/context-menu-button.svelte";
+    import ContextMenu, { type ContextAction } from "../context-menu/context-menu.svelte";
     import { goto } from "$app/navigation";
     import ArtistIcon from "$lib/assets/icons/artist.svg?raw";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
@@ -12,16 +11,17 @@
     let contextMenu = $state<ContextMenu>();
 
     function goToArtist() {
-        goto(`/artists/${album.artist.id}`);
+        if(album.artist){
+            goto(`/artists/${album.artist.id}`);
+        }
     }
+
+    const actions: ContextAction[] = [
+        {label: 'Go to artist', cmd: goToArtist}
+    ]
 </script>
 
-<ContextMenu bind:this={contextMenu}>
-    <ContextMenuButton onclick={goToArtist} class="flex items-center gap-2">
-        <div class="size-7">{@html ArtistIcon}</div>
-        Go to artist
-    </ContextMenuButton>
-</ContextMenu>
+<ContextMenu bind:this={contextMenu} {actions}/>
 
 <a
     class="space-y-4 hover:bg-bg-hover p-4 rounded-md"

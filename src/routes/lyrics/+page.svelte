@@ -99,7 +99,7 @@
     {/if}
 {:else}
     <div class="flex items-center justify-center size-full">
-        <p class="text-5xl">No lyrics for this song</p>
+        <h2 class="text-5xl text-heading">No lyrics for this song</h2>
     </div>
 {/if}
 

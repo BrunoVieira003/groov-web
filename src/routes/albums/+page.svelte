@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { env } from "$env/dynamic/public";
     import type { PageProps } from "./$types";
     import { albumLayout } from "$lib/stores/settings";
     import Cassete from "$lib/components/cassete.svelte";
