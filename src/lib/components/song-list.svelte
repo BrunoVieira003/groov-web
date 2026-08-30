@@ -16,16 +16,11 @@
         tracks: Song[];
     }
 
-    let {collection, ...props}: props = $props();
+    let {collection, tracks}: props = $props();
 
     type DragTargetEvent = DragEvent & {
         currentTarget: EventTarget & HTMLDivElement;
     };
-
-    $effect(() => {
-        tracks = props.tracks
-    })
-    let tracks = $state(props.tracks);
 
     // svelte-ignore state_referenced_locally
     if (collection) {
