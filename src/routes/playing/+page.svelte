@@ -5,7 +5,8 @@
     import SongList from "$lib/components/song-list.svelte";
     import { currentSong } from "$lib/stores/player";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
-
+    import { targetedTrackIndex } from "$lib/stores/songAction";
+    import toast from "svelte-hot-french-toast";
 
     let coverArtURL = $derived(() => {
         if (!$currentSong) {
@@ -27,6 +28,11 @@
                 return "";
         }
     });
+
+    function removeFromQueue() {
+        songQueue.removeFromQueue($targetedTrackIndex);
+        toast.success("Song removed from queue");
+    }
 </script>
 
 {#if $currentSong}
@@ -75,6 +81,7 @@
         <SongList
             collection={$songQueue.collection}
             tracks={$songQueue.tracks}
+            extraActions={[{label: 'Remove from queue', cmd: removeFromQueue}]}
         />
     </div>
 {/if}

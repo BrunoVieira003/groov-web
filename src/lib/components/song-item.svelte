@@ -1,27 +1,19 @@
 <script lang="ts">
-    import {
-        getCollection,
-    } from "$lib/contexts/collection-context";
+    import { getCollection } from "$lib/contexts/collection-context";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
-    import {
-        currentSong,
-        paused,
-    } from "$lib/stores/player";
-    import { targetedSong } from "$lib/stores/songAction";
+    import { currentSong, paused } from "$lib/stores/player";
+    import { targetedSong, targetedTrackIndex } from "$lib/stores/songAction";
     import type Song from "$lib/types/song";
     import { fly } from "svelte/transition";
     import PlayButton from "./player/buttons/play-button.svelte";
     import Marquee from "./marquee.svelte";
     import ArtistsLabel from "./artists-label.svelte";
     import type { DragEventHandler, MouseEventHandler } from "svelte/elements";
-    import ContextMenu from "./context-menu/context-menu.svelte";
-    import ContextMenuButton from "./context-menu/context-menu-button.svelte";
-    import ContextMenuSubmenu from "./context-menu/context-menu-submenu.svelte";
-    import PlaylistSelect from "./forms/playlist-select.svelte";
-    import ContextMenuDivider from "./context-menu/context-menu-divider.svelte";
+    import ContextMenu, {
+        type ContextAction,
+    } from "./context-menu/context-menu.svelte";
     import { songQueue } from "$lib/stores/queue";
     import toast from "svelte-hot-french-toast";
-    import { invalidateAll } from "$app/navigation";
 
     interface PropsType {
         song: Song;
@@ -32,6 +24,7 @@
         onDragStart?: DragEventHandler<HTMLDivElement> | null | undefined;
         onDragEnd?: DragEventHandler<HTMLDivElement> | null | undefined;
         onDragOver?: DragEventHandler<HTMLDivElement> | null | undefined;
+        extraActions?: ContextAction[];
     }
 
     let {
@@ -43,28 +36,19 @@
         onDragStart,
         onDragOver,
         onDragEnd,
+        extraActions = [],
     }: PropsType = $props();
 
     let windowWidth = $state<number>(10000);
-    let contextMenu = $state<ContextMenu>()
-
-    let isOnQueue = $derived($songQueue.tracks.includes($targetedSong));
+    let contextMenu = $state<ContextMenu>();
 
     function addToQueue() {
         songQueue.addToQueue($targetedSong);
-        contextMenu?.hide();
         toast.success("Song added to queue");
-    }
-
-    function removeFromQueue() {
-        songQueue.removeFromQueue(index);
-        contextMenu?.hide();
-        toast.success("Song removed from queue");
     }
 
     function playNextQueue() {
         songQueue.playNext($targetedSong);
-        contextMenu?.hide();
         toast.success("Song added to queue");
     }
 
@@ -82,31 +66,19 @@
             .finally(contextMenu?.hide);
     }
 
-    function removeFromPlaylist(playlistId: string | undefined) {
-        if (!playlistId) return;
-
-        fetch(`/api/playlists/${playlistId}/song`, {
-            method: "DELETE",
-            body: JSON.stringify({ relationId: $targetedSong?.relationId }),
-        })
-            .then(() => {
-                toast.success("Song removed from playlist");
-            })
-            .catch(() => {
-                toast.error("Failed to remove song from playlist");
-            })
-            .finally(async () => {
-                contextMenu?.hide();
-                await invalidateAll();
-            });
-    }
-
-    function openContextMenu(e: MouseEvent){
-        targetedSong.set(song)
-        contextMenu?.show(e)
+    function openContextMenu(e: MouseEvent) {
+        targetedSong.set(song);
+        targetedTrackIndex.set(index);
+        contextMenu?.show(e);
     }
 
     const collection = getCollection();
+
+    let actions = $derived<ContextAction[]>([
+        { label: "Play next", cmd: playNextQueue },
+        { label: "Add to the queue", cmd: addToQueue },
+        ...extraActions,
+    ]);
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
@@ -165,26 +137,8 @@
     {/if}
 </div>
 
-<ContextMenu bind:this={contextMenu}>
-    <div class="flex flex-col">
-        <ContextMenuButton onclick={playNextQueue}>Play next</ContextMenuButton>
-        <ContextMenuButton onclick={addToQueue}
-            >Add to the queue</ContextMenuButton
-        >
-        {#if isOnQueue}
-            <ContextMenuButton onclick={removeFromQueue}
-                >Remove from queue</ContextMenuButton
-            >
-        {/if}
-
-        <ContextMenuSubmenu label="Add to playlist">
-            <PlaylistSelect onPick={addToPlaylist} />
-        </ContextMenuSubmenu>
-        {#if collection.collection.type === "playlist"}
-            <ContextMenuDivider title="Playlist actions" />
-            <ContextMenuButton onclick={() => removeFromPlaylist(collection.collection.id)}
-                >Remove from playlist</ContextMenuButton
-            >
-        {/if}
-    </div>
-</ContextMenu>
+<ContextMenu
+    bind:this={contextMenu}
+    {actions}
+    afterExecute={contextMenu?.hide}
+/>

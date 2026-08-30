@@ -10,13 +10,15 @@
     } from "$lib/stores/player";
     import SongItem from "./song-item.svelte";
     import { setCollection } from "$lib/contexts/collection-context";
+    import type { ContextAction } from "./context-menu/context-menu.svelte";
 
     interface props {
-        collection?: Collection;
-        tracks: Song[];
+        collection?: Collection
+        tracks: Song[]
+        extraActions?: ContextAction[]
     }
 
-    let {collection, tracks}: props = $props();
+    let {collection, tracks, extraActions = []}: props = $props();
 
     type DragTargetEvent = DragEvent & {
         currentTarget: EventTarget & HTMLDivElement;
@@ -115,6 +117,7 @@
             onDragStart={dragStart}
             onDragOver={dragOver}
             onDragEnd={dragEnd}
+            {extraActions}
         />
     {/each}
 </div>
