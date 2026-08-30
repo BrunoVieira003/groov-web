@@ -11,9 +11,11 @@
     let { children }: PropsType = $props();
 
     let open = $state(false);
-    let top = $state(0);
-    let left = $state(0);
     let container = $state<HTMLElement>();
+
+    let pos = $state({ x: 0, y: 0 })
+    let menu = $state({ w: 0, h: 0 })
+    let browser = $state({ w: 0, h: 0 })
 
     onClickOutside(() => container, hide);
 
@@ -23,9 +25,21 @@
             $currentContextMenu.hide()
         }
 
-        top = event.y;
-        left = event.x;
+        pos = {
+            x: event.clientX,
+            y: event.clientY
+        }
+
+        menu = {
+            w: container?.offsetWidth ?? 0,
+            h: container?.offsetHeight ?? 0
+        }
         open = true;
+
+        if (browser.h -  pos.y < menu.h)
+            pos.y = pos.y - menu.h
+        if (browser.w -  pos.x < menu.w)
+            pos.x = pos.x - menu.w
 
         $currentContextMenu = {hide}
     }
@@ -35,16 +49,21 @@
     }
 
     export function toggle(event: MouseEvent) {
-        top = event.y;
-        left = event.x;
+        if(open){
+            hide()
+        }else{
+            show(event)
+        }
         open = !open;
     }
 </script>
 
+<svelte:window bind:innerWidth={browser.w} bind:innerHeight={browser.h}/>
+
 {#if open}
     <div
         class="flex flex-col bg-surface fixed z-50 shadow-md shadow-shadow p-1 border border-border rounded-lg"
-        style="top: {top}px; left: {left}px;"
+        style="top: {pos.y}px; left: {pos.x}px;"
         bind:this={container}
         transition:fade={{ duration: 50 }}
     >

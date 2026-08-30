@@ -5,7 +5,7 @@
 </script>
 
 <button
-    class={["px-4 py-2 cursor-pointer rounded-md bg-surface hover:bg-surface-hover text-start", classValue]} {...props}>
+    class={["px-4 py-2 cursor-pointer rounded-md text-heading bg-surface hover:bg-surface-hover text-start", classValue]} {...props}>
     {#if children} 
         {@render children()}
     {/if}
