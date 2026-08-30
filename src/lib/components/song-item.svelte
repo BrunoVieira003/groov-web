@@ -14,6 +14,9 @@
     } from "./context-menu/context-menu.svelte";
     import { songQueue } from "$lib/stores/queue";
     import toast from "svelte-hot-french-toast";
+    import Modal from "./modal.svelte";
+    import PlaylistList from "./playlist-list.svelte";
+    import PlaylistSelect from "./forms/playlist-select.svelte";
 
     interface PropsType {
         song: Song;
@@ -63,7 +66,7 @@
             .catch(() => {
                 toast.error("Failed to add song to playlist");
             })
-            .finally(contextMenu?.hide);
+            .finally(playlistModal?.hide);
     }
 
     function openContextMenu(e: MouseEvent) {
@@ -74,9 +77,12 @@
 
     const collection = getCollection();
 
+    let playlistModal = $state<Modal>()
+
     let actions = $derived<ContextAction[]>([
         { label: "Play next", cmd: playNextQueue },
         { label: "Add to the queue", cmd: addToQueue },
+        { label: "Add to playlist...", cmd: () => playlistModal?.show()},
         ...extraActions,
     ]);
 </script>
@@ -142,3 +148,9 @@
     {actions}
     afterExecute={contextMenu?.hide}
 />
+
+<Modal bind:this={playlistModal}>
+    <h1 class="page-title text-heading">Add to playlist</h1>
+    <h2 class="text-subheading -mt-4 mb-4">Choose a playlist to add the song</h2>
+    <PlaylistSelect onPick={addToPlaylist}/>
+</Modal>
