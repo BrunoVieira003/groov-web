@@ -12,5 +12,5 @@
 
 <div class="flex flex-col items-center justify-between p-4 gap-6 bg-surface rounded-xl">
     <img class="rounded-full aspect-square" src="/api/media/artists/{artist.id}/cover" alt="artist_cover" {@attach fallbackImage}>
-    <a class="hover:underline line-clamp-2" href="/artists/{artist.id}">{artist.name}</a>
+    <a class="hover:underline line-clamp-2 text-heading" href="/artists/{artist.id}">{artist.name}</a>
 </div>

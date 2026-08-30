@@ -51,6 +51,7 @@
         text-align: center;
         padding: 1rem 0.5rem;
         border-radius: 10px;
+        color: var(--color-subheading);
     }
 
     .active{
