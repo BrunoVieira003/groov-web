@@ -29,7 +29,6 @@
     .marquee-container {
         overflow: hidden;
         white-space: nowrap;
-        text-box-trim: trim-both;
     }
 
     .marquee-container:hover .marquee-text {
