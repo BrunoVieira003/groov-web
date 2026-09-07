@@ -13,7 +13,7 @@
 </script>
 
 <div
-    class="marquee-container w-full"
+    class="marquee-container w-full py-1"
     bind:clientWidth={containerWidth}
 >
     <div

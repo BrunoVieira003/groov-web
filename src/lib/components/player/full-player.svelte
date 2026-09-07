@@ -70,7 +70,7 @@
         {/if}
 
         <div
-            class="flex flex-col w-full gap-10 overflow-hidden"
+            class="flex flex-col w-full gap-10 overflow-x-hidden"
             data-layout={$albumLayout}
         >
             <div>

@@ -25,6 +25,7 @@
     <Cassete
         title={album.title}
         sidetitle={album?.artist?.name}
+        color={album.colors.vibrant}
         spinning={$songQueue.collection?.id === album.id &&
             !$paused}
     />

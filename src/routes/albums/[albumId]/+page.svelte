@@ -86,6 +86,7 @@
                     sidetitle={data.album?.artist?.name || ""}
                     subtitle={data.album?.artist?.name || ""}
                     tagText={data.album?.year || ""}
+                    color={data.album?.colors.vibrant}
                     spinning={$songQueue.collection?.id === data.album?.id &&
                         !$paused}
                 />
