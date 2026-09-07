@@ -5,6 +5,7 @@
     import type { PageProps } from "./$types";
     import { targetedSong } from "$lib/stores/songAction";
     import { invalidateAll } from "$app/navigation";
+    import { fallbackImage } from "$lib/plugins/fallbackImage";
 
     let { data }: PageProps = $props()
 
@@ -28,11 +29,19 @@
 </script>
 
 
-<div class="w-full">
-    <p class="mb-1 text-sm text-legend">Playlist</p>
-    <h1 class="text-5xl mb-1 text-heading">{data.playlist?.title}</h1>
-    <p class="text-sm text-legend mb-4">{data.playlist?.songs.length} {data.playlist && data.playlist?.songs.length > 1 ? 'songs': 'song'}</p>
-    <PlayAll tracks={data.playlist?.songs || []} collection={ {id: data.playlist?.id || '', type: 'playlist', name: data.playlist?.title || ''} }/>
+<div class="w-full flex gap-6 mx-2 sm:mx-auto mb-6">
+    <img
+    src="/api/playlists/{data.playlist?.id}/cover"
+    alt="album_cover_art"
+    class="aspect-square! self-center size-80 rounded-xl object-cover volume-shadow"
+    {@attach fallbackImage}
+    >
+    <div>
+        <p class="mb-1 text-sm text-legend">Playlist</p>
+        <h1 class="text-5xl mb-1 text-heading">{data.playlist?.title}</h1>
+        <p class="text-sm text-legend mb-4">{data.playlist?.songs.length} {data.playlist && data.playlist?.songs.length > 1 ? 'songs': 'song'}</p>
+        <PlayAll tracks={data.playlist?.songs || []} collection={ {id: data.playlist?.id || '', type: 'playlist', name: data.playlist?.title || ''} }/>
+    </div>
 </div>
 
 <SongList

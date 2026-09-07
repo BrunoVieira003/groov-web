@@ -5,6 +5,7 @@
     import { invalidateAll } from "$app/navigation";
     import PlaylistList from "$lib/components/playlist-list.svelte";
     import trashIcon from "$lib/assets/icons/trash.svg?raw"
+    import { fallbackImage } from "$lib/plugins/fallbackImage";
 
     let { data }: PageProps = $props()
 
@@ -27,8 +28,16 @@
 </form>
 <PlaylistList>
     {#each data.playlists as playlist (playlist.id)}
-        <div class="flex items-center justify-between gap-10 p-4 rounded-md hover:bg-bg-hover">
-            <a class="text-subheading" href="/playlists/{playlist.id}">{playlist.title}</a>
+        <div class="grid grid-cols-[1fr_auto] items-center p-4 rounded-md hover:bg-bg-hover">
+            <div class="flex items-center gap-4">
+                <img
+                src="/api/playlists/{playlist.id}/cover"
+                alt="album_cover_art"
+                class="aspect-square! self-center size-12 rounded-xl object-cover"
+                {@attach fallbackImage}
+                >
+                <a class="text-subheading" href="/playlists/{playlist.id}">{playlist.title}</a>
+            </div>
             <button class="text-heading cursor-pointer bg-surface hover:bg-surface-hover hover:text-danger p-2 rounded-md" onclick={() => deletePlaylist(playlist.id || '')}>
                 {@html trashIcon}
             </button>

@@ -19,8 +19,6 @@ async function proxy({ request, params, fetch }: Parameters<RequestHandler>[0]) 
         }
     }
 
-    console.log('content type', headers.get("Content-Type"))
-
     const response = await fetch(backendUrl, {
         method: request.method,
         headers: {
