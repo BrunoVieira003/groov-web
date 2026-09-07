@@ -109,7 +109,7 @@
 
     <div class="flex items-center gap-4 overflow-hidden">
         <img
-            src="/api/media/songs/{song.id}/cover"
+            src="/api/songs/{song.id}/cover"
             alt="album_cover_art"
             class="aspect-square! self-center size-12 rounded-xl object-cover"
             {@attach fallbackImage}

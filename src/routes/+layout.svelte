@@ -58,14 +58,14 @@
 
     currentSong.subscribe((song) => {
         if (source && song && navigator.mediaSession) {
-            source.src = `/api/media/songs/${song.id}`;
+            source.src = `/api/songs/${song.id}`;
             $audioElement.load();
 
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
                 artist: song.authors.map((a) => a.name).join(", "),
                 album: song.album ? song.album.title : "",
-                artwork: [{ src: `/api/media/songs/${song.id}/cover` }],
+                artwork: [{ src: `/api/songs/${song.id}/cover` }],
             });
 
             navigator.mediaSession.setActionHandler("pause", togglePlay);

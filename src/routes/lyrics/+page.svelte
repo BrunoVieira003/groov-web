@@ -40,7 +40,7 @@
         (async () => {
             try {
                 const response = await fetch(
-                    `/api/media/songs/${$currentSong?.id}/lyrics`,
+                    `/api/songs/${$currentSong?.id}/lyrics`,
                 );
                 console.log(response.ok);
                 if (!response.ok) {

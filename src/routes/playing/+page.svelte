@@ -13,7 +13,7 @@
             return "https://robohash.org/groov";
         }
 
-        return `/api/media/songs/${$currentSong.id}/cover`;
+        return `/api/songs/${$currentSong.id}/cover`;
     });
 
     let collectionLink = $derived(() => {

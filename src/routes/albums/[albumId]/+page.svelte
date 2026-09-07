@@ -30,7 +30,7 @@
                 class="flex flex-col sm:flex-row justify-center sm:justify-start gap-6 mx-2 sm:mx-auto"
             >
                 <img
-                    src="/api/media/albums/{data.album?.id}/cover"
+                    src="/api/albums/{data.album?.id}/cover"
                     alt="album_cover_art"
                     class="aspect-square! self-center size-80 rounded-xl object-cover volume-shadow"
                     {@attach fallbackImage}

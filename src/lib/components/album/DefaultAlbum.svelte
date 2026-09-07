@@ -29,7 +29,7 @@
     oncontextmenu={contextMenu.show}
 >
     <img
-        src="/api/media/albums/{album.id}/cover"
+        src="/api/albums/{album.id}/cover"
         alt="album_cover_art"
         class="aspect-square! self-center w-full rounded-xl object-cover"
         {@attach fallbackImage}
