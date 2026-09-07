@@ -13,7 +13,7 @@
 </script>
 
 <div
-    class="marquee-container w-full py-1"
+    class="marquee-container w-full"
     bind:clientWidth={containerWidth}
 >
     <div
@@ -29,6 +29,7 @@
     .marquee-container {
         overflow: hidden;
         white-space: nowrap;
+        text-box-trim: trim-both;
     }
 
     .marquee-container:hover .marquee-text {
