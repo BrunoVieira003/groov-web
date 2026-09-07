@@ -1,11 +1,11 @@
 import type { AlbumSummary } from "./album"
+import type { ColorPalette } from "./colors"
 
 export default interface Song{
     id?: string
     title: string
     year?: number
-    color?: string
-    contrastColor?: string
+    colors: ColorPalette
     duration?: number
     createdAt: string
     updatedAt: string

@@ -29,8 +29,8 @@
         class:big={size === 'big'}
         class:colorful={color === 'colorful'}
         class:contrast={color === 'contrast'}
-        style:--colorful={$currentSong?.color ?? ''}
-        style:--contrast={$currentSong?.contrastColor ?? ''}
+        style:--colorful={$currentSong?.colors.vibrant ?? ''}
+        style:--contrast={$currentSong?.colors.muted ?? ''}
         >
             {artist.name}
         </button>

@@ -29,8 +29,8 @@
 
 <div
     class="absolute top-0 h-full flex flex-col items-center justify-evenly w-full py-10 bg-background"
-    style:--colorful={$currentSong?.color}
-    style:--colorful-contrast={$currentSong?.contrastColor}
+    style:--colorful={$currentSong?.colors.vibrant}
+    style:--colorful-contrast={$currentSong?.colors.lightVibrant}
     transition:fly={{ duration: 100 }}
 >
     <div class="absolute bottom-0 w-full h-1/2">
@@ -63,7 +63,7 @@
                         .join(" • ")}
                     tagText={String($currentSong?.year || "")}
                     subtitle={$currentSong?.album?.title || ""}
-                    color={$currentSong?.color}
+                    color={$currentSong?.colors.vibrant}
                     spinning={!$paused}
                 />
             </div>

@@ -78,7 +78,7 @@
         <div
             onwheel={() => {isScrollFree = true}}
             class="flex flex-col items-center gap-2"
-            style="--colorful: {$currentSong?.color}"
+            style="--colorful: {$currentSong?.colors.vibrant}"
         >
             {#each syncedLyrics as lyric, line}
                 <button

@@ -38,7 +38,7 @@
 {#if $currentSong}
     <div
         class="flex flex-col mt-6 gap-4 w-10/12 mx-auto sm:w-4/12"
-        style="--colorful: {$currentSong.color}; --colorful-glow: {$currentSong.color}4D;"
+        style="--colorful: {$currentSong.colors.vibrant}; --colorful-glow: {$currentSong.colors.vibrant}4D;"
     >
         {#if $songQueue.collection?.name}
             <div class="-mb-2">
@@ -53,7 +53,7 @@
         <img
             src={coverArtURL()}
             alt="cover_art"
-            class:colorful-glow={!!$currentSong.color}
+            class:colorful-glow={!!$currentSong.colors.vibrant}
             class="sm:max-w-120 rounded-xl object-cover aspect-square white-glow"
             {@attach fallbackImage}
         />

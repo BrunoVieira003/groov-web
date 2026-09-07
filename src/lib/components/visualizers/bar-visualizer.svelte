@@ -76,7 +76,7 @@
             x += barWidth + gap
         }
 
-        ctx.fillStyle = $currentSong?.color ?? '#383838'
+        ctx.fillStyle = $currentSong?.colors.vibrant ?? '#383838'
         ctx.fill()
     }
 
