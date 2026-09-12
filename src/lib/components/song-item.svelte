@@ -15,7 +15,6 @@
     import { songQueue } from "$lib/stores/queue";
     import toast from "svelte-hot-french-toast";
     import Modal from "./modal.svelte";
-    import PlaylistList from "./playlist-list.svelte";
     import PlaylistSelect from "./forms/playlist-select.svelte";
 
     interface PropsType {

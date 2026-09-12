@@ -24,7 +24,7 @@ async function proxy({ request, params, fetch }: Parameters<RequestHandler>[0]) 
         headers: {
             ...headers,
             Range: request.headers.get("Range") ?? "",
-            "Content-Type": "application/json"
+            "Content-Type": "multipart/form-data"
         },
         body: ['GET', 'HEAD'].includes(request.method)
             ? undefined
