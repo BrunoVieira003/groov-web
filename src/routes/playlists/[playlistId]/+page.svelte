@@ -16,6 +16,7 @@
     let editing = $state(false)
     let pictureModal = $state<Modal>()
     let editPictureButton = $state(false)
+    let editTitleButton = $state(false)
     let pictures = $state<FileList | null>(null)
     let coverVersion = $state(0)
     let pictureSrc = $derived(`/api/playlists/${data.playlist?.id}/cover?v=${coverVersion}`)
@@ -107,7 +108,12 @@
 
     <div class="w-fit max-w-10/12">
         <p class="mb-1 text-sm text-legend">Playlist</p>
-        <div class="flex gap-4">
+        <div 
+        class="flex gap-4"
+        role="alert"
+        onmouseenter={() => editTitleButton = true} 
+        onmouseleave={() => editTitleButton = false}
+        >
             <h1 
             class="text-5xl mb-1 text-heading"
             class:editable={editing}
@@ -119,7 +125,9 @@
             >
             {""}
             </h1>
-            <button type="button" onclick={() => editing = true } class="size-6 text-legend hover:text-heading cursor-pointer">{@html EditIcon}</button>
+            {#if editTitleButton}
+                <button type="button" onclick={() => editing = true } class="size-6 text-legend hover:text-heading cursor-pointer">{@html EditIcon}</button>
+            {/if}
         </div>
         <p class="text-sm text-legend mb-4">{data.playlist?.songs.length} {data.playlist && data.playlist?.songs.length > 1 ? 'songs': 'song'}</p>
         <PlayAll tracks={data.playlist?.songs || []} collection={ {id: data.playlist?.id || '', type: 'playlist', name: data.playlist?.title || ''} }/>
