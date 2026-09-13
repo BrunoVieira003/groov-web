@@ -148,8 +148,7 @@
     afterExecute={contextMenu?.hide}
 />
 
-<Modal bind:this={playlistModal}>
-    <h1 class="page-title text-heading">Add to playlist</h1>
-    <h2 class="text-subheading -mt-4 mb-4">Choose a playlist to add the song</h2>
+<Modal bind:this={playlistModal} title="Add to playlist">
+    <h2 class="text-heading text-xl">Choose a playlist to add the song</h2>
     <PlaylistSelect onPick={addToPlaylist}/>
 </Modal>

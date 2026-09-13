@@ -57,7 +57,7 @@
         bind:value={searchText}
         id="q"
         placeholder="Search..."
-        class="input bg-surface py-2 w-full px-3 rounded-md outline-none border-2 border-transparent focus:bg-surface-active"
+        class="input bg-surface py-2 w-full px-3 rounded-md outline-none border border-border focus:bg-surface-active"
         >
         <dir class="absolute top-1/2 -translate-y-2/3 opacity-70 right-2">
             {@html searchIcon}
