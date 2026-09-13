@@ -38,7 +38,7 @@
     </div>
 
 
-    <div class=" space-y-4 p-4 border border-border rounded-lg w-full">
+    <div class="p-4 border border-border rounded-lg w-full">
         {@render children()}
     </div>
 </div>
