@@ -9,6 +9,7 @@
     import playlistIcon from  "$lib/assets/icons/playlist.svg?raw"
     import settingsIcon from  "$lib/assets/icons/settings.svg?raw"
     import logo from "$lib/assets/icons/logo.svg?raw"
+    import { activeLink } from "$lib/plugins/activeLink";
 
     let searchText = $state(page.url.searchParams.get('q'))
 
@@ -21,31 +22,31 @@
 
 </script>
 
-<div class="flex not-sm:flex-col justify-between lg:gap-20 pb-2 sm:py-3 px-2 lg:px-30 z-10 border-b-1 border-border" transition:fly={{ duration: 200, y: -100 }}>
+<div class="h-16 flex not-sm:flex-col justify-between lg:gap-20 pb-2 sm:py-3 px-2 lg:px-30 z-10 border-b border-border" transition:fly={{ duration: 200, y: -100 }}>
     <div class="flex items-center w-full justify-between gap-1 sm:gap-4 lg:gap-8">
         <div class="flex w-full mx-auto items-center md:gap-4 not-sm:justify-between text-sm text-subheading *:hover:text-heading *:p-2 *:rounded-lg">
             <a href="/" class="flex justify-start gap-2 items-center">
                 <div class="size-10">{@html logo}</div>
                 <p class="text-xl text-[#a21894] font-semibold">Groov</p>
             </a>
-            <a href="/" class="flex justify-between items-center gap-1">
-                <div class="size-6">{@html songIcon}</div>
+            <a href="/" class="flex justify-between items-center gap-1" {@attach activeLink}>
+                <div class="size-5">{@html songIcon}</div>
                 Songs
             </a>
-            <a href="/artists" class="flex justify-between items-center gap-1">
-                <div class="size-6">{@html artistIcon}</div>
+            <a href="/artists" class="flex justify-between items-center gap-1" {@attach activeLink}>
+                <div class="size-5">{@html artistIcon}</div>
                 Artists
             </a>
-            <a href="/albums" class="flex justify-between items-center gap-1">
-                <div class="size-6">{@html albumIcon}</div>
+            <a href="/albums" class="flex justify-between items-center gap-1" {@attach activeLink}>
+                <div class="size-5">{@html albumIcon}</div>
                 Albums
             </a>
-            <a href="/playlists" class="flex justify-between items-center gap-1">
-                <div class="size-6">{@html playlistIcon}</div>
+            <a href="/playlists" class="flex justify-between items-center gap-1" {@attach activeLink}>
+                <div class="size-5">{@html playlistIcon}</div>
                 Playlists
             </a>
-            <a href="/settings/appearance" class="flex justify-between items-center gap-1">
-                <div class="size-6">{@html settingsIcon}</div>
+            <a href="/settings/appearance" class="flex justify-between items-center gap-1" {@attach activeLink}>
+                <div class="size-5">{@html settingsIcon}</div>
                 Settings
             </a>
         </div>
