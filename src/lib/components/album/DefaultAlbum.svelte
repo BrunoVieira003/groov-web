@@ -64,7 +64,7 @@
         {#if isHovering}
             <div class="absolute bottom-1/12 right-1/12 -translate-y-8 h-0">
                 <!-- svelte-ignore node_invalid_placement_ssr -->
-                <button transition:fly={{y: 1, duration: 400}} class="size-10 p-1 border-2 border-border bg-surface hover:bg-surface-hover rounded-full text-white cursor-pointer" onclick={playAlbum}>{@html playIcon}</button>
+                <button transition:fly={{y: 1, duration: 400}} class="size-10 p-1 shadow-glow bg-accent hover:bg-accent-hover rounded-full text-white cursor-pointer" onclick={playAlbum}>{@html playIcon}</button>
             </div>
         {/if}
     </div>
