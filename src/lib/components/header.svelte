@@ -21,7 +21,7 @@
 
 </script>
 
-<div class="flex not-sm:flex-col justify-between lg:gap-20 pb-2 sm:py-3 px-2 lg:px-30 z-10" transition:fly={{ duration: 200, y: -100 }}>
+<div class="flex not-sm:flex-col justify-between lg:gap-20 pb-2 sm:py-3 px-2 lg:px-30 z-10 border-b-1 border-border" transition:fly={{ duration: 200, y: -100 }}>
     <div class="flex items-center w-full justify-between gap-1 sm:gap-4 lg:gap-8">
         <div class="flex w-full mx-auto items-center md:gap-4 not-sm:justify-between text-sm text-subheading *:hover:text-heading *:p-2 *:rounded-lg">
             <a href="/" class="flex justify-start gap-2 items-center">
