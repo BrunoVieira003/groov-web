@@ -2,21 +2,13 @@
     import { enhance } from "$app/forms";
     import type { PageProps } from "./$types";
     import toast from "svelte-hot-french-toast";
-    import { invalidateAll } from "$app/navigation";
+    import { goto, invalidateAll } from "$app/navigation";
     import PlaylistList from "$lib/components/playlist-list.svelte";
-    import trashIcon from "$lib/assets/icons/trash.svg?raw"
-    import { fallbackImage } from "$lib/plugins/fallbackImage";
+    import PlaylistItem from "$lib/components/playlist-item.svelte";
 
     let { data }: PageProps = $props()
 
     let title = $state('')
-
-    function deletePlaylist(playlistId: string){
-        fetch(`/api/playlists/${playlistId}`, {method: 'delete'})
-        .then(() => toast.success('Playlist removed'))
-        .catch(() => toast.error('Failed to remove playlist'))
-        .finally(() => invalidateAll())
-    }
 
 </script>
 
@@ -28,19 +20,6 @@
 </form>
 <PlaylistList>
     {#each data.playlists as playlist (playlist.id)}
-        <div class="grid grid-cols-[1fr_auto] items-center p-4 rounded-md hover:bg-bg-hover">
-            <div class="flex items-center gap-4">
-                <img
-                src="/api/playlists/{playlist.id}/cover"
-                alt="album_cover_art"
-                class="aspect-square! self-center size-12 rounded-xl object-cover"
-                {@attach fallbackImage}
-                >
-                <a class="text-subheading" href="/playlists/{playlist.id}">{playlist.title}</a>
-            </div>
-            <button class="text-heading cursor-pointer bg-surface hover:bg-surface-hover hover:text-danger p-2 rounded-md" onclick={() => deletePlaylist(playlist.id || '')}>
-                {@html trashIcon}
-            </button>
-        </div>
+        <PlaylistItem {playlist} onclick={() => goto(`/playlists/${playlist.id}`)}/>
     {/each}
 </PlaylistList>
