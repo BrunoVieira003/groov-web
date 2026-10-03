@@ -52,6 +52,12 @@ body{
     color: var(--color-text-content);
 }
 
+.soft-accent-gradient{
+    background-color: var(--color-background);
+    background-image: radial-gradient(ellipse 120% 60% at 50% -10%, hsl(291 60% 20% / 18%), transparent 60%);
+    background-attachment: fixed;
+}
+
 .active-link{
     color: var(--color-accent); 
 }

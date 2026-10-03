@@ -77,13 +77,13 @@
         {/if}
         <div
             onwheel={() => {isScrollFree = true}}
-            class="flex flex-col items-center gap-2"
+            class="flex flex-col items-center gap-8"
             style="--colorful: {$currentSong?.colors.vibrant}"
         >
             {#each syncedLyrics as lyric, line}
                 <button
                     bind:this={syncedElements[line]}
-                    class="w-fit text-2xl text-legend transition-all cursor-pointer"
+                    class="w-fit text-4xl text-legend transition-all cursor-pointer"
                     class:active={currentLine === line}
                     class:neighbor={currentLine === line+1 || currentLine === line-1}
                     onclick={() => {currentTime.set(lyric.time); isScrollFree = false}}
@@ -106,6 +106,6 @@
 <style>
     .active {
         color: var(--colorful);
-        font-size: 2.2rem;
+        font-size: 3rem;
     }
 </style>

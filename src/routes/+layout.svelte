@@ -154,7 +154,7 @@
         {#if $viewMode === "default" && $menuOption === 'header'}
             <Header />
         {/if}
-        <div class="relative overflow-y-auto w-full lg:px-40 flex-1 bg-background bg-linear-to-b from-accent/5 to-background to-20% mb-2 pt-4">
+        <div class="soft-accent-gradient relative overflow-y-auto w-full lg:px-40 flex-1 bg-background bg-linear-to-b from-accent/5 to-background to-20% mb-2 pt-4">
             {@render children()}
         </div>
         {#if $currentSong}
