@@ -16,6 +16,7 @@
     import toast from "svelte-hot-french-toast";
     import Modal from "./modal.svelte";
     import PlaylistSelect from "./forms/playlist-select.svelte";
+    import { formatSongTime } from "$lib/formatters/songTime";
 
     interface PropsType {
         song: Song;
@@ -89,7 +90,7 @@
 <svelte:window bind:innerWidth={windowWidth} />
 
 <div
-    class="grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 text-subheading hover:bg-bg-hover data-[active=true]:bg-bg-active data-[active=true]:text-heading"
+    class="grid grid-cols-1 md:grid-cols-[3.5ch_2fr_1fr_1fr] items-center justify-start gap-6 p-4 text-subheading hover:bg-bg-hover data-[active=true]:bg-bg-active data-[active=true]:text-heading"
     data-active={song.id === $currentSong?.id}
     style="--colorful: {$currentSong?.colors.vibrant};"
     oncontextmenu={openContextMenu}
@@ -136,9 +137,14 @@
             href="/albums/{song.album.id}"
             class="hidden md:block hover:underline">{song.album.title}</a
         >
+    {:else}
+        <p></p>
     {/if}
     {#if collection?.collection?.type === "album" && windowWidth > 768}
         <ArtistsLabel artists={song.authors} size="default" />
+    {/if}
+    {#if song.duration}
+        <p class="justify-self-end text-sm">{formatSongTime(song.duration)}</p>
     {/if}
 </div>
 
@@ -152,3 +158,24 @@
     <h2 class="text-heading text-xl">Choose a playlist to add the song</h2>
     <PlaylistSelect onPick={addToPlaylist}/>
 </Modal>
+
+
+<style>
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 100px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--color-border);
+        border-radius: 100px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-border-hover);
+    }
+</style>

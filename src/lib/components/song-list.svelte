@@ -96,7 +96,7 @@
 
 <div class="relative flex flex-col w-full">
     <div
-        class="sticky w-full bg-background bg-linear-to-b  -top-4 grid grid-cols-1 md:grid-cols-[3.5ch_1fr_1fr] items-center justify-start gap-2 p-4 text-legend"
+        class="w-full grid grid-cols-1 md:grid-cols-[3.5ch_2fr_1fr_1fr] items-center justify-start gap-6 p-4 text-legend"
     >
         <p class="hidden md:block text-center">#</p>
         <p class="font-bold text-xs">TITLE</p>
@@ -105,6 +105,7 @@
         {:else}
             <p class="hidden md:block font-bold text-xs">ARTISTS</p>
         {/if}
+        <p class="hidden md:block font-bold text-xs justify-self-end">DURATION</p>
     </div>
     {#each tracks as song, index (index)}
         <hr class="text-divider">
