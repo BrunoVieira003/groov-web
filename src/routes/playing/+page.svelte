@@ -80,7 +80,6 @@
         <div class="w-10/12 sm:w-10/12 mx-auto h-[78dvh] overflow-y-auto slider">
             <!-- <h1 class="text-xl text-heading mb-4">Queue</h1> -->
             <SongList
-                transparentHeader
                 collection={$songQueue.collection}
                 tracks={$songQueue.tracks}
                 extraActions={[{label: 'Remove from queue', cmd: removeFromQueue}]}
