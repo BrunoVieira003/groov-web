@@ -36,53 +36,56 @@
 </script>
 
 {#if $currentSong}
-    <div
-        class="flex flex-col mt-6 gap-4 w-10/12 mx-auto sm:w-4/12"
-        style="--colorful: {$currentSong.colors.vibrant}; --colorful-glow: {$currentSong.colors.vibrant}4D;"
-    >
-        {#if $songQueue.collection?.name}
-            <div class="-mb-2">
-                <p class="text-sm text-legend">
-                    Playing from {$songQueue.collection.type}
-                </p>
-                <a href={collectionLink()} class="text-lg text-heading"
-                    >{$songQueue.collection.name}</a
-                >
-            </div>
-        {/if}
-        <img
-            src={coverArtURL()}
-            alt="cover_art"
-            class:colorful-glow={!!$currentSong.colors.vibrant}
-            class="sm:max-w-120 rounded-xl object-cover aspect-square white-glow"
-            {@attach fallbackImage}
-        />
+    <div class="flex gap-28">
         <div
-            class="flex items-center justify-between w-full sm:w-120 overflow-hidden"
+            class="flex flex-col gap-4 w-10/12 mx-auto my-auto sm:w-4/12"
+            style="--colorful: {$currentSong.colors.vibrant}; --colorful-glow: {$currentSong.colors.vibrant}4D;"
         >
-            <div
-                class="w-full data-hasYear:w-10/12"
-                data-hasYear={$currentSong.year}
-            >
-                <Marquee>
-                    <p class="colorful text-xl font-bold">
-                        {$currentSong?.title}
+            {#if $songQueue.collection?.name}
+                <div class="-mb-2">
+                    <p class="text-sm text-legend">
+                        Playing from {$songQueue.collection.type}
                     </p>
-                </Marquee>
-                <ArtistsLabel artists={$currentSong?.authors || []} />
-            </div>
-            <div class="w-fit">
-                <p class="text-legend">{$currentSong?.year}</p>
+                    <a href={collectionLink()} class="text-lg text-heading"
+                        >{$songQueue.collection.name}</a
+                    >
+                </div>
+            {/if}
+            <img
+                src={coverArtURL()}
+                alt="cover_art"
+                class:colorful-glow={!!$currentSong.colors.vibrant}
+                class="sm:max-w-120 rounded-xl object-cover aspect-square white-glow"
+                {@attach fallbackImage}
+            />
+            <div
+                class="flex items-center justify-between w-full sm:w-120 overflow-hidden"
+            >
+                <div
+                    class="w-full data-hasYear:w-10/12"
+                    data-hasYear={$currentSong.year}
+                >
+                    <Marquee>
+                        <p class="colorful text-xl font-bold">
+                            {$currentSong?.title}
+                        </p>
+                    </Marquee>
+                    <ArtistsLabel artists={$currentSong?.authors || []} />
+                </div>
+                <div class="w-fit">
+                    <p class="text-legend">{$currentSong?.year}</p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="mt-20 w-11/12 sm:w-11/12 mx-auto">
-        <h1 class="text-xl text-heading mb-4">Queue</h1>
-        <SongList
-            collection={$songQueue.collection}
-            tracks={$songQueue.tracks}
-            extraActions={[{label: 'Remove from queue', cmd: removeFromQueue}]}
-        />
+        <div class="w-10/12 sm:w-10/12 mx-auto h-[78dvh] overflow-y-auto slider">
+            <!-- <h1 class="text-xl text-heading mb-4">Queue</h1> -->
+            <SongList
+                transparentHeader
+                collection={$songQueue.collection}
+                tracks={$songQueue.tracks}
+                extraActions={[{label: 'Remove from queue', cmd: removeFromQueue}]}
+            />
+        </div>
     </div>
 {/if}
 
@@ -95,5 +98,23 @@
         -webkit-box-shadow: 0px 0px 300px 0px var(--colorful-glow);
         -moz-box-shadow: 0px 0px 300px 0px var(--colorful-glow);
         box-shadow: 0px 0px 300px 0px var(--colorful-glow);
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 100px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--color-border);
+        border-radius: 100px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-border-hover);
     }
 </style>
