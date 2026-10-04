@@ -17,6 +17,7 @@
     import Modal from "./modal.svelte";
     import PlaylistSelect from "./forms/playlist-select.svelte";
     import { formatSongTime } from "$lib/formatters/songTime";
+    import { page } from "$app/state";
 
     interface PropsType {
         song: Song;
@@ -137,8 +138,8 @@
             href="/albums/{song.album.id}"
             class="hidden md:block hover:underline">{song.album.title}</a
         >
-    {:else}
-        <p></p>
+    {:else if !song.album}
+        <span></span>
     {/if}
     {#if collection?.collection?.type === "album" && windowWidth > 768}
         <ArtistsLabel artists={song.authors} size="default" />
