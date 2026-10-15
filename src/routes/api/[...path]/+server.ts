@@ -1,4 +1,4 @@
-import { env } from "$env/dynamic/private";
+import { env } from "$env/dynamic/public";
 import type { RequestHandler } from "@sveltejs/kit";
 
 async function proxy({ request, params, fetch }: Parameters<RequestHandler>[0]) {
@@ -6,7 +6,7 @@ async function proxy({ request, params, fetch }: Parameters<RequestHandler>[0]) 
 
     const backendUrl = new URL(
         `/${params.path}`,
-        env.API_URL
+        env.PUBLIC_API_URL
     );
 
     backendUrl.search = url.search;

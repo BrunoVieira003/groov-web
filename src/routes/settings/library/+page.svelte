@@ -2,7 +2,6 @@
     import { enhance } from "$app/forms";
     import UploadButton from "$lib/components/forms/upload-button.svelte";
     import activeTab from "$lib/stores/activeTab";
-    import { trackTask } from "$lib/stores/runningTasks";
     import type { SubmitFunction } from "@sveltejs/kit";
     import toast from "svelte-hot-french-toast";
     import searchIcon from '$lib/assets/icons/search.svg?raw'
@@ -11,6 +10,7 @@
     import pruneArtistIcon from '$lib/assets/icons/cut-artist.svg?raw'
     import pruneAlbumIcon from '$lib/assets/icons/cut-album.svg?raw'
     import pruneAssetIcon from '$lib/assets/icons/cut-asset.svg?raw'
+    import { pruneAlbums, pruneArtists, pruneAssets, pruneSongs, scan } from "$lib/actions/library";
 
     activeTab.set('library')
 
@@ -27,70 +27,57 @@
         }
     }
 
-    const handleScan: SubmitFunction = () => {
-        return async ({result, update}) => {
-            await update()
-            if(result.type === 'success'){
-                if(result.data){
-                    toast.success('Scan folder task initialized')
-                }
-            }else{
-                toast.error('Scan failed')
-            }
+    const handleScan = async (e?: any) => {
+        e.preventDefault()
+        try{
+            await scan()
+            toast.success('Scan folder task initialized')
+        }catch(e){
+            toast.error('Scan folder failed')
         }
     }
 
-    const handlePruneSongs: SubmitFunction = () => {
-        return async ({result, update}) => {
-            await update()
-            if(result.type === 'success'){
-                if(result.data){
-                    toast.success('Prune songs task initialized')
-                }
-            }else{
-                toast.error('Prune failed')
-            }
+    const handlePruneSongs = async (e?: any) => {
+        e.preventDefault()
+        try{
+            await pruneSongs()
+            toast.success('Prune songs task initialized')
+        }catch(e){
+            toast.error('Prune songs folder failed')
         }
     }
 
-    const handlePruneArtists: SubmitFunction = () => {
-        return async ({result, update}) => {
-            await update()
-            if(result.type === 'success'){
-                if(result.data){
-                    toast.success('Prune artists task initialized')
-                }
-            }else{
-                toast.error('Prune failed')
-            }
+    const handlePruneArtists = async (e?: any) => {
+        e.preventDefault()
+        try{
+            await pruneArtists()
+            toast.success('Prune artists task initialized')
+        }catch(e){
+            toast.error('Prune artists folder failed')
         }
     }
 
-    const handlePruneAlbums: SubmitFunction = () => {
-        return async ({result, update}) => {
-            await update()
-            if(result.type === 'success'){
-                if(result.data){
-                    toast.success('Prune albums task initialized')
-                }
-            }else{
-                toast.error('Prune failed')
-            }
+    const handlePruneAlbums = async (e?: any) => {
+        e.preventDefault()
+        try{
+            await pruneAlbums()
+            toast.success('Prune albums task initialized')
+        }catch(e){
+            toast.error('Prune albums folder failed')
         }
     }
 
-    const handlePruneAssets: SubmitFunction = () => {
-        return async ({result, update}) => {
-            await update()
-            if(result.type === 'success'){
-                if(result.data){
-                    toast.success('Prune assets task initialized')
-                }
-            }else{
-                toast.error('Prune failed')
-            }
+    const handlePruneAssets = async (e?: any) => {
+        e.preventDefault()
+        try{
+            await pruneAssets()
+            toast.success('Prune assets task initialized')
+        }catch(e){
+            toast.error('Prune assets folder failed')
         }
     }
+
+    
 </script>
 
 <h2 class="w-full text-3xl text-heading mb-0">Library</h2>
@@ -105,7 +92,7 @@
                 <p class="text-sm text-legend w-full">Scans your music directory and update database with new files or tags</p>
             </div>
         </div>
-        <form method="post" action="?/scan" class="flex gap-4" use:enhance={handleScan}>
+        <form method="post" action="?/scan" class="flex gap-4" onsubmit={handleScan}>
             <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
         </form>
     </div>
@@ -136,7 +123,7 @@
                     <p class="text-sm text-legend line-clamp-3">Verify the database for songs with no file associated. This is useful when you delete a file, but the app still has the song on the database</p>
                 </div>
             </div>
-            <form method="post" action="?/pruneSongs" class="flex items-center gap-4" use:enhance={handlePruneSongs}>
+            <form method="post" action="?/pruneSongs" class="flex items-center gap-4" onsubmit={handlePruneSongs}>
                 <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
             </form>
         </div>
@@ -149,7 +136,7 @@
                     <p class="text-sm text-legend line-clamp-3">Verify the database for artists with no song associated.</p>
                 </div>
             </div>
-            <form method="post" action="?/pruneArtists" class="flex items-center gap-4" use:enhance={handlePruneArtists}>
+            <form method="post" action="?/pruneArtists" class="flex items-center gap-4" onsubmit={handlePruneArtists}>
                 <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
             </form>
         </div>
@@ -162,7 +149,7 @@
                     <p class="text-sm text-legend line-clamp-3">Verify the database for albums with no song associated.</p>
                 </div>
             </div>
-            <form method="post" action="?/pruneAlbums" class="flex items-center gap-4" use:enhance={handlePruneAlbums}>
+            <form method="post" action="?/pruneAlbums" class="flex items-center gap-4" onsubmit={handlePruneAlbums}>
                 <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
             </form>
         </div>
@@ -175,7 +162,7 @@
                     <p class="text-sm text-legend line-clamp-3">Remove unused images for songs and albums</p>
                 </div>
             </div>
-            <form method="post" action="?/pruneAssets" class="flex items-center gap-4" use:enhance={handlePruneAssets}>
+            <form method="post" action="?/pruneAssets" class="flex items-center gap-4" onsubmit={handlePruneAssets}>
                 <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
             </form>
         </div>

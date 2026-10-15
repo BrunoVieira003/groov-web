@@ -2,7 +2,7 @@
     import PlayAll from "$lib/components/buttons/play-all.svelte";
     import SongList from "$lib/components/song-list.svelte";
     import toast from "svelte-hot-french-toast";
-    import type { PageProps, SubmitFunction } from "./$types";
+    import type { PageProps } from "./$types";
     import { targetedSong } from "$lib/stores/songAction";
     import { invalidateAll } from "$app/navigation";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
@@ -10,6 +10,7 @@
     import { editable } from "$lib/plugins/editable";
     import Modal from "$lib/components/modal.svelte";
     import { applyAction, enhance } from "$app/forms";
+    import { updatePlaylistCover } from "$lib/actions/playlist";
 
     let { data }: PageProps = $props()
 
@@ -42,19 +43,15 @@
             });
     }
 
-    const updateShowToast: SubmitFunction = ({submitter}) => {
-        return async ({result, update}) => {
-            if(submitter)
-            switch(result.type){
-                case 'success': toast.success("Playlist picture successfully updated"); break;
-                case 'error': toast.success("Failed to update playlist picture"); break;
-            }
-            
-            coverVersion++
-            await update()
-            pictureModal?.hide()
-        }
-    }
+    async function handleUpdateCover(e?: any){
+        e.preventDefault()
+        const formData = new FormData(e.target)
+
+        await updatePlaylistCover(data.playlist?.id || '', formData)
+        toast.success('Cover updated')
+        coverVersion++
+        pictureModal?.hide()
+    } 
 
     function clearPictureForm(closeModal: boolean = true){
         pictures = null
@@ -80,6 +77,8 @@
                 await invalidateAll();
             });
     }
+
+    
 </script>
 
 
@@ -143,7 +142,7 @@ extraActions={[
 />
 
 <Modal bind:this={pictureModal} title="Update playlist picture">
-    <form class="flex flex-col gap-4 h-full" method="POST" action="?/updateCover" enctype="multipart/form-data" use:enhance={updateShowToast}>
+    <form class="flex flex-col gap-4 h-full" method="POST" action="?/updateCover" enctype="multipart/form-data" onsubmit={handleUpdateCover}>
         <h2 class="text-subheading text-xl">Choose picture for playlist</h2>
         <input name="file" bind:files={pictures} id="picture" type="file" class="hidden"/>
         {#if pictures && pictures.length > 0}
