@@ -7,13 +7,14 @@
     import { fallbackImage } from "$lib/plugins/fallbackImage";
     import { targetedTrackIndex } from "$lib/stores/songAction";
     import toast from "svelte-hot-french-toast";
+    import { env } from "$env/dynamic/public";
 
     let coverArtURL = $derived(() => {
         if (!$currentSong) {
             return "https://robohash.org/groov";
         }
 
-        return `/api/songs/${$currentSong.id}/cover`;
+        return `${env.PUBLIC_API_URL}/songs/${$currentSong.id}/cover`;
     });
 
     let collectionLink = $derived(() => {

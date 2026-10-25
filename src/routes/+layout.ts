@@ -13,3 +13,5 @@ export const load: PageLoad = async () => {
     }
 
 }
+
+export const ssr = false;

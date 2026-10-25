@@ -9,6 +9,7 @@
     import { formatAlbumDuration } from "$lib/formatters/songTime";
     import AddToQueue from "$lib/components/buttons/add-to-queue.svelte";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
+    import { env } from "$env/dynamic/public";
 
     let { data }: PageProps = $props();
     let albumDuration = $derived(
@@ -30,7 +31,7 @@
                 class="flex flex-col sm:flex-row justify-center sm:justify-start gap-6 mx-2 sm:mx-auto"
             >
                 <img
-                    src="/api/albums/{data.album?.id}/cover"
+                    src="{env.PUBLIC_API_URL}/albums/{data.album?.id}/cover"
                     alt="album_cover_art"
                     class="aspect-square! self-center size-80 rounded-xl object-cover volume-shadow"
                     {@attach fallbackImage}

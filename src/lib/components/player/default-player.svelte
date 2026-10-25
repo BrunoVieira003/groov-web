@@ -19,8 +19,9 @@
     } from "$lib/stores/player";
     import LyricsButton from "./buttons/lyrics-button.svelte";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
+    import { env } from "$env/dynamic/public";
 
-    let coverArtURL = $derived(`/api/songs/${$currentSong?.id}/cover`);
+    let coverArtURL = $derived(`${env.PUBLIC_API_URL}/songs/${$currentSong?.id}/cover`);
 </script>
 
 <div class="sm:hidden h-px">

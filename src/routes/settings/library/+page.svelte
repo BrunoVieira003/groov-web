@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { enhance } from "$app/forms";
     import UploadButton from "$lib/components/forms/upload-button.svelte";
     import activeTab from "$lib/stores/activeTab";
-    import type { SubmitFunction } from "@sveltejs/kit";
     import toast from "svelte-hot-french-toast";
     import searchIcon from '$lib/assets/icons/search.svg?raw'
     import uploadIcon from '$lib/assets/icons/upload.svg?raw'
@@ -10,20 +8,20 @@
     import pruneArtistIcon from '$lib/assets/icons/cut-artist.svg?raw'
     import pruneAlbumIcon from '$lib/assets/icons/cut-album.svg?raw'
     import pruneAssetIcon from '$lib/assets/icons/cut-asset.svg?raw'
-    import { pruneAlbums, pruneArtists, pruneAssets, pruneSongs, scan } from "$lib/actions/library";
+    import { pruneAlbums, pruneArtists, pruneAssets, pruneSongs, scan, upload } from "$lib/actions/library";
 
     activeTab.set('library')
 
-    const handleUpload: SubmitFunction = () => {
-        return async ({result, update}) => {
-            await update()
-            if(result.type === 'success'){
-                if(result.data){
-                    toast.success('File uploaded')
-                }
-            }else{
-                toast.error('Upload failed')
-            }
+    const handleUpload = async (e?: any) => {
+        e.preventDefault()
+        const form = e.currentTarget as HTMLFormElement
+        const formData = new FormData(e.currentTarget)
+        try{
+            await upload(formData)
+            toast.success('Song upload success')
+            form.reset()
+        }catch(e){
+            toast.error('Error uploading song')
         }
     }
 
@@ -92,7 +90,7 @@
                 <p class="text-sm text-legend w-full">Scans your music directory and update database with new files or tags</p>
             </div>
         </div>
-        <form method="post" action="?/scan" class="flex gap-4" onsubmit={handleScan}>
+        <form method="post" class="flex gap-4" onsubmit={handleScan}>
             <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
         </form>
     </div>
@@ -105,7 +103,7 @@
                 <p class="text-sm text-legend w-full">Upload a new file to be saved in your music directory</p>
             </div>
         </div>
-        <form method="post" action="?/upload" class="flex gap-4 not-sm:flex-col not-sm:items-stretch items-center" enctype="multipart/form-data" use:enhance={handleUpload}>
+        <form method="post" class="flex gap-4 not-sm:flex-col not-sm:items-stretch items-center" enctype="multipart/form-data" onsubmit={handleUpload}>
             <UploadButton name='file' id='file' accept='.mp3' placeholder='Choose audio file'/>
             <input type="submit" value="Execute" class="cursor-pointer p-2 w-full rounded-lg bg-surface hover:bg-surface-hover text-heading border border-border">
         </form>
@@ -123,7 +121,7 @@
                     <p class="text-sm text-legend line-clamp-3">Verify the database for songs with no file associated. This is useful when you delete a file, but the app still has the song on the database</p>
                 </div>
             </div>
-            <form method="post" action="?/pruneSongs" class="flex items-center gap-4" onsubmit={handlePruneSongs}>
+            <form method="post" class="flex items-center gap-4" onsubmit={handlePruneSongs}>
                 <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
             </form>
         </div>
@@ -136,7 +134,7 @@
                     <p class="text-sm text-legend line-clamp-3">Verify the database for artists with no song associated.</p>
                 </div>
             </div>
-            <form method="post" action="?/pruneArtists" class="flex items-center gap-4" onsubmit={handlePruneArtists}>
+            <form method="post" class="flex items-center gap-4" onsubmit={handlePruneArtists}>
                 <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
             </form>
         </div>
@@ -149,7 +147,7 @@
                     <p class="text-sm text-legend line-clamp-3">Verify the database for albums with no song associated.</p>
                 </div>
             </div>
-            <form method="post" action="?/pruneAlbums" class="flex items-center gap-4" onsubmit={handlePruneAlbums}>
+            <form method="post" class="flex items-center gap-4" onsubmit={handlePruneAlbums}>
                 <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
             </form>
         </div>
@@ -162,7 +160,7 @@
                     <p class="text-sm text-legend line-clamp-3">Remove unused images for songs and albums</p>
                 </div>
             </div>
-            <form method="post" action="?/pruneAssets" class="flex items-center gap-4" onsubmit={handlePruneAssets}>
+            <form method="post" class="flex items-center gap-4" onsubmit={handlePruneAssets}>
                 <input type="submit" value="Execute" class="cursor-pointer bg-surface hover:bg-surface-hover p-2 w-full rounded-lg text-heading border border-border">
             </form>
         </div>

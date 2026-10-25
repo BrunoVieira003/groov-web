@@ -1,6 +1,7 @@
 import { env } from "$env/dynamic/public"
 
 export async function upload (formData: FormData){
+    console.log('upload', formData)
     const response = await fetch(`${env.PUBLIC_API_URL}/songs/upload`, {
         method: 'post',
         body: formData

@@ -40,7 +40,7 @@
         (async () => {
             try {
                 const response = await fetch(
-                    `/api/songs/${$currentSong?.id}/lyrics`,
+                    `${env.PUBLIC_API_URL}/songs/${$currentSong?.id}/lyrics`,
                 );
                 console.log(response.ok);
                 if (!response.ok) {

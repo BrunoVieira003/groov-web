@@ -1,5 +1,6 @@
 
 <script lang="ts">
+    import { env } from "$env/dynamic/public";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
     import type { ArtistSummary } from "$lib/types/artist";
 
@@ -11,6 +12,6 @@
 </script>
 
 <a href="/artists/{artist.id}" class="flex flex-col items-center justify-between p-4 gap-6 transition bg-surface hover:-translate-y-1 rounded-xl">
-    <img class="rounded-full aspect-square" src="/api/artists/{artist.id}/cover" alt="artist_cover" {@attach fallbackImage}>
+    <img class="rounded-full aspect-square" src="{env.PUBLIC_API_URL}/artists/{artist.id}/cover" alt="artist_cover" {@attach fallbackImage}>
     <p class="line-clamp-2 text-heading" >{artist.name}</p>
 </a>

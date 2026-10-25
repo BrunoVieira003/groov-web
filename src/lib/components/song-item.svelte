@@ -18,6 +18,7 @@
     import PlaylistSelect from "./forms/playlist-select.svelte";
     import { formatSongTime } from "$lib/formatters/songTime";
     import { page } from "$app/state";
+    import { env } from "$env/dynamic/public";
 
     interface PropsType {
         song: Song;
@@ -57,8 +58,11 @@
     }
 
     function addToPlaylist(playlistId: string) {
-        fetch(`/api/playlists/${playlistId}/song`, {
+        fetch(`${env.PUBLIC_API_URL}/playlists/${playlistId}/song`, {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({ songId: $targetedSong.id }),
         })
             .then(() => {
@@ -110,7 +114,7 @@
 
     <div class="flex items-center gap-4 overflow-hidden">
         <img
-            src="/api/songs/{song.id}/cover"
+            src="{env.PUBLIC_API_URL}/songs/{song.id}/cover"
             alt="album_cover_art"
             class="aspect-square! self-center size-12 rounded-xl object-cover"
             {@attach fallbackImage}
