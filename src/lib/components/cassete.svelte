@@ -68,7 +68,7 @@
 
     @keyframes tapeAnimation {
         from {
-            tranform: rotate(0);
+            transform: rotate(0);
         }
 
         to {
