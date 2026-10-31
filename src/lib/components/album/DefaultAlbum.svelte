@@ -10,7 +10,7 @@
     import PlayButton from "../player/buttons/play-button.svelte";
     import playIcon from "$lib/assets/icons/play.svg?raw"
     import { fly, slide } from "svelte/transition";
-    import { env } from "$env/dynamic/public";
+    import { API_URL } from "$lib";
 
     let { album }: AlbumProps = $props();
 
@@ -26,7 +26,7 @@
 
     function playAlbum(e: any){
         e.stopPropagation()
-        fetch(`${env.PUBLIC_API_URL}albums/${album.id}`)
+        fetch(`${API_URL}/albums/${album.id}`)
         .then(response => response.json())
         .then(data => {
             const songs = data.songs as Song[]
@@ -57,7 +57,7 @@
 >
     <div class="relative">
         <img
-            src="{env.PUBLIC_API_URL}/albums/{album.id}/cover"
+            src="{API_URL}/albums/{album.id}/cover"
             alt="album_cover_art"
             class="aspect-square! self-center w-full rounded-xl object-cover"
             {@attach fallbackImage}

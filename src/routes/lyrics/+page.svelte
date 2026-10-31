@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { env } from "$env/dynamic/public";
+    import { API_URL } from "$lib";
     import { currentSong, currentTime } from "$lib/stores/player";
 
     type UnsyncedLyrics = string[];
@@ -40,7 +40,7 @@
         (async () => {
             try {
                 const response = await fetch(
-                    `${env.PUBLIC_API_URL}/songs/${$currentSong?.id}/lyrics`,
+                    `${API_URL}/songs/${$currentSong?.id}/lyrics`,
                 );
                 console.log(response.ok);
                 if (!response.ok) {

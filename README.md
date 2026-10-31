@@ -47,7 +47,7 @@ bun install
 ### Config
 Create a `.env` file and fill with the following info according with your api url
 ```env
-API_URL=http://localhost:3000
+PUBLIC_API_URL=http://localhost:3000
 ```
 
 ### Running in dev mode

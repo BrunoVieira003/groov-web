@@ -11,7 +11,7 @@
     import SongItem from "./song-item.svelte";
     import { setCollection } from "$lib/contexts/collection-context";
     import type { ContextAction } from "./context-menu/context-menu.svelte";
-    import { env } from "$env/dynamic/public";
+    import { API_URL } from "$lib";
 
     interface props {
         collection?: Collection
@@ -79,7 +79,7 @@
         dragTo = null;
         const relationIds = tracks.map((s) => s.relationId);
 
-        fetch(`${env.PUBLIC_API_URL}playlists/${collection?.id}/reorder`, {
+        fetch(`${API_URL}/playlists/${collection?.id}/reorder`, {
             method: "PATCH",
             body: JSON.stringify({ relationIds }),
         })

@@ -5,7 +5,7 @@
     import toast from "svelte-hot-french-toast";
     import { invalidateAll } from "$app/navigation";
     import type { MouseEventHandler } from "svelte/elements";
-    import { env } from "$env/dynamic/public";
+    import { API_URL } from "$lib";
 
     interface PropsType{
         playlist : PlaylistSummary
@@ -16,7 +16,7 @@
 
     function deletePlaylist(e: any, playlistId: string){
         e.stopPropagation()
-        fetch(`${env.PUBLIC_API_URL}/playlists/${playlistId}`, {method: 'delete'})
+        fetch(`${API_URL}/playlists/${playlistId}`, {method: 'delete'})
         .then(() => toast.success('Playlist removed'))
         .catch(() => toast.error('Failed to remove playlist'))
         .finally(() => invalidateAll())
@@ -27,7 +27,7 @@
 <div {onclick} role="button" tabindex="-1" class="grid grid-cols-[1fr_auto] items-center p-4 rounded-md hover:bg-bg-hover cursor-pointer w-full">
     <div class="flex items-center gap-4">
         <img
-        src="{env.PUBLIC_API_URL}/playlists/{playlist.id}/cover"
+        src="{API_URL}/playlists/{playlist.id}/cover"
         alt="album_cover_art"
         class="aspect-square! self-center size-12 rounded-xl object-cover"
         {@attach fallbackImage}

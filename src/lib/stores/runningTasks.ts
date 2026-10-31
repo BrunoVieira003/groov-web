@@ -1,4 +1,4 @@
-import { env } from "$env/dynamic/public";
+import { API_URL } from "$lib";
 import { writable } from "svelte/store";
 
 export interface Task {
@@ -13,7 +13,7 @@ export type TaskType = 'scan-folder' | 'upload' | 'prune-songs' | 'prune-assets'
 export const runningTasks = writable<Task[]>([])
 
 export function trackTask(taskType: TaskType, id: string, label: string) {
-    const events = new EventSource(`${env.PUBLIC_API_URL}/tasks/${taskType}/${id}`)
+    const events = new EventSource(`${API_URL}/tasks/${taskType}/${id}`)
     const task: Task = {
         id: id,
         progress: 0,

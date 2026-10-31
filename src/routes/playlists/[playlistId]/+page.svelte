@@ -11,7 +11,7 @@
     import Modal from "$lib/components/modal.svelte";
     import { applyAction, enhance } from "$app/forms";
     import { updatePlaylistCover } from "$lib/actions/playlist";
-    import { env } from "$env/dynamic/public";
+    import { API_URL } from "$lib";
 
     let { data }: PageProps = $props()
 
@@ -21,12 +21,12 @@
     let editTitleButton = $state(false)
     let pictures = $state<FileList | null>(null)
     let coverVersion = $state(0)
-    let pictureSrc = $derived(`${env.PUBLIC_API_URL}/playlists/${data.playlist?.id}/cover?v=${coverVersion}`)
+    let pictureSrc = $derived(`${API_URL}/playlists/${data.playlist?.id}/cover?v=${coverVersion}`)
 
     function updatePlaylist(playlistId: string | undefined, title: string){
         if (!playlistId) return;
 
-        fetch(`${env.PUBLIC_API_URL}/playlists/${playlistId}`, {
+        fetch(`${API_URL}/playlists/${playlistId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -67,7 +67,7 @@
     function removeFromPlaylist(playlistId: string | undefined) {
         if (!playlistId) return;
 
-        fetch(`${env.PUBLIC_API_URL}/playlists/${playlistId}/song`, {
+        fetch(`${API_URL}/playlists/${playlistId}/song`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

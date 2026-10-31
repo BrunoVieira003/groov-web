@@ -4,7 +4,7 @@
     import Player from "$lib/components/player/default-player.svelte";
     import Header from "$lib/components/header.svelte";
     import { Toaster } from "svelte-hot-french-toast";
-    import { env } from "$env/dynamic/public";
+    import { API_URL } from "$lib";
     import { songQueue } from "$lib/stores/queue";
     import { viewMode } from "$lib/stores/viewMode";
     import FullPlayer from "$lib/components/player/full-player.svelte";
@@ -57,15 +57,19 @@
     };
 
     currentSong.subscribe((song) => {
-        if (source && song && navigator.mediaSession) {
-            source.src = `${env.PUBLIC_API_URL}/songs/${song.id}`;
-            $audioElement.load();
+        if (!source || !song) return;
 
+        source.src = `${API_URL}/songs/${song.id}`;
+        $audioElement.load();
+
+        // Media Session is missing on some webviews (e.g. WebKitGTK on the desktop client),
+        // playback must not depend on it
+        if (navigator.mediaSession && typeof MediaMetadata !== "undefined") {
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
                 artist: song.authors.map((a) => a.name).join(", "),
                 album: song.album ? song.album.title : "",
-                artwork: [{ src: `${env.PUBLIC_API_URL}/songs/${song.id}/cover` }],
+                artwork: [{ src: `${API_URL}/songs/${song.id}/cover` }],
             });
 
             navigator.mediaSession.setActionHandler("pause", togglePlay);
