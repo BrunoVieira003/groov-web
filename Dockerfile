@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json .
 COPY bun.lock .
 
-RUN bun install
+RUN bun install --frozen-lockfile
 
 COPY . .
 RUN bun run build
@@ -13,9 +13,10 @@ FROM oven/bun:1.3.6-alpine
 
 WORKDIR /app
 
+# svelte-adapter-bun bundles the server and the static assets (build/client) into ./build
 COPY --from=build /app/build ./build
-COPY --from=build /app/static ./static
 
-ENV BODY_SIZE_LIMIT=300M
+ENV PORT=3000
+EXPOSE 3000
 
-CMD bun ./build/index.js
+CMD ["bun", "./build/index.js"]
