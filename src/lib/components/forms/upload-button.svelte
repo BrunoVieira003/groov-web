@@ -7,7 +7,7 @@
     }
 
     let {value = $bindable(), placeholder, size = 'normal',  ...rest}: Props = $props()
-    let filename = $derived(() => {
+    let filename = $derived.by(() => {
         if(value){
             const newValue = String(value)
             return newValue.split('\\').pop()
@@ -40,7 +40,7 @@
     class:filled={value}
     >
     {#if value && typeof value === 'string'}
-        <p class="text-sm">{filename()}</p>
+        <p class="text-sm">{filename}</p>
     {:else}
         <p class="text-md">{placeholder || 'Upload'}</p>
     {/if}

@@ -9,7 +9,7 @@
     import toast from "svelte-hot-french-toast";
     import { API_URL } from "$lib";
 
-    let coverArtURL = $derived(() => {
+    let coverArtURL = $derived.by(() => {
         if (!$currentSong) {
             return "https://robohash.org/groov";
         }
@@ -17,7 +17,7 @@
         return `${API_URL}/songs/${$currentSong.id}/cover`;
     });
 
-    let collectionLink = $derived(() => {
+    let collectionLink = $derived.by(() => {
         switch ($songQueue.collection?.type) {
             case "artist":
                 return `/artists/${$songQueue.collection.id}`;
@@ -47,13 +47,13 @@
                     <p class="text-sm text-legend">
                         Playing from {$songQueue.collection.type}
                     </p>
-                    <a href={collectionLink()} class="text-lg text-heading"
+                    <a href={collectionLink} class="text-lg text-heading"
                         >{$songQueue.collection.name}</a
                     >
                 </div>
             {/if}
             <img
-                src={coverArtURL()}
+                src={coverArtURL}
                 alt="cover_art"
                 class:colorful-glow={!!$currentSong.colors.vibrant}
                 class="sm:max-w-120 rounded-xl object-cover aspect-square white-glow"

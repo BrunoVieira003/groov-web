@@ -104,7 +104,7 @@
         songQueue.nextTrack();
     }
 
-    let title = $derived(() => {
+    let title = $derived.by(() => {
         if ($currentSong) {
             return (
                 $currentSong.title +
@@ -123,7 +123,7 @@
 </script>
 
 <svelte:head>
-    <title>{title()}</title>
+    <title>{title}</title>
     <link rel="icon" href={favicon} />
 </svelte:head>
 
