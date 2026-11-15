@@ -6,13 +6,24 @@
     import type { PageProps } from "./$types";
     import SongList from "$lib/components/song-list.svelte";
     import ArtistItem from "$lib/components/artist/artist-item.svelte";
+    import DefaultAlbum from "$lib/components/album/DefaultAlbum.svelte";
+    import CasseteAlbum from "$lib/components/album/CasseteAlbum.svelte";
+    import { albumLayout } from "$lib/stores/settings";
 
     let { data }: PageProps = $props();
     let filters = $state({
         songs: true,
         artists: true,
+        albums: true,
         playlists: true,
     });
+
+    const albumMap = {
+        "default": DefaultAlbum,
+        "cassete": CasseteAlbum
+    }
+
+    let AlbumComponent = $derived(albumMap[$albumLayout])
 
     function playItem(songId?: string) {
         const songs = data.songs || [];
@@ -25,6 +36,7 @@
 <div class="flex gap-2 mb-10 w-fit mx-auto sm:mx-0">
     <Chip bind:active={filters.songs}>Songs</Chip>
     <Chip bind:active={filters.artists}>Artists</Chip>
+    <Chip bind:active={filters.albums}>Álbums</Chip>
     <Chip bind:active={filters.playlists}>Playlists</Chip>
 </div>
 
@@ -32,7 +44,7 @@
     {#if filters.songs}
         <div class="mb-10 text-center sm:text-start" transition:slide={{ duration: 200 }}>
             <h2 class="text-3xl text-subheading mb-2">Songs</h2>
-            <p class="mb-6">{data.songs?.length} results</p>
+            <p class="text-legend mb-6">{data.songs?.length} results</p>
             <SongList
                 collection={ {id: '', name: `Search '${page.url.searchParams.get('q')}'`, type: 'search'} }
                 tracks={data.songs || []}
@@ -43,7 +55,7 @@
     {#if filters.artists}
         <div transition:slide={{ duration: 200 }} class="mb-10 text-center sm:text-start">
             <h2 class="text-3xl text-subheading mb-2">Artists</h2>
-            <p class="mb-6">{data.artists?.length} results</p>
+            <p class="text-legend mb-6">{data.artists?.length} results</p>
             <div class="grid gap-4 sm:gap-8 grid-cols-2 w-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 {#each data.artists as artist}
                     <ArtistItem {artist} />
@@ -52,10 +64,25 @@
         </div>
     {/if}
 
+    {#if filters.albums}
+        <div transition:slide={{ duration: 200 }} class="text-center sm:text-start">
+            <h2 class="text-3xl text-subheading mb-2">Albums</h2>
+            <p class="text-legend mb-6">{data.albums?.length} results</p>
+            <div
+                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 sm:gap-6"
+                class:grid-cols-5={$albumLayout === 'cassete'}
+            >
+                {#each data.albums as album}
+                    <AlbumComponent {album}/>
+                {/each}
+            </div>
+        </div>
+    {/if}
+
     {#if filters.playlists}
         <div transition:slide={{ duration: 200 }} class="text-center sm:text-start">
             <h2 class="text-3xl text-subheading mb-2">Playlists</h2>
-            <p class="mb-6">{data.playlists?.length} results</p>
+            <p class="text-legend mb-6">{data.playlists?.length} results</p>
             <div class="grid grid-cols-1 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 grid-flow-row gap-2">
                 {#each data.playlists as playlist}
                     <div class="flex flex-col flex-wrap p-2 bg-surface justify-between rounded-xl">
