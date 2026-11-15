@@ -2,7 +2,7 @@
     import { getCollection } from "$lib/contexts/collection-context";
     import { fallbackImage } from "$lib/plugins/fallbackImage";
     import { currentSong, paused } from "$lib/stores/player";
-    import { targetedSong, targetedTrackIndex } from "$lib/stores/songAction";
+    import { addToPlaylistTarget, targetedSong, targetedTrackIndex } from "$lib/stores/songAction";
     import type Song from "$lib/types/song";
     import { fly } from "svelte/transition";
     import PlayButton from "./player/buttons/play-button.svelte";
@@ -14,10 +14,7 @@
     } from "./context-menu/context-menu.svelte";
     import { songQueue } from "$lib/stores/queue";
     import toast from "svelte-hot-french-toast";
-    import Modal from "./modal.svelte";
-    import PlaylistSelect from "./forms/playlist-select.svelte";
     import { formatSongTime } from "$lib/formatters/songTime";
-    import { page } from "$app/state";
     import { API_URL } from "$lib";
 
     interface PropsType {
@@ -57,23 +54,6 @@
         toast.success("Song added to queue");
     }
 
-    function addToPlaylist(playlistId: string) {
-        fetch(`${API_URL}/playlists/${playlistId}/song`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ songId: $targetedSong.id }),
-        })
-            .then(() => {
-                toast.success("Song added to playlist");
-            })
-            .catch(() => {
-                toast.error("Failed to add song to playlist");
-            })
-            .finally(playlistModal?.hide);
-    }
-
     function openContextMenu(e: MouseEvent) {
         targetedSong.set(song);
         targetedTrackIndex.set(index);
@@ -82,12 +62,10 @@
 
     const collection = getCollection();
 
-    let playlistModal = $state<Modal>()
-
     let actions = $derived<ContextAction[]>([
         { label: "Play next", cmd: playNextQueue },
         { label: "Add to the queue", cmd: addToQueue },
-        { label: "Add to playlist...", cmd: () => playlistModal?.show()},
+        { label: "Add to playlist...", cmd: () => addToPlaylistTarget.set($targetedSong) },
         ...extraActions,
     ]);
 </script>
@@ -158,11 +136,6 @@
     {actions}
     afterExecute={contextMenu?.hide}
 />
-
-<Modal bind:this={playlistModal} title="Add to playlist">
-    <h2 class="text-heading text-xl">Choose a playlist to add the song</h2>
-    <PlaylistSelect onPick={addToPlaylist}/>
-</Modal>
 
 
 <style>

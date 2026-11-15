@@ -149,14 +149,14 @@ extraActions={[
 />
 
 <Modal bind:this={pictureModal} title="Update playlist picture">
-    <form class="flex flex-col gap-4 h-full" method="POST" action="?/updateCover" enctype="multipart/form-data" onsubmit={handleUpdateCover}>
+    <form class="flex flex-col gap-4" method="POST" action="?/updateCover" enctype="multipart/form-data" onsubmit={handleUpdateCover}>
         <h2 class="text-subheading text-xl">Choose picture for playlist</h2>
         <input name="file" bind:files={pictures} id="picture" type="file" class="hidden"/>
         {#if pictures && pictures.length > 0}
-            <div class="flex flex-col justify-between h-full">
-                <div class="flex w-full justify-center items-center gap-4">
-                    <p class="self-center p-4 text-heading bg-surface-active rounded-md">{pictures.item(0)?.name}</p>
-                    <button type="button" onclick={() => clearPictureForm(false)} class="text-subheading text-sm cursor-pointer hover:bg-surface-hover p-2 rounded-md">Clear</button>
+            <div class="flex flex-col gap-6">
+                <div class="flex w-full justify-center items-center gap-4 min-w-0">
+                    <p class="min-w-0 truncate p-4 text-heading bg-surface-active rounded-md">{pictures.item(0)?.name}</p>
+                    <button type="button" onclick={() => clearPictureForm(false)} class="shrink-0 text-subheading text-sm cursor-pointer hover:bg-surface-hover p-2 rounded-md">Clear</button>
                 </div>
                 <div class="flex w-full gap-2 justify-end">
                     <button type="button" onclick={() => clearPictureForm()} class="bg-surface-hover text-heading rounded-md p-2 w-fit cursor-pointer">Cancel</button>
@@ -164,7 +164,7 @@ extraActions={[
                 </div>
             </div>
         {:else}
-            <label for="picture" class="hover:bg-surface-hover aspect-square self-center flex items-center justify-center font-semibold text-legend size-80 rounded-xl border-4 border-border border-dashed cursor-pointer">Choose file</label>
+            <label for="picture" class="hover:bg-surface-hover aspect-square self-center flex items-center justify-center font-semibold text-legend w-full max-w-80 rounded-xl border-4 border-border border-dashed cursor-pointer">Choose file</label>
         {/if}
     </form>
 </Modal>

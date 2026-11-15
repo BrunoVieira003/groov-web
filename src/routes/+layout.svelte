@@ -32,6 +32,7 @@
         type MenuOption,
     } from "$lib/stores/settings";
     import Sidemenu from "$lib/components/sidemenu.svelte";
+    import AddToPlaylistModal from "$lib/components/add-to-playlist-modal.svelte";
 
     let { children, data }: PageProps & { children: Snippet } = $props();
 
@@ -174,6 +175,7 @@
 </div>
 
 <TaskList />
+<AddToPlaylistModal />
 
 <style>
     ::-webkit-scrollbar {
