@@ -33,9 +33,9 @@
             placeholder="Search..."
             class="input bg-surface py-2 w-full px-3 rounded-md outline-none border-2 border-transparent focus:bg-surface-active"
             >
-            <dir class="absolute top-1/2 -translate-y-1/2 opacity-70 right-4">
+            <div class="absolute top-1/2 -translate-y-1/2 opacity-70 right-4">
                 {@html searchIcon}
-            </dir>
+            </div>
         </form>
         <a href="/artists" class="flex items-center gap-2">
             <div class="size-6">{@html artistIcon}</div>

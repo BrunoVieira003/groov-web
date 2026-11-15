@@ -60,8 +60,8 @@
         placeholder="Search..."
         class="input bg-surface py-2 w-full px-3 rounded-md outline-none border border-border focus:bg-surface-active"
         >
-        <dir class="absolute top-1/2 -translate-y-2/3 opacity-70 right-2">
+        <div class="absolute top-1/2 -translate-y-1/2 opacity-70 right-2">
             {@html searchIcon}
-        </dir>
+        </div>
     </form>
 </div>
