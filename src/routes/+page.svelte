@@ -2,12 +2,13 @@
     import type { PageProps } from "./$types";
     import PlayAll from "$lib/components/buttons/play-all.svelte";
     import SongList from "$lib/components/song-list.svelte";
+    import PageHeader from "$lib/components/page-header.svelte";
 
     let { data }: PageProps = $props()
 </script>
 
 
-<h1 class="page-title w-fit not-sm:mx-auto text-heading">Songs</h1>
+<PageHeader title="Songs" subtitle="{data.songs?.length} songs"/>
 <PlayAll tracks={data.songs || []} collection={ {type: 'library', name: 'All songs'} }/>
 
 <SongList

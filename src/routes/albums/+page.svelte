@@ -6,6 +6,7 @@
     import { songQueue } from "$lib/stores/queue";
     import { paused } from "$lib/stores/player";
     import CasseteAlbum from "$lib/components/album/CasseteAlbum.svelte";
+    import PageHeader from "$lib/components/page-header.svelte";
 
     let { data }: PageProps = $props();
 
@@ -17,8 +18,7 @@
     let AlbumComponent = $derived(albumMap[$albumLayout])
 </script>
 
-<h1 class="page-title w-fit text-heading not-sm:mx-auto">Albums</h1>
-<h2 class="w-fit not-sm:mx-auto text-subheading">{data.albums?.length} albums</h2>
+<PageHeader title="Albums" subtitle="{data.albums?.length} albums"/>
 <div
     class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 sm:gap-6"
     class:grid-cols-5={$albumLayout === 'cassete'}
