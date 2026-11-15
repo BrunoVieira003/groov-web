@@ -13,12 +13,24 @@
     let syncedLyrics = $state<SyncedLyrics>([]);
     let synced = $state<boolean>(false);
     let hasLyrics = $state(false);
+    let loading = $state(false);
 
     let isScrollFree = $state(false)
 
+    // last line that already started; -1 before the first line
     let currentLine = $derived(
-        syncedLyrics.findIndex((line) => line.time >= $currentTime) - 1,
+        syncedLyrics.findLastIndex((line) => line.time <= $currentTime),
     );
+
+    // a primitive, so re-setting the same song (e.g. repeat-one) does not refetch the lyrics
+    let songId = $derived($currentSong?.id);
+
+    function resetLyrics() {
+        unsyncedLyrics = [];
+        syncedLyrics = [];
+        synced = false;
+        hasLyrics = false;
+    }
 
     let syncedElements = $state<HTMLElement[]>([]);
 
@@ -30,28 +42,29 @@
     });
 
     $effect(() => {
-        const song = $currentSong;
-        if (!song?.id) {
-            unsyncedLyrics = [];
-            syncedLyrics = [];
+        const id = songId;
+        resetLyrics();
+
+        if (!id) {
+            loading = false;
             return;
         }
 
+        // aborted when the song changes (or the page unmounts), so a slow
+        // response from the previous song can never overwrite the current one
+        const controller = new AbortController();
+        loading = true;
+
         (async () => {
             try {
-                const response = await fetch(
-                    `${API_URL}/songs/${$currentSong?.id}/lyrics`,
-                );
-                console.log(response.ok);
-                if (!response.ok) {
-                    unsyncedLyrics = [];
-                    syncedLyrics = [];
-                    hasLyrics = false;
-                    return;
-                }
+                const response = await fetch(`${API_URL}/songs/${id}/lyrics`, {
+                    signal: controller.signal,
+                });
+                if (!response.ok) return;
 
                 const data: LyricResponse =
                     (await response.json()) satisfies LyricResponse;
+                if (controller.signal.aborted) return;
 
                 synced = data.synced;
                 if (data.synced) {
@@ -62,15 +75,20 @@
 
                 hasLyrics = true;
             } catch (e) {
-                unsyncedLyrics = [];
-                syncedLyrics = [];
-                hasLyrics = false;
+                if (controller.signal.aborted) return;
+                resetLyrics();
+            } finally {
+                if (!controller.signal.aborted) loading = false;
             }
         })();
+
+        return () => controller.abort();
     });
 </script>
 
-{#if hasLyrics}
+{#if loading}
+    <!-- avoid flashing "No lyrics" while the request is in flight -->
+{:else if hasLyrics}
     {#if synced}
         {#if isScrollFree}
             <button onclick={() => isScrollFree = false} class="sticky top-11/12 left-1/2 -translate-x-1/2 bg-surface text-highlight border border-border shadow shadow-shadow px-4 py-2 rounded-full font-bold cursor-pointer text-xl">Sync</button>
