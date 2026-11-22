@@ -10,7 +10,14 @@
     } from "$lib/stores/player";
     import SongItem from "./song-item.svelte";
     import { setCollection } from "$lib/contexts/collection-context";
-    import type { ContextAction } from "./context-menu/context-menu.svelte";
+    import ContextMenu, {
+        type ContextAction,
+    } from "./context-menu/context-menu.svelte";
+    import {
+        addToPlaylistTarget,
+        targetedSong,
+        targetedTrackIndex,
+    } from "$lib/stores/songAction";
     import { API_URL } from "$lib";
 
     interface props {
@@ -31,6 +38,37 @@
     }
 
     let windowWidth = $state<number>(10000);
+    let compact = $derived(windowWidth <= 768);
+
+    let contextMenu = $state<ContextMenu>();
+
+    let actions = $derived<ContextAction[]>([
+        {
+            label: "Play next",
+            cmd: () => {
+                songQueue.playNext($targetedSong);
+                toast.success("Song added to queue");
+            },
+        },
+        {
+            label: "Add to the queue",
+            cmd: () => {
+                songQueue.addToQueue($targetedSong);
+                toast.success("Song added to queue");
+            },
+        },
+        {
+            label: "Add to playlist...",
+            cmd: () => addToPlaylistTarget.set($targetedSong),
+        },
+        ...extraActions,
+    ]);
+
+    function openContextMenu(e: MouseEvent, song: Song, index: number) {
+        targetedSong.set(song);
+        targetedTrackIndex.set(index);
+        contextMenu?.show(e);
+    }
 
     let dragFrom = $state<number | null>(null);
     let dragTo = $state<number | null>(null);
@@ -119,7 +157,14 @@
             onDragStart={dragStart}
             onDragOver={dragOver}
             onDragEnd={dragEnd}
-            {extraActions}
+            onContextMenu={(e) => openContextMenu(e, song, index)}
+            {compact}
         />
     {/each}
 </div>
+
+<ContextMenu
+    bind:this={contextMenu}
+    {actions}
+    afterExecute={() => contextMenu?.hide()}
+/>

@@ -1,6 +1,7 @@
 <script lang="ts">
     import currentContextMenu from "$lib/stores/currentContextMenu";
     import { onClickOutside } from "runed";
+    import { tick } from "svelte";
     import { fade } from "svelte/transition";
 
     export type ContextAction = { label: string; cmd: Function };
@@ -16,32 +17,33 @@
     let container = $state<HTMLElement>();
 
     let pos = $state({ x: 0, y: 0 });
-    let menu = $state({ w: 0, h: 0 });
     let browser = $state({ w: 0, h: 0 });
 
     onClickOutside(() => container, hide);
 
-    export function show(event: MouseEvent) {
+    export async function show(event: MouseEvent) {
         event.preventDefault();
         if ($currentContextMenu && $currentContextMenu.hide !== hide) {
             $currentContextMenu.hide();
         }
 
-        pos = {
-            x: event.clientX,
-            y: event.clientY,
-        };
+        const x = event.clientX;
+        const y = event.clientY;
 
-        menu = {
-            w: container?.offsetWidth ?? 0,
-            h: container?.offsetHeight ?? 0,
-        };
+        pos = { x, y };
         open = true;
-
-        if (browser.h - pos.y < menu.h) pos.y = pos.y - menu.h;
-        if (browser.w - pos.x < menu.w) pos.x = pos.x - menu.w;
-
         $currentContextMenu = { hide };
+
+        await tick();
+        if (!container) return;
+
+        const w = container.offsetWidth;
+        const h = container.offsetHeight;
+
+        pos = {
+            x: browser.w - x < w ? Math.max(0, x - w) : x,
+            y: browser.h - y < h ? Math.max(0, y - h) : y,
+        };
     }
 
     export function hide() {
@@ -54,7 +56,6 @@
         } else {
             show(event);
         }
-        open = !open;
     }
 </script>
 
