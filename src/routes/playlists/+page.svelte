@@ -7,6 +7,7 @@
     import PlaylistItem from "$lib/components/playlist-item.svelte";
     import { createPlaylist } from "$lib/actions/playlist";
     import PageHeader from "$lib/components/page-header.svelte";
+    import SearchFilter from "$lib/components/search-filter.svelte";
 
     let { data }: PageProps = $props()
 
@@ -28,7 +29,9 @@
 </script>
 
 
-<PageHeader title="Playlists" subtitle="{data.playlists?.length} playlists"/>
+<PageHeader title="Playlists" subtitle="{data.playlists?.length} playlists">
+    <SearchFilter placeholder="Search playlist by name..."/>
+</PageHeader>
 <form method="POST" class="flex flex-wrap items-center gap-2 mb-4 has-[.input:focus]:text-heading" onsubmit={handleCreate}>
     <input type="text" name="title" placeholder="Your playlist name" bind:value={title} class="text-heading bg-surface w-full sm:w-fit py-2 px-3 rounded-md outline-none border-2 border-transparent focus:border-surface-active">
     <input type="submit" value="Create" class="w-full text-heading mx-auto sm:w-fit sm:mx-0">
