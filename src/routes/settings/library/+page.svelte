@@ -104,7 +104,7 @@
             </div>
         </div>
         <form method="post" class="flex gap-4 not-sm:flex-col not-sm:items-stretch items-center" enctype="multipart/form-data" onsubmit={handleUpload}>
-            <UploadButton name='file' id='file' accept='.mp3' placeholder='Choose audio file'/>
+            <UploadButton name='file' id='file' accept='.mp3, .ogg, .opus, .flac, .aac, .wav, .aiff, .m4a' placeholder='Choose audio file'/>
             <input type="submit" value="Execute" class="cursor-pointer p-2 w-full rounded-lg bg-surface hover:bg-surface-hover text-heading border border-border">
         </form>
     </div>
